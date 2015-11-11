@@ -5,4 +5,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
+
+    <string name="search_hint_album">Search album…</string>
+    <string name="action_search">Search</string>
 </resources>
