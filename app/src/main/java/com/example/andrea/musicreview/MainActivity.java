@@ -18,11 +18,18 @@ import java.net.HttpURLConnection;
 
 public class MainActivity extends MyBaseActivity implements Downloader, DetailOpener{
 
+    public final static String ALBUM_ID = "album_id";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle b = getIntent().getExtras();
+        if(b != null){
+            OpenAlbumReviewDetail(b.getInt(ALBUM_ID));
+        } else {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.content_frame, new LastReviewsFragment()).commit();
+        }
     }
 
 

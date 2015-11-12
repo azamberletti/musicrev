@@ -39,7 +39,9 @@ public class Album {
             this.genre = (String) source.get("Genre");
             this.releaseDate.setTime(new SimpleDateFormat("yyyy-MM-dd", Locale.ITALY).parse((String) source.get("Release_date")));
             this.imageURL = (String) source.get("Image");
-            this.spotifyURI = (String) source.get("Spotify_URI");
+            if(!source.get("Spotify_URI").equals("")){
+                this.spotifyURI = (String) source.get("Spotify_URI");
+            }
             this.dateAdded.setTime(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.ITALY).parse((String) source.get("Date_added")));
             this.grade = Integer.parseInt((String) source.get("Grade"));
             this.review = (String) source.get("Review");

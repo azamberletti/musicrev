@@ -3,6 +3,21 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:id="@+id/no_result_alert"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:textColor="@color/text_color_light"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:text="@string/no_result_found"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
     <include layout="@layout/general_error_layout"></include>
     <include layout="@layout/loading_panel"></include>
 
@@ -10,5 +25,7 @@
         android:id="@id/android:list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></ListView>
+
+
 
 </LinearLayout>

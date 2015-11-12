@@ -9,6 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -122,8 +123,8 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
     }
 
     private void setFavoriteIcon(boolean isFavorite){
-        favoriteIcon = isFavorite? getActivity().getDrawable(R.mipmap.ic_ic_favorite_red_36dp) :
-                getActivity().getDrawable(R.mipmap.ic_ic_favorite_border_white_36dp);
+        favoriteIcon = isFavorite? ContextCompat.getDrawable(getActivity(), R.mipmap.ic_ic_favorite_red_36dp):
+                ContextCompat.getDrawable(getActivity(),R.mipmap.ic_ic_favorite_border_white_36dp);
         favoriteButton.setImageDrawable(favoriteIcon);
     }
 

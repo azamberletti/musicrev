@@ -1,5 +1,6 @@
 package com.example.andrea.musicreview;
 
+import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -12,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+
+import com.example.andrea.musicreview.Interfaces.DetailOpener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,24 +31,24 @@ import java.util.List;
 
 public class SearchResultsFragment extends ListFragment implements View.OnClickListener {
     private LinearLayout errorMessage;
-    //    private DetailOpener detailOpener;
-//    private ConnectivityChangeReceiver connectivityChangeReceiver;
+    private DetailOpener detailOpener;
+//  private ConnectivityChangeReceiver connectivityChangeReceiver;
     private final static String URL = "http://www.saltedmagnolia.com/search_album.php?key_words=";
 
 
-//    @Override
-//    public void onAttach(Activity activity) {
-//        super.onAttach(activity);
+    @Override
+    public void onAttach(Activity activity) {
+       super.onAttach(activity);
 //
 //        // This makes sure that the container activity has implemented
 //        // the callback interface. If not, it throws an exception
-////        try {
-////            detailOpener = (DetailOpener) activity;
-////        } catch (ClassCastException e) {
-////            throw new ClassCastException(activity.toString()
-////                    + " must implement DetailOpener");
-////        }
-//    }
+       try {
+            detailOpener = (DetailOpener) activity;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement DetailOpener");
+        }
+  }
 
     @Override
     public void onResume() {
@@ -129,7 +132,7 @@ public class SearchResultsFragment extends ListFragment implements View.OnClickL
 
     @Override
     public void onListItemClick(ListView list, View view, int position, long id) {
-        Log.i("CLick", "CLick");
+        detailOpener.OpenAlbumReviewDetail(((Album) list.getItemAtPosition(position)).getId());
     }
 
     public class ListDownloader extends AsyncTask<String, Void, String> {
@@ -145,7 +148,15 @@ public class SearchResultsFragment extends ListFragment implements View.OnClickL
                     return;
                 }
                 errorMessage.setVisibility(View.GONE);
-                ((AlbumListAdapter) getListAdapter()).refreshList(parse(s));
+                List<Album> searchResults = parse(s);
+                if(searchResults.isEmpty()){
+                    getView().findViewById(R.id.no_result_alert).setVisibility(View.VISIBLE);
+                } else {
+                    ((AlbumListAdapter) getListAdapter()).refreshList(searchResults);
+                    getView().findViewById(R.id.no_result_alert).setVisibility(View.GONE);
+                }
+
+
             } catch (JSONException e) {
                 e.printStackTrace();
                 Log.i("ERROR", "JSON_EXCEPTION");
