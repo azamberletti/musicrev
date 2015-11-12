@@ -45,7 +45,8 @@ public class AlbumListAdapter extends ArrayAdapter<Album> {
         Album album = getItem(position);
         mViewHolder.albumTitle.setText(album.getTitle());
         mViewHolder.artist.setText(album.getArtist().getName());
-        Picasso.with(context).load("http://www.saltedmagnolia.com/" + album.getImageURL()).into( mViewHolder.albumCover);
+        Picasso.with(context).load("http://www.saltedmagnolia.com/" + album.getImageURL())
+                .into( mViewHolder.albumCover);
         return convertView;
     }
 

@@ -86,11 +86,19 @@ public class LastReviewsFragment extends ListFragment implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        new ListDownloader().execute();
+        switch(v.getId()){
+            case R.id.general_error_panel:
+
+                new ListDownloader().execute();
+                break;
+        }
+
     }
 
     @Override
     public void onListItemClick(ListView list, View view, int position, long id) {
+        super.onListItemClick(list, view, position, id);
+        Log.i("CLick", "CLick");
         detailOpener.OpenAlbumReviewDetail(((Album)list.getItemAtPosition(position)).getId());
     }
 
