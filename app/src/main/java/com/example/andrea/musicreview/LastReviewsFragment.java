@@ -67,18 +67,18 @@ public class LastReviewsFragment extends ListFragment implements View.OnClickLis
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_last_reviews, container, false);
-        setListAdapter(new AlbumListAdapter(getActivity(), R.layout.album_list_item_layout, new ArrayList<Album>()));
+        setListAdapter(new AlbumListAdapter(getActivity(), R.layout.album_list_item_layout, new ArrayList<Album.AlbumBasicInfo>()));
         errorMessage = (RelativeLayout)rootView.findViewById(R.id.general_error_panel);
         errorMessage.setOnClickListener(this);
         errorMessage.setVisibility(View.GONE);
         return rootView;
     }
 
-    private List<Album> parse(String s) throws JSONException, ParseException {
+    private List<Album.AlbumBasicInfo> parse(String s) throws JSONException, ParseException {
         JSONArray array = new JSONArray(s);
-        List<Album> list = new ArrayList<>();
+        List<Album.AlbumBasicInfo> list = new ArrayList<>();
         for (int i = 0; i < array.length(); i++) {
-            list.add(new Album(array.getJSONObject(i)));
+            list.add(new Album.AlbumBasicInfo(array.getJSONObject(i)));
         }
         return list;
     }
@@ -99,7 +99,7 @@ public class LastReviewsFragment extends ListFragment implements View.OnClickLis
     public void onListItemClick(ListView list, View view, int position, long id) {
         super.onListItemClick(list, view, position, id);
         Log.i("CLick", "CLick");
-        detailOpener.OpenAlbumReviewDetail(((Album)list.getItemAtPosition(position)).getId());
+        detailOpener.OpenAlbumReviewDetail(((Album.AlbumBasicInfo)list.getItemAtPosition(position)).getId());
     }
 
     public class ListDownloader extends AsyncTask<String, Void, String> {

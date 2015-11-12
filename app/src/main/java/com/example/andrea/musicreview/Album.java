@@ -10,13 +10,10 @@ import java.util.Locale;
 
 public class Album {
 
-    private int id;
-    private String title;
-    private Artist artist;
+    private AlbumBasicInfo basicInfo;
     private String genre;
     private GregorianCalendar releaseDate = new GregorianCalendar();
     private GregorianCalendar dateAdded = new GregorianCalendar();
-    private String imageURL;
     private String spotifyURI;
     private int grade;
     private String review;
@@ -33,15 +30,13 @@ public class Album {
 
     public Album(JSONObject source) throws ParseException {
         try {
-            this.id = Integer.parseInt((String) source.get("IDAlbum"));
-            this.title = (String) source.get("Title");
-            this.artist = new Artist(Integer.parseInt((String) source.get("IDArtist")), (String) source.get("Name"), (String) source.get("Bio"));
+            this.basicInfo = new AlbumBasicInfo(Integer.parseInt((String) source.get("IDAlbum")),
+                    (String) source.get("Title"),
+                    new Artist(Integer.parseInt((String) source.get("IDArtist")), (String) source.get("Name"), null),
+                    (String) source.get("Image"));
             this.genre = (String) source.get("Genre");
             this.releaseDate.setTime(new SimpleDateFormat("yyyy-MM-dd", Locale.ITALY).parse((String) source.get("Release_date")));
-            this.imageURL = (String) source.get("Image");
-            if(!source.get("Spotify_URI").equals("")){
-                this.spotifyURI = (String) source.get("Spotify_URI");
-            }
+            this.spotifyURI = (String) source.get("Spotify_URI");
             this.dateAdded.setTime(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.ITALY).parse((String) source.get("Date_added")));
             this.grade = Integer.parseInt((String) source.get("Grade"));
             this.review = (String) source.get("Review");
@@ -51,15 +46,15 @@ public class Album {
     }
 
     public int getId() {
-        return id;
+        return basicInfo.getId();
     }
 
     public String getTitle() {
-        return title;
+        return basicInfo.getTitle();
     }
 
     public Artist getArtist() {
-        return artist;
+        return basicInfo.getArtist();
     }
 
     public String getGenre() {
@@ -71,7 +66,7 @@ public class Album {
     }
 
     public String getImageURL() {
-        return imageURL;
+        return basicInfo.getImageURL();
     }
 
     public String getSpotifyURI() {
@@ -88,5 +83,47 @@ public class Album {
 
     public String getReview() {
         return review;
+    }
+
+    public static class AlbumBasicInfo{
+
+        private int id;
+        private String title;
+        private Artist artist;
+        private String imageURL;
+
+        public AlbumBasicInfo(JSONObject source) throws ParseException {
+            try {
+                this.id = Integer.parseInt((String) source.get("IDAlbum"));
+                this.title = (String) source.get("Title");
+                this.artist = new Artist(Integer.parseInt((String) source.get("IDArtist")), (String) source.get("Name"), null);
+                this.imageURL = (String) source.get("Image");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+
+        public AlbumBasicInfo(int id, String title, Artist artist, String imgURL) {
+            this.id = id;
+            this.title = title;
+            this.artist = artist;
+            this.imageURL = imgURL;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public String getImageURL() {
+            return imageURL;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public Artist getArtist() {
+            return artist;
+        }
     }
 }
