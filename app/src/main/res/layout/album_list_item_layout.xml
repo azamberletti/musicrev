@@ -3,12 +3,12 @@
     android:layout_width="match_parent"
     android:orientation="horizontal"
     android:background="@color/primary_color"
-    android:layout_height="100dp" >
+    android:layout_height="140dp" >
 
     <com.example.andrea.musicreview.View.SquareImageView
         android:id="@+id/album_cover"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
         android:src="@drawable/ic_ic_favorite_red_36dp"
         />
 
@@ -25,22 +25,30 @@
 
         <TextView
             android:id="@+id/name"
-            android:textColor="@color/dim_foreground_material_dark"
+            android:textColor="@color/text_color_light"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="placeholder"
             android:textStyle="bold"
             android:textSize="18sp" />
 
         <TextView
             android:id="@+id/artist"
-            android:textColor="@color/primary_dark_material_light"
+            android:textColor="@color/text_color_dark"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
-            android:text="placeholder"
             android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/grade"
+            android:textColor="@color/text_color_light"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="8"
+            android:textStyle="bold"
+            android:textSize="22sp" />
     </LinearLayout>
 
 

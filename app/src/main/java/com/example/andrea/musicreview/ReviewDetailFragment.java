@@ -7,14 +7,12 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -92,7 +90,7 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
         errorMessage = (LinearLayout)rootView.findViewById(R.id.general_error_panel);
         errorMessage.setOnClickListener(this);
         errorMessage.setVisibility(View.GONE);
-        rootView.findViewById(R.id.listen).setOnClickListener(this);
+        rootView.findViewById(R.id.play_on_spotify).setOnClickListener(this);
         rootView.findViewById(R.id.scroll_view).setVisibility(View.GONE);
         return rootView;
     }
@@ -111,6 +109,11 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
                         .replace(R.id.content_frame, ArtistBioFragment.newInstance(album.getArtist().getId()))
                         .addToBackStack(null)
                         .commit();
+            case R.id.play_on_spotify:
+                String uri = album.getSpotifyURI();
+                Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                startActivity(i);
+                break;
             default:
                 Log.i("ERROR", "No view found.");
         }
@@ -176,6 +179,4 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
             }
         }
     }
-
-
 }
