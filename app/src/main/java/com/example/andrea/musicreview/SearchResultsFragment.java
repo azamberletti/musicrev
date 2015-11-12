@@ -68,18 +68,18 @@ public class SearchResultsFragment extends ListFragment implements View.OnClickL
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_search_results, container, false);
-        setListAdapter(new AlbumListAdapter(getActivity(), R.layout.album_list_item_layout, new ArrayList<Album>()));
+        setListAdapter(new AlbumListAdapter(getActivity(), R.layout.album_list_item_layout, new ArrayList<Album.AlbumBasicInfo>()));
         errorMessage = (LinearLayout)rootView.findViewById(R.id.general_error_panel);
         errorMessage.setOnClickListener(this);
         errorMessage.setVisibility(View.GONE);
         return rootView;
     }
 
-    private List<Album> parse(String s) throws JSONException, ParseException {
+    private List<Album.AlbumBasicInfo> parse(String s) throws JSONException, ParseException {
         JSONArray array = new JSONArray(s);
-        List<Album> list = new ArrayList<>();
+        List<Album.AlbumBasicInfo> list = new ArrayList<>();
         for (int i = 0; i < array.length(); i++) {
-            list.add(new Album(array.getJSONObject(i)));
+            list.add(new Album.AlbumBasicInfo(array.getJSONObject(i)));
         }
         return list;
     }

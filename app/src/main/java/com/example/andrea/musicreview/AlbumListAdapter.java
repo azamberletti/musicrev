@@ -13,12 +13,12 @@ import com.squareup.picasso.Picasso;
 import java.util.Collection;
 import java.util.List;
 
-public class AlbumListAdapter extends ArrayAdapter<Album> {
+public class AlbumListAdapter extends ArrayAdapter<Album.AlbumBasicInfo> {
 
     private int rowLayout;
     private Context context;
 
-    public AlbumListAdapter(Context context, int resource, List<Album> objects) {
+    public AlbumListAdapter(Context context, int resource, List<Album.AlbumBasicInfo> objects) {
         super(context, resource, objects);
         this.context = context;
         this.rowLayout = resource;
@@ -42,7 +42,7 @@ public class AlbumListAdapter extends ArrayAdapter<Album> {
         } else {
             mViewHolder = (ViewHolder) convertView.getTag();
         }
-        Album album = getItem(position);
+        Album.AlbumBasicInfo album = getItem(position);
         mViewHolder.albumTitle.setText(album.getTitle());
         mViewHolder.artist.setText(album.getArtist().getName());
         Picasso.with(context).load("http://www.saltedmagnolia.com/" + album.getImageURL())
@@ -50,7 +50,7 @@ public class AlbumListAdapter extends ArrayAdapter<Album> {
         return convertView;
     }
 
-    public void refreshList(Collection<Album> updatedModelList) {
+    public void refreshList(Collection<Album.AlbumBasicInfo> updatedModelList) {
         clear();
         addAll(updatedModelList);
         notifyDataSetChanged();
