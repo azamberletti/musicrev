@@ -6,6 +6,11 @@
 
     <string name="action_settings">Settings</string>
 
+<<<<<<< HEAD
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+=======
+    <string name="search_hint_album">Search album…</string>
+    <string name="action_search">Search</string>
+>>>>>>> a27daded94fe568776d83aff96fe1eab57840df5
 </resources>
