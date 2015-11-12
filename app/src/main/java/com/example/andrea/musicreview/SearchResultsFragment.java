@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
@@ -26,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SearchResultsFragment extends ListFragment implements View.OnClickListener {
-    private RelativeLayout errorMessage;
+    private LinearLayout errorMessage;
     //    private DetailOpener detailOpener;
 //    private ConnectivityChangeReceiver connectivityChangeReceiver;
     private final static String URL = "http://www.saltedmagnolia.com/search_album.php?key_words=";
@@ -66,9 +67,9 @@ public class SearchResultsFragment extends ListFragment implements View.OnClickL
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.content_main_fragment, container, false);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_search_results, container, false);
         setListAdapter(new AlbumListAdapter(getActivity(), R.layout.album_list_item_layout, new ArrayList<Album>()));
-        errorMessage = (RelativeLayout)rootView.findViewById(R.id.general_error_panel);
+        errorMessage = (LinearLayout)rootView.findViewById(R.id.general_error_panel);
         errorMessage.setOnClickListener(this);
         errorMessage.setVisibility(View.GONE);
         return rootView;
@@ -128,7 +129,7 @@ public class SearchResultsFragment extends ListFragment implements View.OnClickL
 
     @Override
     public void onListItemClick(ListView list, View view, int position, long id) {
-//        detailOpener.openProductDetail(products.get(position));
+        Log.i("CLick", "CLick");
     }
 
     public class ListDownloader extends AsyncTask<String, Void, String> {

@@ -1,5 +1,6 @@
 package com.example.andrea.musicreview;
 
+import android.app.Activity;
 import android.support.v4.app.ListFragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -10,15 +11,12 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import com.example.andrea.musicreview.Interfaces.DetailOpener;
+import com.example.andrea.musicreview.Interfaces.Downloader;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,24 +24,27 @@ import java.util.List;
 public class LastReviewsFragment extends ListFragment implements View.OnClickListener {
 
     private RelativeLayout errorMessage;
-//    private DetailOpener detailOpener;
+    private DetailOpener detailOpener;
+    private Downloader downloader;
 //    private ConnectivityChangeReceiver connectivityChangeReceiver;
     private final static String URL = "http://www.saltedmagnolia.com/get_last_5_albums.php";
 
 
-//    @Override
-//    public void onAttach(Activity activity) {
-//        super.onAttach(activity);
+    @Override
+    public void onAttach(Activity activity) {
+      super.onAttach(activity);
 //
-//        // This makes sure that the container activity has implemented
-//        // the callback interface. If not, it throws an exception
-////        try {
-////            detailOpener = (DetailOpener) activity;
-////        } catch (ClassCastException e) {
-////            throw new ClassCastException(activity.toString()
-////                    + " must implement DetailOpener");
-////        }
-//    }
+       // This makes sure that the container activity has implemented
+       // the callback interface. If not, it throws an exception
+       try {
+           detailOpener = (DetailOpener) activity;
+           downloader = (Downloader) activity;
+
+        } catch (ClassCastException e) {
+            throw new ClassCastException(activity.toString()
+                    + " must implement DetailOpener and Downloader");
+        }
+   }
 
     @Override
     public void onResume() {
@@ -53,7 +54,7 @@ public class LastReviewsFragment extends ListFragment implements View.OnClickLis
                 connectivityChangeReceiver,
                 new IntentFilter(
                         ConnectivityManager.CONNECTIVITY_ACTION));*/
-        new ListDownloader().execute();
+        new ListDownloader().execute(URL);
     }
 
     @Override
@@ -65,7 +66,7 @@ public class LastReviewsFragment extends ListFragment implements View.OnClickLis
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.content_main_fragment, container, false);
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_last_reviews, container, false);
         setListAdapter(new AlbumListAdapter(getActivity(), R.layout.album_list_item_layout, new ArrayList<Album>()));
         errorMessage = (RelativeLayout)rootView.findViewById(R.id.general_error_panel);
         errorMessage.setOnClickListener(this);
@@ -82,51 +83,23 @@ public class LastReviewsFragment extends ListFragment implements View.OnClickLis
         return list;
     }
 
-    public String download() {
-        if(ConnectionHandler.isConnected(getActivity())) {
-            InputStream is = null;
-            int len = 10000;
-            try {
-                URL url = new URL(URL);
-                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                conn.setReadTimeout(10000 /* milliseconds */);
-                conn.setConnectTimeout(15000 /* milliseconds */);
-                conn.setRequestMethod("GET");
-                conn.setDoInput(true);
-                conn.connect();
-                int response = conn.getResponseCode();
-                if (response != HttpURLConnection.HTTP_OK) {
-                    throw new IOException();
-                }
-                is = conn.getInputStream();
-                Reader reader = new InputStreamReader(is, "UTF-8");
-                char[] buffer = new char[len];
-                reader.read(buffer);
-                return new String(buffer);
-            }  catch (IOException e){
-                return "CONNECTION_TO_SERVER_ERROR";
-            } finally {
-                if (is != null) {
-                    try {
-                        is.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        } else {
-            return "NON_CONNECTED_TO_INTERNET_ERROR";
-        }
-    }
 
     @Override
     public void onClick(View v) {
-        new ListDownloader().execute();
+        switch(v.getId()){
+            case R.id.general_error_panel:
+
+                new ListDownloader().execute();
+                break;
+        }
+
     }
 
     @Override
     public void onListItemClick(ListView list, View view, int position, long id) {
-//        detailOpener.openProductDetail(products.get(position));
+        super.onListItemClick(list, view, position, id);
+        Log.i("CLick", "CLick");
+        detailOpener.OpenAlbumReviewDetail(((Album)list.getItemAtPosition(position)).getId());
     }
 
     public class ListDownloader extends AsyncTask<String, Void, String> {
@@ -154,7 +127,7 @@ public class LastReviewsFragment extends ListFragment implements View.OnClickLis
 
         @Override
         protected String doInBackground(String... params) {
-            return download();
+            return downloader.DownloadFromURL(params[0]);
         }
 
         @Override
