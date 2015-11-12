@@ -9,16 +9,27 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 
 public class Album {
-    int id;
-    String title;
-    Artist artist;
-    String genre;
-    GregorianCalendar releaseDate = new GregorianCalendar();
-    String imageURL;
-    String spotifyURI;
-    GregorianCalendar dateAdded = new GregorianCalendar();
-    int grade;
-    String review;
+
+    private int id;
+    private String title;
+    private Artist artist;
+    private String genre;
+    private GregorianCalendar releaseDate = new GregorianCalendar();
+    private GregorianCalendar dateAdded = new GregorianCalendar();
+    private String imageURL;
+    private String spotifyURI;
+    private int grade;
+    private String review;
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setIsFavorite(boolean isFavorite) {
+        this.isFavorite = isFavorite;
+    }
+
+    private boolean isFavorite;
 
     public Album(JSONObject source) throws ParseException {
         try {

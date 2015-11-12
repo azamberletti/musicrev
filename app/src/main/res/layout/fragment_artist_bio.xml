@@ -1,0 +1,54 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/primary_color_dark"
+    tools:context="com.example.luca.jsonsqltest.ReviewDetailFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+        <include layout="@layout/general_error_layout"/>
+        <include layout="@layout/loading_panel"/>
+
+        <TextView
+            android:id="@+id/artist_name"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="36sp"
+            android:textAllCaps="false"
+            android:background="?android:attr/selectableItemBackground"
+            android:textColor="@color/text_color_dark"
+            android:clickable="true" />
+
+
+
+        <!--        <TextView
+                    android:id="@+id/album_release_date"
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:textSize="13sp"
+                    android:textColor="@color/primary_dark_material_light"/>-->
+
+        <TextView
+            android:id="@+id/artist_bio"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:textColor="@color/text_color_light">
+
+        </TextView>
+    </LinearLayout>
+</ScrollView>
+

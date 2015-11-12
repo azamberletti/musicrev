@@ -1,9 +1,7 @@
 package com.example.andrea.musicreview;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
+import android.support.v4.app.FragmentManager;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -13,8 +11,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.andrea.musicreview.Interfaces.DetailOpener;
+import com.example.andrea.musicreview.Interfaces.Downloader;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, DetailOpener, Downloader {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,5 +96,54 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void OpenAlbumReviewDetail(int id) {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.content_frame, ReviewDetailFragment.newInstance(id))
+                .addToBackStack(null)
+                .commit();
+    }
+
+
+    @Override
+    public String DownloadFromURL(String URL) {
+        if (ConnectionHandler.isConnected(this)) {
+            InputStream is = null;
+            int len = 10000;
+            try {
+                URL url = new URL(URL);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setReadTimeout(10000 /* milliseconds */);
+                conn.setConnectTimeout(15000 /* milliseconds */);
+                conn.setRequestMethod("GET");
+                conn.setDoInput(true);
+                conn.connect();
+                int response = conn.getResponseCode();
+                if (response != HttpURLConnection.HTTP_OK) {
+                    throw new IOException();
+                }
+                is = conn.getInputStream();
+                Reader reader = new InputStreamReader(is, "UTF-8");
+                char[] buffer = new char[len];
+                reader.read(buffer);
+                return new String(buffer);
+            } catch (IOException e) {
+                return "CONNECTION_TO_SERVER_ERROR";
+            } finally {
+                if (is != null) {
+                    try {
+                        is.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        } else {
+            return "NON_CONNECTED_TO_INTERNET_ERROR";
+        }
+
     }
 }

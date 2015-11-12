@@ -1,0 +1,107 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.luca.jsonsqltest.ReviewDetailFragment">
+
+    <ScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/primary_color_dark"
+        android:fillViewport="true">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content">
+
+   <Button
+        android:id="@+id/artist_name"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="36sp"
+        android:textAllCaps="false"
+        android:background="?android:attr/selectableItemBackground"
+        android:textColor="@color/dim_foreground_material_dark"
+       android:clickable="true" />
+
+    <TextView
+        android:id="@+id/album_tile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="32sp"
+        android:textColor="@color/primary_dark_material_light"/>
+
+        <TextView
+            android:id="@+id/grade"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textSize="36sp"
+            android:textColor="@color/dim_foreground_material_dark"/>
+
+
+
+
+    <com.example.andrea.musicreview.View.SquareImageView
+        android:id="@+id/album_cover"
+        android:layout_marginTop="16dp"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="centerCrop"
+         />
+
+    <LinearLayout
+        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:id="@+id/favorite_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/primary_color_dark"
+            android:src="@mipmap/ic_ic_favorite_border_white_36dp"
+            android:clickable="true" />
+
+    </LinearLayout>
+
+        <TextView
+            android:id="@+id/album_review"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:textColor="@color/dim_foreground_material_dark">
+
+        </TextView>
+        <Button
+            android:id="@+id/listen"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content">Listen</Button>
+
+        <TextView
+            android:id="@+id/album_release_date"
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textSize="13sp"
+            android:textColor="@color/primary_dark_material_light"/>
+
+    </LinearLayout>
+
+    </ScrollView>
+    <include layout="@layout/general_error_layout"/>
+    <include layout="@layout/loading_panel"/>
+</FrameLayout>
