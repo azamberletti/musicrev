@@ -1,15 +1,18 @@
 package com.example.andrea.musicreview;
 
 import android.app.Activity;
-import android.support.v4.app.ListFragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
+import android.widget.AdapterView;
+import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.andrea.musicreview.Interfaces.DetailOpener;
 import com.example.andrea.musicreview.Interfaces.Downloader;
@@ -21,57 +24,45 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LastReviewsFragment extends ListFragment implements View.OnClickListener {
+public class BestAlbumsOfMonthFragment extends android.support.v4.app.Fragment implements AdapterView.OnItemClickListener {
 
-    private RelativeLayout errorMessage;
+    private ViewGroup rootView;
+    private LinearLayout errorMessage;
+    private GridView grid;
     private DetailOpener detailOpener;
     private Downloader downloader;
-    private ViewGroup rootView;
-//    private ConnectivityChangeReceiver connectivityChangeReceiver;
     private final static String URL = "http://www.saltedmagnolia.com/get_last_5_albums.php";
-
 
     @Override
     public void onAttach(Activity activity) {
-      super.onAttach(activity);
+        super.onAttach(activity);
 //
-       // This makes sure that the container activity has implemented
-       // the callback interface. If not, it throws an exception
-       try {
-           detailOpener = (DetailOpener) activity;
-           downloader = (Downloader) activity;
+        // This makes sure that the container activity has implemented
+        // the callback interface. If not, it throws an exception
+        try {
+            detailOpener = (DetailOpener) activity;
+            downloader = (Downloader) activity;
 
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement DetailOpener and Downloader");
         }
-   }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        /*connectivityChangeReceiver = new ConnectivityChangeReceiver();
-        getActivity().registerReceiver(
-                connectivityChangeReceiver,
-                new IntentFilter(
-                        ConnectivityManager.CONNECTIVITY_ACTION));*/
-        new ListDownloader().execute(URL);
     }
 
     @Override
-    public void onPause() {
-        super.onPause();
-        //getActivity().unregisterReceiver(connectivityChangeReceiver);
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootView = (ViewGroup) inflater.inflate(R.layout.fragment_last_reviews, container, false);
-        setListAdapter(new AlbumListAdapter(getActivity(), R.layout.album_list_item_layout, new ArrayList<Album.AlbumBasicInfo>()));
-        errorMessage = (RelativeLayout)rootView.findViewById(R.id.general_error_panel);
-        errorMessage.setOnClickListener(this);
+        rootView = (ViewGroup) inflater.inflate(R.layout.fragment_best_albums_of_month, container, false);
+        grid = (GridView) rootView.findViewById(R.id.grid);
+        errorMessage = (LinearLayout) rootView.findViewById(R.id.general_error_panel);
         errorMessage.setVisibility(View.GONE);
+        grid.setAdapter(new BestAlbumGridAdapter(getActivity(), R.layout.best_album_item_layout, new ArrayList<Album.AlbumBasicInfo>()));
+        grid.setOnItemClickListener(this);
         return rootView;
     }
 
@@ -85,19 +76,20 @@ public class LastReviewsFragment extends ListFragment implements View.OnClickLis
     }
 
     @Override
-    public void onClick(View v) {
-        switch(v.getId()){
-            case R.id.general_error_panel:
-                new ListDownloader().execute(URL);
-                break;
-        }
+    public void onResume() {
+        super.onResume();
+        /*connectivityChangeReceiver = new ConnectivityChangeReceiver();
+        getActivity().registerReceiver(
+                connectivityChangeReceiver,
+                new IntentFilter(
+                        ConnectivityManager.CONNECTIVITY_ACTION));*/
+        new ListDownloader().execute(URL);
     }
 
     @Override
-    public void onListItemClick(ListView list, View view, int position, long id) {
-        super.onListItemClick(list, view, position, id);
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Log.i("CLick", "CLick");
-        detailOpener.OpenAlbumReviewDetail(((Album.AlbumBasicInfo)list.getItemAtPosition(position)).getId());
+        detailOpener.OpenAlbumReviewDetail(((Album.AlbumBasicInfo) parent.getItemAtPosition(position)).getId());
     }
 
     public class ListDownloader extends AsyncTask<String, Void, String> {
@@ -113,7 +105,7 @@ public class LastReviewsFragment extends ListFragment implements View.OnClickLis
                     return;
                 }
                 errorMessage.setVisibility(View.GONE);
-                ((AlbumListAdapter) getListAdapter()).refreshList(parse(s));
+                ((BestAlbumGridAdapter) grid.getAdapter()).refreshList(parse(s));
             } catch (JSONException e) {
                 e.printStackTrace();
                 Log.i("ERROR", "JSON_EXCEPTION");
@@ -134,4 +126,7 @@ public class LastReviewsFragment extends ListFragment implements View.OnClickLis
             rootView.findViewById(R.id.loading_panel).setVisibility(View.VISIBLE);
         }
     }
+
+
+
 }

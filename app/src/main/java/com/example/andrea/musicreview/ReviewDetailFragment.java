@@ -43,6 +43,14 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
     private Album album;
     private int albumID;
 
+    public static ReviewDetailFragment newInstance(int id) {
+        ReviewDetailFragment fragment = new ReviewDetailFragment();
+        Bundle args = new Bundle();
+        args.putInt(ALBUM_ID, id);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
@@ -72,14 +80,6 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
         new ReviewDownloader().execute(URL);
     }
 
-    public static ReviewDetailFragment newInstance(int id) {
-        ReviewDetailFragment fragment = new ReviewDetailFragment();
-        Bundle args = new Bundle();
-        args.putInt(ALBUM_ID, id);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -103,12 +103,12 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
                 setFavoriteIcon(this.album.isFavorite());
                 break;
             case R.id.artist_name:
-                Log.i("Button", "pressed");
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 fragmentManager.beginTransaction()
                         .replace(R.id.content_frame, ArtistBioFragment.newInstance(album.getArtist().getId()))
                         .addToBackStack(null)
                         .commit();
+                break;
             case R.id.play_on_spotify:
                 String uri = album.getSpotifyURI();
                 Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
