@@ -1,14 +1,13 @@
-package com.example.andrea.musicreview;
+package com.example.andrea.musicreview.activities;
 
 import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 
-import com.example.andrea.musicreview.Interfaces.DetailOpener;
+import com.example.andrea.musicreview.R;
+import com.example.andrea.musicreview.fragments.SearchResultsFragment;
+import com.example.andrea.musicreview.interfaces.DetailOpener;
 
 public class SearchableActivity extends MyBaseActivity implements DetailOpener {
     @Override

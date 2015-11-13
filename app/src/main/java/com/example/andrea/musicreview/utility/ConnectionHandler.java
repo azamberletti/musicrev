@@ -1,4 +1,4 @@
-package com.example.andrea.musicreview;
+package com.example.andrea.musicreview.utility;
 
 import android.content.Context;
 import android.net.ConnectivityManager;

@@ -1,4 +1,4 @@
-package com.example.andrea.musicreview;
+package com.example.andrea.musicreview.view;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.andrea.musicreview.R;
+import com.example.andrea.musicreview.model.Album;
 import com.squareup.picasso.Picasso;
 
 import java.util.Collection;

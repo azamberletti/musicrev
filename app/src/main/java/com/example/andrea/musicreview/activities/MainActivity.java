@@ -1,4 +1,4 @@
-package com.example.andrea.musicreview;
+package com.example.andrea.musicreview.activities;
 
 import android.app.SearchManager;
 import android.content.Context;
@@ -7,8 +7,13 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import java.net.URL;
-import com.example.andrea.musicreview.Interfaces.DetailOpener;
-import com.example.andrea.musicreview.Interfaces.Downloader;
+
+import com.example.andrea.musicreview.R;
+import com.example.andrea.musicreview.fragments.LastReviewsFragment;
+import com.example.andrea.musicreview.fragments.ReviewDetailFragment;
+import com.example.andrea.musicreview.interfaces.DetailOpener;
+import com.example.andrea.musicreview.interfaces.Downloader;
+import com.example.andrea.musicreview.utility.ConnectionHandler;
 
 import java.io.IOException;
 import java.io.InputStream;

@@ -1,4 +1,4 @@
-package com.example.andrea.musicreview.View;
+package com.example.andrea.musicreview.view;
 
 import android.content.Context;
 import android.util.AttributeSet;

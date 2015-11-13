@@ -1,4 +1,4 @@
-package com.example.andrea.musicreview;
+package com.example.andrea.musicreview.model;
 
 public class Artist {
     private int id;

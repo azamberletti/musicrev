@@ -1,4 +1,4 @@
-package com.example.andrea.musicreview;
+package com.example.andrea.musicreview.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -19,7 +19,9 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.andrea.musicreview.Interfaces.Downloader;
+import com.example.andrea.musicreview.R;
+import com.example.andrea.musicreview.interfaces.Downloader;
+import com.example.andrea.musicreview.model.Album;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;

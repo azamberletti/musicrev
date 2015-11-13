@@ -10,14 +10,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4be4c3c2-e393-4da4-bd1f-c81ade509fe8" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/LastReviewsFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/LastReviewsFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/MyBaseActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/MyBaseActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/ReviewDetailFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/ReviewDetailFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/menu/activity_main_drawer.xml" afterPath="$PROJECT_DIR$/app/src/main/res/menu/activity_main_drawer.xml" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/Album.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/model/Album.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/AlbumListAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/view/AlbumListAdapter.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/Artist.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/model/Artist.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/ArtistBioFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/fragments/ArtistBioFragment.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/BestAlbumGridAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/view/BestAlbumGridAdapter.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/BestAlbumsOfMonthFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/fragments/BestAlbumsOfMonthFragment.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/ConnectionHandler.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/utility/ConnectionHandler.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/LastReviewsFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/fragments/LastReviewsFragment.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/activities/MainActivity.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/MyBaseActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/activities/MyBaseActivity.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/ReviewDetailFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/fragments/ReviewDetailFragment.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/SearchResultsFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/fragments/SearchResultsFragment.java" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/SearchableActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/activities/SearchableActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/interfaces/DetailOpener.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/interfaces/DetailOpener.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/interfaces/Downloader.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/interfaces/Downloader.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/view/NonScrollableGridView.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/view/NonScrollableGridView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/view/SquareImageView.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/view/SquareImageView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/album_list_item_layout.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/album_list_item_layout.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/best_album_item_layout.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/best_album_item_layout.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_best_albums_of_month.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_best_albums_of_month.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_review_detail.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_review_detail.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/nav_header_main.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/nav_header_main.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/drawable/side_nav_bar.xml" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/side_nav_bar.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="musicrev.iws" />
@@ -47,44 +61,41 @@
   <component name="FileEditorManager">
     <leaf>
       <file leaf-file-name="MainActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/MainActivity.java">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/activities/MainActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="50" column="0" selection-start-line="50" selection-start-column="0" selection-end-line="54" selection-end-column="26" />
+              <caret line="55" column="0" selection-start-line="55" selection-start-column="0" selection-end-line="59" selection-end-column="26" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="MyBaseActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/MyBaseActivity.java">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/activities/MyBaseActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="71" column="84" selection-start-line="71" selection-start-column="84" selection-end-line="71" selection-end-column="84" />
+              <caret line="75" column="84" selection-start-line="75" selection-start-column="84" selection-end-line="75" selection-end-column="84" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="LastReviewsFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/LastReviewsFragment.java">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/fragments/LastReviewsFragment.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="97" column="0" selection-start-line="97" selection-start-column="0" selection-end-line="99" selection-end-column="109" />
+              <caret line="100" column="0" selection-start-line="100" selection-start-column="0" selection-end-line="102" selection-end-column="109" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BestAlbumsOfMonthFragment.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/BestAlbumsOfMonthFragment.java">
+      <file leaf-file-name="ConnectionHandler.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/utility/ConnectionHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="3.0429595">
-              <caret line="97" column="35" selection-start-line="97" selection-start-column="35" selection-end-line="97" selection-end-column="35" />
-              <folding>
-                <element signature="e#1710#1711#0" expanded="true" />
-                <element signature="e#1760#1761#0" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="0.5274463">
+              <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -116,7 +127,7 @@
         </entry>
       </file>
       <file leaf-file-name="SquareImageView.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/View/SquareImageView.java">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/view/SquareImageView.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
@@ -1645,7 +1656,6 @@
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/side_nav_bar.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/nav_header_main.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/ReviewDetailFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/LastReviewsFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/best_album_layout.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/BestAlbumGridAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/MyBaseActivity.java" />
@@ -1653,6 +1663,8 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/View/NonScrollableGridView.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_best_albums_of_month.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/BestAlbumsOfMonthFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/LastReviewsFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/fragments/LastReviewsFragment.java" />
       </list>
     </option>
   </component>
@@ -1704,126 +1716,6 @@
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
             </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="xml" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicrev" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="values" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="styles.xml" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResGroupNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicrev" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="values" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicrev" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="mipmap" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicrev" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="menu" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicrev" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="layout" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="musicrev" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="app" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="res" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="drawable" />
-              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
-            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -1875,7 +1767,7 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="View" />
+              <option name="myItemId" value="utility" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -2166,15 +2058,7 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="50" column="0" selection-start-line="50" selection-start-column="0" selection-end-line="54" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/MyBaseActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/activities/MyBaseActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="67" column="57" selection-start-line="67" selection-start-column="57" selection-end-line="67" selection-end-column="57" />
@@ -2238,7 +2122,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/MainActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/activities/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
@@ -2246,7 +2130,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/SearchResultsFragment.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/fragments/SearchResultsFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="81" column="43" selection-start-line="81" selection-start-column="43" selection-end-line="81" selection-end-column="43" />
@@ -2254,7 +2138,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/Album.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/model/Album.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="100" column="26" selection-start-line="98" selection-start-column="25" selection-end-line="100" selection-end-column="26" />
@@ -2262,7 +2146,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/ReviewDetailFragment.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/fragments/ReviewDetailFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="126" column="33" selection-start-line="126" selection-start-column="33" selection-end-line="126" selection-end-column="33" />
@@ -2270,7 +2154,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/LastReviewsFragment.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/fragments/LastReviewsFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="82" column="0" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
@@ -2278,7 +2162,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/AlbumListAdapter.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/view/AlbumListAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="44" column="29" selection-start-line="44" selection-start-column="29" selection-end-line="44" selection-end-column="29" />
@@ -2286,7 +2170,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/SearchableActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/activities/SearchableActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
@@ -2294,7 +2178,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/MainActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/activities/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="24" column="70" selection-start-line="24" selection-start-column="70" selection-end-line="24" selection-end-column="70" />
@@ -2302,7 +2186,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/SearchResultsFragment.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/fragments/SearchResultsFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -2310,7 +2194,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/SearchableActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/activities/SearchableActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="17" column="36" selection-start-line="17" selection-start-column="36" selection-end-line="17" selection-end-column="36" />
@@ -2351,7 +2235,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/SearchResultsFragment.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/fragments/SearchResultsFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="149" column="34" selection-start-line="149" selection-start-column="34" selection-end-line="149" selection-end-column="34" />
@@ -2359,7 +2243,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/Album.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/model/Album.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="100" column="39" selection-start-line="100" selection-start-column="39" selection-end-line="100" selection-end-column="39" />
@@ -2378,7 +2262,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/SearchableActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/activities/SearchableActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="17" column="0" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
@@ -2466,7 +2350,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/Artist.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/model/Artist.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
@@ -2496,7 +2380,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/ArtistBioFragment.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/fragments/ArtistBioFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="99" column="0" selection-start-line="99" selection-start-column="0" selection-end-line="99" selection-end-column="0" />
@@ -2504,7 +2388,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/AlbumListAdapter.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/view/AlbumListAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5405405">
           <caret line="52" column="0" selection-start-line="52" selection-start-column="0" selection-end-line="62" selection-end-column="5" />
@@ -2512,18 +2396,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/MainActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/activities/MainActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="50" column="0" selection-start-line="50" selection-start-column="0" selection-end-line="54" selection-end-column="26" />
+          <caret line="55" column="0" selection-start-line="55" selection-start-column="0" selection-end-line="59" selection-end-column="26" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/MyBaseActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/activities/MyBaseActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="71" column="84" selection-start-line="71" selection-start-column="84" selection-end-line="71" selection-end-column="84" />
+          <caret line="75" column="84" selection-start-line="75" selection-start-column="84" selection-end-line="75" selection-end-column="84" />
           <folding />
         </state>
       </provider>
@@ -2539,7 +2423,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/View/SquareImageView.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/view/SquareImageView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
@@ -2547,7 +2431,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/View/NonScrollableGridView.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/view/NonScrollableGridView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="23" column="72" selection-start-line="23" selection-start-column="72" selection-end-line="23" selection-end-column="72" />
@@ -2581,7 +2465,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/BestAlbumGridAdapter.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/view/BestAlbumGridAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.28400955">
           <caret line="18" column="33" selection-start-line="18" selection-start-column="13" selection-end-line="18" selection-end-column="33" />
@@ -2589,7 +2473,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/ReviewDetailFragment.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/fragments/ReviewDetailFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.040572792">
           <caret line="33" column="13" selection-start-line="33" selection-start-column="13" selection-end-line="33" selection-end-column="13" />
@@ -2597,22 +2481,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/LastReviewsFragment.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/fragments/BestAlbumsOfMonthFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="3.326969">
+          <caret line="104" column="27" selection-start-line="104" selection-start-column="27" selection-end-line="104" selection-end-column="27" />
+          <folding>
+            <element signature="e#1778#1779#0" expanded="true" />
+            <element signature="e#1828#1829#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/fragments/LastReviewsFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="97" column="0" selection-start-line="97" selection-start-column="0" selection-end-line="99" selection-end-column="109" />
+          <caret line="100" column="0" selection-start-line="100" selection-start-column="0" selection-end-line="102" selection-end-column="109" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/BestAlbumsOfMonthFragment.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/andrea/musicreview/utility/ConnectionHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="3.0429595">
-          <caret line="97" column="35" selection-start-line="97" selection-start-column="35" selection-end-line="97" selection-end-column="35" />
-          <folding>
-            <element signature="e#1710#1711#0" expanded="true" />
-            <element signature="e#1760#1761#0" expanded="true" />
-          </folding>
+        <state vertical-scroll-proportion="0.5274463">
+          <caret line="15" column="0" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>

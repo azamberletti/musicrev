@@ -1,4 +1,4 @@
-package com.example.andrea.musicreview;
+package com.example.andrea.musicreview.fragments;
 
 import android.app.Activity;
 import android.support.v4.app.ListFragment;
@@ -11,8 +11,11 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-import com.example.andrea.musicreview.Interfaces.DetailOpener;
-import com.example.andrea.musicreview.Interfaces.Downloader;
+import com.example.andrea.musicreview.R;
+import com.example.andrea.musicreview.interfaces.DetailOpener;
+import com.example.andrea.musicreview.interfaces.Downloader;
+import com.example.andrea.musicreview.model.Album;
+import com.example.andrea.musicreview.view.AlbumListAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;

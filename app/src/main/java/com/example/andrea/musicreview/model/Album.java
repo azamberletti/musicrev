@@ -1,4 +1,4 @@
-package com.example.andrea.musicreview;
+package com.example.andrea.musicreview.model;
 
 import org.json.JSONException;
 import org.json.JSONObject;

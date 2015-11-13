@@ -1,8 +1,6 @@
-package com.example.andrea.musicreview;
+package com.example.andrea.musicreview.fragments;
 
 import android.app.Activity;
-import android.app.SearchManager;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -12,9 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 
-import com.example.andrea.musicreview.Interfaces.DetailOpener;
+import com.example.andrea.musicreview.utility.ConnectionHandler;
+import com.example.andrea.musicreview.R;
+import com.example.andrea.musicreview.interfaces.DetailOpener;
+import com.example.andrea.musicreview.model.Album;
+import com.example.andrea.musicreview.view.AlbumListAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;

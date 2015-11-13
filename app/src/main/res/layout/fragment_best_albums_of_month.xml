@@ -27,7 +27,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.example.andrea.musicreview.View.NonScrollableGridView
+        <com.example.andrea.musicreview.view.NonScrollableGridView
             android:id="@+id/grid"
             android:layout_marginLeft="3dp"
             android:layout_marginRight="3dp"
