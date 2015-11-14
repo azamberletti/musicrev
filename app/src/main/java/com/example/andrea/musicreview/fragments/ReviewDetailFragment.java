@@ -116,6 +116,9 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
                 Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
                 startActivity(i);
                 break;
+            case R.id.general_error_panel:
+                new ReviewDownloader().execute(URL);
+                break;
             default:
                 Log.i("ERROR", "No view found.");
         }

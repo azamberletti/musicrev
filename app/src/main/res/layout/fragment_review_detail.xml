@@ -10,92 +10,124 @@
         android:layout_height="match_parent"
         android:background="@color/primary_color_dark"
         android:fillViewport="true">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="wrap_content">
 
-   <Button
-        android:id="@+id/artist_name"
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="36sp"
-        android:textAllCaps="false"
-        android:background="?android:attr/selectableItemBackground"
-        android:textColor="@color/dim_foreground_material_dark"
-       android:clickable="true" />
-
-    <TextView
-        android:id="@+id/album_tile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="32sp"
-        android:textColor="@color/primary_dark_material_light"/>
-
-        <TextView
-            android:id="@+id/grade"
-            android:layout_marginTop="5dp"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:textSize="36sp"
-            android:textColor="@color/dim_foreground_material_dark"/>
+            android:orientation="vertical">
 
-    <com.example.andrea.musicreview.view.SquareImageView
-        android:id="@+id/album_cover"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:scaleType="centerCrop" />
+            <Button
+                android:id="@+id/artist_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="?android:attr/selectableItemBackground"
+                android:clickable="true"
+                android:gravity="center"
+                android:textAllCaps="false"
+                android:textColor="@color/text_color_light"
+                android:textSize="36sp" />
 
-    <LinearLayout
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/album_tile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:textColor="@color/text_color_dark"
+                android:textSize="32sp" />
 
+            <TextView
+                android:id="@+id/grade"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:textColor="@color/dim_foreground_material_dark"
+                android:textSize="36sp" />
 
-        <ImageButton
-            android:id="@+id/play_on_spotify"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:src="@mipmap/play_green"
-            android:background="@color/primary_color_dark"
-            android:text="Spotify"
-            />
+            <com.example.andrea.musicreview.view.SquareImageView
+                android:id="@+id/album_cover"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="16dp"
+                android:scaleType="centerCrop" />
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:gravity="center"
+                android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/album_review"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:textColor="@color/text_color_light"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/accent_color"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2015"
+                        android:textColor="@color/text_color_dark"
+                        android:textSize="16sp" />
 
-        <ImageButton
-            android:id="@+id/favorite_icon"
-            android:layout_width="wrap_content"
-            android:layout_marginRight="20dp"
-            android:layout_height="wrap_content"
-            android:background="@color/primary_color_dark"
-            android:src="@mipmap/ic_ic_favorite_border_white_36dp"
-            android:clickable="true" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="RoadRunner"
+                        android:textColor="@color/text_color_dark"
+                        android:textSize="16sp" />
+                    </LinearLayout>
 
-    </LinearLayout>
+                </LinearLayout>
+
+                <ImageButton
+                    android:id="@+id/play_on_spotify"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@color/primary_color_dark"
+                    android:src="@mipmap/play_green"
+                    android:text="Spotify" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/album_review"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/text_color_light"
+                android:textSize="18sp" />
+
+            <ImageButton
+                android:id="@+id/favorite_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                android:background="@color/primary_color_dark"
+                android:clickable="true"
+                android:src="@mipmap/ic_ic_favorite_border_white_36dp" />
+
+        </LinearLayout>
 
     </ScrollView>
-    <include layout="@layout/general_error_layout"/>
-    <include layout="@layout/loading_panel"/>
+
+    <include layout="@layout/general_error_layout" />
+
+    <include layout="@layout/loading_panel" />
 </FrameLayout>
