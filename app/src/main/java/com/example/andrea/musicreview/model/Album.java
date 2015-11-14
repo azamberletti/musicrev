@@ -15,7 +15,6 @@ public class Album {
     private GregorianCalendar releaseDate = new GregorianCalendar();
     private GregorianCalendar dateAdded = new GregorianCalendar();
     private String spotifyURI;
-    private int grade;
     private String review;
 
     public boolean isFavorite() {
@@ -33,12 +32,12 @@ public class Album {
             this.basicInfo = new AlbumBasicInfo(Integer.parseInt((String) source.get("IDAlbum")),
                     (String) source.get("Title"),
                     new Artist(Integer.parseInt((String) source.get("IDArtist")), (String) source.get("Name"), null),
-                    (String) source.get("Image"));
+                    (String) source.get("Image"),
+                    Integer.parseInt((String) source.get("Grade")));
             this.genre = (String) source.get("Genre");
             this.releaseDate.setTime(new SimpleDateFormat("yyyy-MM-dd", Locale.ITALY).parse((String) source.get("Release_date")));
             this.spotifyURI = (String) source.get("Spotify_URI");
             this.dateAdded.setTime(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.ITALY).parse((String) source.get("Date_added")));
-            this.grade = Integer.parseInt((String) source.get("Grade"));
             this.review = (String) source.get("Review");
         } catch (JSONException e) {
             e.printStackTrace();
@@ -78,7 +77,7 @@ public class Album {
     }
 
     public int getGrade() {
-        return grade;
+        return basicInfo.getGrade();
     }
 
     public String getReview() {
@@ -91,6 +90,7 @@ public class Album {
         private String title;
         private Artist artist;
         private String imageURL;
+        private int grade;
 
         public AlbumBasicInfo(JSONObject source) throws ParseException {
             try {
@@ -98,16 +98,17 @@ public class Album {
                 this.title = (String) source.get("Title");
                 this.artist = new Artist(Integer.parseInt((String) source.get("IDArtist")), (String) source.get("Name"), null);
                 this.imageURL = (String) source.get("Image");
+                this.grade = Integer.parseInt((String) source.get("Grade"));
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
-
-        public AlbumBasicInfo(int id, String title, Artist artist, String imgURL) {
+        public AlbumBasicInfo(int id, String title, Artist artist, String imgURL, int grade) {
             this.id = id;
             this.title = title;
             this.artist = artist;
             this.imageURL = imgURL;
+            this.grade = grade;
         }
 
         public int getId() {
@@ -125,5 +126,10 @@ public class Album {
         public Artist getArtist() {
             return artist;
         }
+
+        public int getGrade() {
+            return grade;
+        }
+
     }
 }

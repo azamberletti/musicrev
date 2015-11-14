@@ -40,6 +40,8 @@ public class AlbumListAdapter extends ArrayAdapter<Album.AlbumBasicInfo> {
                     .findViewById(R.id.artist);
             mViewHolder.albumCover = (ImageView) convertView
                     .findViewById(R.id.album_cover);
+            mViewHolder.grade = (TextView) convertView
+                    .findViewById(R.id.grade);
             convertView.setTag(mViewHolder);
         } else {
             mViewHolder = (ViewHolder) convertView.getTag();
@@ -48,7 +50,8 @@ public class AlbumListAdapter extends ArrayAdapter<Album.AlbumBasicInfo> {
         mViewHolder.albumTitle.setText(album.getTitle());
         mViewHolder.artist.setText(album.getArtist().getName());
         Picasso.with(context).load("http://www.saltedmagnolia.com/" + album.getImageURL())
-                .into( mViewHolder.albumCover);
+                .into(mViewHolder.albumCover);
+        mViewHolder.grade.setText(String.format("%d",album.getGrade()));
         return convertView;
     }
 
@@ -62,5 +65,6 @@ public class AlbumListAdapter extends ArrayAdapter<Album.AlbumBasicInfo> {
         public TextView albumTitle;
         public TextView artist;
         public ImageView albumCover;
+        public TextView grade;
     }
 }
