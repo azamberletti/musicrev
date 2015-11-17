@@ -8,4 +8,5 @@
     <color name="text_color_light">#bebebe</color>
     <color name="text_color_dark">#757575</color>
     <color name="accent_color">#FF4081</color>
+    <!--<color name="primary_color_transparent">#F8263238</color>-->
 </resources>
