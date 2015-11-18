@@ -4,8 +4,10 @@ import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 
 import com.example.andrea.musicreview.R;
+import com.example.andrea.musicreview.fragments.ArtistBioFragment;
 import com.example.andrea.musicreview.fragments.SearchResultsFragment;
 import com.example.andrea.musicreview.interfaces.DetailOpener;
 import com.example.andrea.musicreview.interfaces.Downloader;
@@ -18,7 +20,7 @@ import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class SearchableActivity extends MyBaseActivity implements DetailOpener, Downloader {
+public class SearchableActivity extends MyBaseActivity implements Downloader,DetailOpener {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +51,15 @@ public class SearchableActivity extends MyBaseActivity implements DetailOpener, 
         intent.putExtras(b);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void OpenArtistBio(int id){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.content_frame, ArtistBioFragment.newInstance(id))
+                .addToBackStack(null)
+                .commit();
     }
 
     @Override

@@ -16,6 +16,7 @@ public class Album {
     private GregorianCalendar dateAdded = new GregorianCalendar();
     private String spotifyURI;
     private String review;
+    private boolean isFavorite;
 
     public boolean isFavorite() {
         return isFavorite;
@@ -24,8 +25,6 @@ public class Album {
     public void setIsFavorite(boolean isFavorite) {
         this.isFavorite = isFavorite;
     }
-
-    private boolean isFavorite;
 
     public Album(JSONObject source) throws ParseException {
         try {

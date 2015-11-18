@@ -9,6 +9,7 @@ import android.view.Menu;
 import java.net.URL;
 
 import com.example.andrea.musicreview.R;
+import com.example.andrea.musicreview.fragments.ArtistBioFragment;
 import com.example.andrea.musicreview.fragments.LastReviewsFragment;
 import com.example.andrea.musicreview.fragments.ReviewDetailFragment;
 import com.example.andrea.musicreview.interfaces.DetailOpener;
@@ -56,6 +57,15 @@ public class MainActivity extends MyBaseActivity implements Downloader, DetailOp
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.content_frame, ReviewDetailFragment.newInstance(id))
+                .addToBackStack(null)
+                .commit();
+    }
+
+    @Override
+    public void OpenArtistBio(int id){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.content_frame, ArtistBioFragment.newInstance(id))
                 .addToBackStack(null)
                 .commit();
     }

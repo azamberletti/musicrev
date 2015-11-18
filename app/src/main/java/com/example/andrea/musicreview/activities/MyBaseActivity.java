@@ -11,6 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.example.andrea.musicreview.R;
+import com.example.andrea.musicreview.fragments.ArtistSearchFragment;
 import com.example.andrea.musicreview.fragments.BestAlbumsOfMonthFragment;
 import com.example.andrea.musicreview.fragments.LastReviewsFragment;
 
@@ -77,9 +78,17 @@ public abstract class MyBaseActivity extends AppCompatActivity
                         .addToBackStack(null)
                         .commit();
                 break;
+            case R.id.artist:
+                fragmentManager.beginTransaction()
+                        .replace(R.id.content_frame, new ArtistSearchFragment())
+                        .addToBackStack(null)
+                        .commit();
+                break;
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }

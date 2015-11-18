@@ -8,6 +8,8 @@
             android:title="@string/favorites" />
         <item android:id="@+id/best_of_month"
             android:title="@string/best_of_month" />
+        <item android:id="@+id/artist"
+            android:title="@string/navigate_artist" />
     </group>
 
 <!--    <item android:title="Communicate">

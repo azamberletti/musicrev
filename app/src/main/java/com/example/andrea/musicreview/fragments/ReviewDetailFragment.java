@@ -20,6 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.andrea.musicreview.R;
+import com.example.andrea.musicreview.interfaces.DetailOpener;
 import com.example.andrea.musicreview.interfaces.Downloader;
 import com.example.andrea.musicreview.model.Album;
 import com.squareup.picasso.Picasso;
@@ -44,6 +45,7 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
     private final static String ALBUM_ID = "album_id";
     private Album album;
     private int albumID;
+    private DetailOpener detailOpener;
 
     public static ReviewDetailFragment newInstance(int id) {
         ReviewDetailFragment fragment = new ReviewDetailFragment();
@@ -60,10 +62,11 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
         // This makes sure that the container activity has implemented
         // the callback interface. If not, it throws an exception
         try {
+            detailOpener = (DetailOpener) activity;
             downloader = (Downloader) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
-                    + " must implement Downloader");
+                    + " must implement Downloader and DetailOpener");
         }
     }
 
@@ -105,11 +108,7 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
                 setFavoriteIcon(this.album.isFavorite());
                 break;
             case R.id.artist_name:
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction()
-                        .replace(R.id.content_frame, ArtistBioFragment.newInstance(album.getArtist().getId()))
-                        .addToBackStack(null)
-                        .commit();
+                detailOpener.OpenArtistBio(album.getArtist().getId());
                 break;
             case R.id.play_on_spotify:
                 String uri = album.getSpotifyURI();
