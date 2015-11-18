@@ -31,7 +31,7 @@ public class BestAlbumsOfMonthFragment extends android.support.v4.app.Fragment i
     private GridView grid;
     private DetailOpener detailOpener;
     private Downloader downloader;
-    private final static String URL = "http://www.saltedmagnolia.com/get_last_5_albums.php";
+    private final static String URL = "http://www.saltedmagnolia.com/get_best_of_month.php";
 
     @Override
     public void onAttach(Activity activity) {
