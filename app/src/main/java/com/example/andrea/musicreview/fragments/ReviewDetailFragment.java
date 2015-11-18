@@ -141,8 +141,8 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             try {
-                getView().findViewById(R.id.loading_panel).setVisibility(View.GONE);
-                getView().findViewById(R.id.scroll_view).setVisibility(View.VISIBLE);
+                rootView.findViewById(R.id.loading_panel).setVisibility(View.GONE);
+                rootView.findViewById(R.id.scroll_view).setVisibility(View.VISIBLE);
                 if(s.equals("NON_CONNECTED_TO_INTERNET_ERROR") || s.equals("CONNECTION_TO_SERVER_ERROR")){
                     Log.i("ERROR", s);
                     errorMessage.setVisibility(View.VISIBLE);
