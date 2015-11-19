@@ -11,12 +11,20 @@
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:background="@color/primary_color"
-            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
             android:text="@string/recommended"
             android:textColor="@color/text_color_light"
-            android:textSize="25sp" />
+            android:textSize="16sp" />
+
+        <ImageView
+            android:src="@color/accent_color"
+            android:layout_width="match_parent"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:layout_height="1dp" />
 
         <include layout="@layout/loading_panel" />
 
