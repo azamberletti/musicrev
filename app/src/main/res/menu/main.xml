@@ -6,6 +6,12 @@
         android:icon="@android:drawable/ic_menu_search"
         app:showAsAction="collapseActionView|ifRoom"
         app:actionViewClass="android.support.v7.widget.SearchView"/>
+    <item android:id="@+id/action_share"
+        android:title="@string/action_share"
+        android:icon="@android:drawable/ic_menu_share"
+        />
+        <!--app:showAsAction="ifRoom"-->
+        <!--android:actionProviderClass="android.widget.ShareActionProvider"/>-->
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />
 </menu>

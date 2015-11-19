@@ -16,6 +16,9 @@ import com.example.andrea.musicreview.fragments.ReviewDetailFragment;
 import com.example.andrea.musicreview.interfaces.DetailOpener;
 import com.example.andrea.musicreview.interfaces.Downloader;
 import com.example.andrea.musicreview.utility.ConnectionHandler;
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
+import com.facebook.FacebookSdk;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,12 +29,22 @@ import java.net.HttpURLConnection;
 public class MainActivity extends MyBaseActivity implements Downloader, DetailOpener{
 
     public final static String ALBUM_ID = "album_id";
+    private AccessTokenTracker accessTokenTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        final Intent intent = new Intent(this, LoginActivity.class);
+        accessTokenTracker = new AccessTokenTracker() {
+            @Override
+            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken,
+                                                       AccessToken currentAccessToken) {
+                if(AccessToken.getCurrentAccessToken()==null) {
+                    startActivity(intent);
+                }
+            }
+        };
         Bundle b = getIntent().getExtras();
         if(b != null){
             OpenAlbumReviewDetail(b.getInt(ALBUM_ID));
@@ -56,10 +69,16 @@ public class MainActivity extends MyBaseActivity implements Downloader, DetailOp
     }
 
     @Override
+    public void onDestroy() {
+        super.onDestroy();
+        accessTokenTracker.stopTracking();
+    }
+
+    @Override
     public void OpenAlbumReviewDetail(int id) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.content_frame, ReviewDetailFragment.newInstance(id))
+                .replace(R.id.content_frame, ReviewDetailFragment.newInstance(id), ReviewDetailFragment.FRAGMENT_TAG)
                 .addToBackStack(null)
                 .commit();
     }

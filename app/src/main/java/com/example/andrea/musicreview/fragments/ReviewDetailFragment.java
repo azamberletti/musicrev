@@ -23,6 +23,8 @@ import com.example.andrea.musicreview.R;
 import com.example.andrea.musicreview.interfaces.DetailOpener;
 import com.example.andrea.musicreview.interfaces.Downloader;
 import com.example.andrea.musicreview.model.Album;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareDialog;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -36,6 +38,7 @@ import java.text.ParseException;
  */
 public class ReviewDetailFragment extends android.support.v4.app.Fragment implements View.OnClickListener {
 
+    public static final String FRAGMENT_TAG = "ReviewDetailFragment";
     private ViewGroup rootView;
     private ImageButton favoriteButton;
     private Drawable favoriteIcon;
@@ -46,6 +49,10 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
     private Album album;
     private int albumID;
     private DetailOpener detailOpener;
+
+    public Album getShowedAlbum() {
+        return album;
+    }
 
     public static ReviewDetailFragment newInstance(int id) {
         ReviewDetailFragment fragment = new ReviewDetailFragment();
@@ -96,6 +103,7 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
         errorMessage.setOnClickListener(this);
         errorMessage.setVisibility(View.GONE);
         rootView.findViewById(R.id.play_on_spotify).setOnClickListener(this);
+        rootView.findViewById(R.id.fb_share).setOnClickListener(this);
         rootView.findViewById(R.id.scroll_view).setVisibility(View.GONE);
         return rootView;
     }
@@ -114,6 +122,16 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
                 String uri = album.getSpotifyURI();
                 Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
                 startActivity(i);
+                break;
+            case R.id.fb_share:
+                ShareDialog.show(this, new ShareLinkContent.Builder()
+                        .setContentUrl(Uri.parse("http://corsi.unibo.it/Laurea/IngegneriaScienzeInformatiche/Pagine/default.aspx"))
+                        .setContentTitle("Sto leggendo la review di " + album.getTitle() + " su MusicReview!!!")
+                        .setContentDescription("Andrea sta leggendo la review di "
+                                + album.getTitle() + " by " + album.getArtist().getName() +
+                                " su MusicReview. dacci un'occhiata anche tu!")
+                        .setImageUrl(Uri.parse("http://saltedmagnolia.com/" + album.getImageURL()))
+                        .build());
                 break;
             case R.id.general_error_panel:
                 new ReviewDownloader().execute(URL);

@@ -1,5 +1,6 @@
 package com.example.andrea.musicreview.activities;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -14,6 +15,10 @@ import com.example.andrea.musicreview.R;
 import com.example.andrea.musicreview.fragments.ArtistSearchFragment;
 import com.example.andrea.musicreview.fragments.BestAlbumsOfMonthFragment;
 import com.example.andrea.musicreview.fragments.LastReviewsFragment;
+import com.example.andrea.musicreview.fragments.ReviewDetailFragment;
+import com.example.andrea.musicreview.model.Album;
+import com.facebook.share.model.ShareLinkContent;
+import com.facebook.share.widget.ShareDialog;
 
 public abstract class MyBaseActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -51,8 +56,12 @@ public abstract class MyBaseActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        switch(id) {
+            case R.id.action_settings:
+                return true;
+            case R.id.action_share:
+
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
