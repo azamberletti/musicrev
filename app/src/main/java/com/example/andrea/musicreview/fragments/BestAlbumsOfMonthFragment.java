@@ -88,7 +88,6 @@ public class BestAlbumsOfMonthFragment extends android.support.v4.app.Fragment i
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Log.i("CLick", "CLick");
         detailOpener.OpenAlbumReviewDetail(((Album.AlbumBasicInfo) parent.getItemAtPosition(position)).getId());
     }
 

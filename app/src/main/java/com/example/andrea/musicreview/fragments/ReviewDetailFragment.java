@@ -7,7 +7,6 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -28,6 +27,7 @@ import com.facebook.AccessTokenTracker;
 import com.facebook.FacebookSdk;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
+
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -137,8 +137,8 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
                 break;
             case R.id.play_on_spotify:
                 String uri = album.getSpotifyURI();
-                Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-                startActivity(i);
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                startActivity(intent);
                 break;
             case R.id.fb_share:
                 ShareDialog.show(this, new ShareLinkContent.Builder()

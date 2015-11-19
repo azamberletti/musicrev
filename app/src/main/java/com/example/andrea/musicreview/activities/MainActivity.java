@@ -4,8 +4,10 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.Menu;
 import java.net.URL;
 
@@ -34,6 +36,7 @@ public class MainActivity extends MyBaseActivity implements Downloader, DetailOp
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         FacebookSdk.sdkInitialize(getApplicationContext());
         final Intent intent = new Intent(this, LoginActivity.class);
         accessTokenTracker = new AccessTokenTracker() {
@@ -46,7 +49,15 @@ public class MainActivity extends MyBaseActivity implements Downloader, DetailOp
             }
         };
         Bundle b = getIntent().getExtras();
-        if(b != null){
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        accessTokenTracker = new AccessTokenTracker() {
+            @Override
+            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken newAccessToken) {
+                updateWithToken(newAccessToken);
+            }
+        };
+        updateWithToken(AccessToken.getCurrentAccessToken());
+        if(b != null && b.containsKey(ALBUM_ID)){
             OpenAlbumReviewDetail(b.getInt(ALBUM_ID));
         } else {
         getSupportFragmentManager().beginTransaction()
@@ -54,6 +65,23 @@ public class MainActivity extends MyBaseActivity implements Downloader, DetailOp
         }
     }
 
+    private void updateWithToken(AccessToken currentAccessToken) {
+        if (currentAccessToken == null) {
+            Intent i = new Intent(this, LoginActivity.class);
+            Log.i("MAIN_ACTIVITY", "STARTING LOGIN");
+            startActivity(i);
+            finish();
+        } else {
+            AccessToken.setCurrentAccessToken(currentAccessToken);
+            Log.i("MAIN_ACTIVITY", "UPDATING_TOKEN");
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        accessTokenTracker.stopTracking();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -66,12 +94,6 @@ public class MainActivity extends MyBaseActivity implements Downloader, DetailOp
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setIconifiedByDefault(false); // Do not iconify the widget; expand it by default
         return true;
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        accessTokenTracker.stopTracking();
     }
 
     @Override
@@ -91,7 +113,6 @@ public class MainActivity extends MyBaseActivity implements Downloader, DetailOp
                 .addToBackStack(null)
                 .commit();
     }
-
 
     @Override
     public String DownloadFromURL(String URL) {
@@ -131,6 +152,4 @@ public class MainActivity extends MyBaseActivity implements Downloader, DetailOp
         }
 
     }
-
-
 }

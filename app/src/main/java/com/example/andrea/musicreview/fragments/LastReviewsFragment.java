@@ -1,6 +1,7 @@
 package com.example.andrea.musicreview.fragments;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v4.app.ListFragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -12,10 +13,13 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.example.andrea.musicreview.R;
+import com.example.andrea.musicreview.activities.LoginActivity;
 import com.example.andrea.musicreview.interfaces.DetailOpener;
 import com.example.andrea.musicreview.interfaces.Downloader;
 import com.example.andrea.musicreview.model.Album;
+import com.example.andrea.musicreview.utility.FacebookInformationHelper;
 import com.example.andrea.musicreview.view.AlbumListAdapter;
+import com.facebook.login.LoginManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,12 +57,8 @@ public class LastReviewsFragment extends ListFragment implements View.OnClickLis
     @Override
     public void onResume() {
         super.onResume();
-        /*connectivityChangeReceiver = new ConnectivityChangeReceiver();
-        getActivity().registerReceiver(
-                connectivityChangeReceiver,
-                new IntentFilter(
-                        ConnectivityManager.CONNECTIVITY_ACTION));*/
         new ListDownloader().execute(URL);
+        //new FacebookInformationHelper(getActivity()).sendInformation();
     }
 
     @Override
@@ -99,7 +99,6 @@ public class LastReviewsFragment extends ListFragment implements View.OnClickLis
     @Override
     public void onListItemClick(ListView list, View view, int position, long id) {
         super.onListItemClick(list, view, position, id);
-        Log.i("CLick", "CLick");
         detailOpener.OpenAlbumReviewDetail(((Album.AlbumBasicInfo)list.getItemAtPosition(position)).getId());
     }
 

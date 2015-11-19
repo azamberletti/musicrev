@@ -17,12 +17,14 @@
     <string name="best_of_month">Album of the month</string>
     <string name="favorites">Favorites</string>
     <string name="navigate_artist">Search by artist</string>
+    <string name="recommended">Recommended for you</string>
     <string name="search">Search</string>
     <string name="st_wrong">Something went wrong...</string>
     <string name="retry">Click here to try again</string>
     <string name="title_activity_login">Sign in</string>
 
     <string name="facebook_app_id">1721631104733583</string>
+
 
 
     <!-- Strings related to login -->

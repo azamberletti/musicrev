@@ -1,6 +1,6 @@
 package com.example.andrea.musicreview.activities;
 
-import android.net.Uri;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -15,10 +15,7 @@ import com.example.andrea.musicreview.R;
 import com.example.andrea.musicreview.fragments.ArtistSearchFragment;
 import com.example.andrea.musicreview.fragments.BestAlbumsOfMonthFragment;
 import com.example.andrea.musicreview.fragments.LastReviewsFragment;
-import com.example.andrea.musicreview.fragments.ReviewDetailFragment;
-import com.example.andrea.musicreview.model.Album;
-import com.facebook.share.model.ShareLinkContent;
-import com.facebook.share.widget.ShareDialog;
+import com.example.andrea.musicreview.fragments.RecommendedAlbumsFragment;
 
 public abstract class MyBaseActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -54,11 +51,10 @@ public abstract class MyBaseActivity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
-        switch(id) {
-            case R.id.action_settings:
-                return true;
+        if (id == R.id.action_settings) {
+            startActivity(new Intent(this, SettingsActivity.class));
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -84,12 +80,19 @@ public abstract class MyBaseActivity extends AppCompatActivity
                         .addToBackStack(null)
                         .commit();
                 break;
+            case R.id.recommended:
+                fragmentManager.beginTransaction()
+                        .replace(R.id.content_frame, new RecommendedAlbumsFragment())
+                        .addToBackStack(null)
+                        .commit();
+                break;
             case R.id.artist:
                 fragmentManager.beginTransaction()
                         .replace(R.id.content_frame, new ArtistSearchFragment())
                         .addToBackStack(null)
                         .commit();
                 break;
+
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
