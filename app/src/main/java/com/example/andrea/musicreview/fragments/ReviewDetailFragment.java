@@ -20,9 +20,14 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.andrea.musicreview.R;
+import com.example.andrea.musicreview.activities.LoginActivity;
 import com.example.andrea.musicreview.interfaces.DetailOpener;
 import com.example.andrea.musicreview.interfaces.Downloader;
 import com.example.andrea.musicreview.model.Album;
+import com.facebook.AccessToken;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginManager;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -112,8 +117,8 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
                 break;
             case R.id.play_on_spotify:
                 String uri = album.getSpotifyURI();
-                Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
-                startActivity(i);
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                startActivity(intent);
                 break;
             case R.id.general_error_panel:
                 new ReviewDownloader().execute(URL);

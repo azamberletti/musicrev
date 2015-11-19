@@ -1,23 +1,24 @@
 package com.example.andrea.musicreview.fragments;
 
+
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
+import android.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
+import android.widget.AdapterView;
+import android.widget.GridView;
+import android.widget.LinearLayout;
 
 import com.example.andrea.musicreview.R;
 import com.example.andrea.musicreview.interfaces.DetailOpener;
 import com.example.andrea.musicreview.interfaces.Downloader;
-import com.example.andrea.musicreview.model.Artist;
-import com.example.andrea.musicreview.view.ArtistListAdapter;
+import com.example.andrea.musicreview.model.Album;
+import com.example.andrea.musicreview.view.AlbumGridAdapter;
+import com.example.andrea.musicreview.view.AlbumListAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,13 +27,18 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ArtistSearchFragment extends ListFragment implements View.OnClickListener {
-    private RelativeLayout errorMessage;
+/**
+ * A simple {@link Fragment} subclass.
+ */
+public class RecommendedAlbumsFragment extends android.support.v4.app.Fragment implements AdapterView.OnItemClickListener {
+
+
+    private ViewGroup rootView;
+    private LinearLayout errorMessage;
+    private GridView grid;
     private DetailOpener detailOpener;
     private Downloader downloader;
-    private ViewGroup rootView;
-    //    private ConnectivityChangeReceiver connectivityChangeReceiver;
-    private final static String URL = "http://www.saltedmagnolia.com/search_artist.php?key_words=";
+    private final static String URL = "http://www.saltedmagnolia.com/get_best_of_month.php";
 
 
     @Override
@@ -52,6 +58,18 @@ public class ArtistSearchFragment extends ListFragment implements View.OnClickLi
     }
 
     @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        rootView = (ViewGroup) inflater.inflate(R.layout.fragment_recommended_albums, container, false);
+        grid = (GridView) rootView.findViewById(R.id.grid);
+        errorMessage = (LinearLayout) rootView.findViewById(R.id.general_error_panel);
+        errorMessage.setVisibility(View.GONE);
+        grid.setAdapter(new AlbumGridAdapter(getActivity(), R.layout.best_album_item_layout, new ArrayList<Album.AlbumBasicInfo>()));
+        grid.setOnItemClickListener(this);
+        return rootView;
+    }
+
+    @Override
     public void onResume() {
         super.onResume();
         /*connectivityChangeReceiver = new ConnectivityChangeReceiver();
@@ -59,51 +77,21 @@ public class ArtistSearchFragment extends ListFragment implements View.OnClickLi
                 connectivityChangeReceiver,
                 new IntentFilter(
                         ConnectivityManager.CONNECTIVITY_ACTION));*/
+        new ListDownloader().execute(URL);
     }
 
-    @Override
-    public void onPause() {
-        super.onPause();
-        //getActivity().unregisterReceiver(connectivityChangeReceiver);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        rootView = (ViewGroup) inflater.inflate(R.layout.fragment_artist_search, container, false);
-        setListAdapter(new ArtistListAdapter(getActivity(), R.layout.artist_list_item_layout));
-        Button button = (Button) rootView.findViewById(R.id.artist_search_button);
-        button.setOnClickListener(this);
-        errorMessage = (RelativeLayout)rootView.findViewById(R.id.general_error_panel);
-        errorMessage.setOnClickListener(this);
-        errorMessage.setVisibility(View.GONE);
-        return rootView;
-    }
-
-    private List<Artist.ArtistBasicInfo> parse(String s) throws JSONException, ParseException {
+    private List<Album.AlbumBasicInfo> parse(String s) throws JSONException, ParseException {
         JSONArray array = new JSONArray(s);
-        List<Artist.ArtistBasicInfo> list = new ArrayList<>();
+        List<Album.AlbumBasicInfo> list = new ArrayList<>();
         for (int i = 0; i < array.length(); i++) {
-            list.add(new Artist.ArtistBasicInfo(array.getJSONObject(i)));
+            list.add(new Album.AlbumBasicInfo(array.getJSONObject(i)));
         }
         return list;
     }
 
     @Override
-    public void onClick(View v) {
-        switch(v.getId()){
-            case R.id.general_error_panel:
-//                new ListDownloader().execute(URL);
-                break;
-            case R.id.artist_search_button:
-                new ListDownloader().execute(URL + ((EditText) getView().findViewById(R.id.artist_search_bar)).getText());
-        }
-    }
-
-    @Override
-    public void onListItemClick(ListView list, View view, int position, long id) {
-        super.onListItemClick(list, view, position, id);
-        detailOpener.OpenArtistBio(((Artist.ArtistBasicInfo) list.getItemAtPosition(position)).getId());
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        detailOpener.OpenAlbumReviewDetail(((Album.AlbumBasicInfo) parent.getItemAtPosition(position)).getId());
     }
 
     public class ListDownloader extends AsyncTask<String, Void, String> {
@@ -119,7 +107,7 @@ public class ArtistSearchFragment extends ListFragment implements View.OnClickLi
                     return;
                 }
                 errorMessage.setVisibility(View.GONE);
-                ((ArtistListAdapter) getListAdapter()).refreshList(parse(s));
+                ((AlbumGridAdapter) grid.getAdapter()).refreshList(parse(s));
             } catch (JSONException e) {
                 e.printStackTrace();
                 Log.i("ERROR", "JSON_EXCEPTION");
@@ -140,4 +128,5 @@ public class ArtistSearchFragment extends ListFragment implements View.OnClickLi
             rootView.findViewById(R.id.loading_panel).setVisibility(View.VISIBLE);
         }
     }
+
 }

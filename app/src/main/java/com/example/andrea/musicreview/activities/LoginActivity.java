@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.andrea.musicreview.R;
+import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -18,6 +19,7 @@ import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.Profile;
+import com.facebook.ProfileTracker;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
@@ -30,61 +32,79 @@ public class LoginActivity extends AppCompatActivity {
     private LoginButton loginButton;
     private CallbackManager callbackManager;
     private TextView info;
+    private ProfileTracker mProfileTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FacebookSdk.sdkInitialize(getApplicationContext());
+
         setContentView(R.layout.activity_login);
         callbackManager = CallbackManager.Factory.create();
         info = (TextView)findViewById(R.id.info);
-        //ImageView image = (ImageView)findViewById(R.id.profile_image);
-        loginButton = (LoginButton)findViewById(R.id.login_button);
-        loginButton.setReadPermissions(Arrays.asList("public_profile, email, user_birthday, user_friends"));
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-/*                info.setText(
+
+
+
+            //ImageView image = (ImageView)findViewById(R.id.profile_image);
+            loginButton = (LoginButton) findViewById(R.id.login_button);
+            loginButton.setReadPermissions(Arrays.asList("public_profile, email, user_birthday, user_friends, user_likes"));
+            loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+                @Override
+                public void onSuccess(LoginResult loginResult) {
+                info.setText(
                         "User ID: "
                                 + loginResult.getAccessToken().getUserId()
                                 + "\n" +
                                 "Auth Token: "
                                 + loginResult.getAccessToken().getToken()
-                );*/
-                Profile profile = Profile.getCurrentProfile();
+                );
+                    //Profile profile = Profile.getCurrentProfile();
 
-                if (profile != null) {
-                    info.setText("Witam " + profile.getName());
-                    Log.i("getID", profile.getId());
-                }
-                GraphRequest request = GraphRequest.newMeRequest(
-                        loginResult.getAccessToken(),
-                        new GraphRequest.GraphJSONObjectCallback() {
+                    if (Profile.getCurrentProfile() == null) {
+                        mProfileTracker = new ProfileTracker() {
                             @Override
-                            public void onCompleted(
-                                    JSONObject object,
-                                    GraphResponse response) {
-                                // Application code
-                                Log.v("LoginActivity", response.toString());
+                            protected void onCurrentProfileChanged(Profile profile, Profile profile2) {
+                                Log.v("facebook - profile", profile2.getFirstName());
+                                mProfileTracker.stopTracking();
                             }
-                        });
-                Bundle parameters = new Bundle();
-                parameters.putString("fields", "id,name,email,gender, birthday");
-                request.setParameters(parameters);
-                request.executeAsync();
-                finish();
-            }
+                        };
+                        mProfileTracker.startTracking();
+                    } else {
+                        Profile profile = Profile.getCurrentProfile();
+                        Log.v("facebook - profile", profile.getFirstName());
+                    }
+                    GraphRequest request = GraphRequest.newMeRequest(
+                            loginResult.getAccessToken(),
+                            new GraphRequest.GraphJSONObjectCallback() {
+                                @Override
+                                public void onCompleted(
+                                        JSONObject object,
+                                        GraphResponse response) {
+                                    // Application code
+                                    Log.v("LoginActivity", response.toString());
+                                }
+                            });
+                    Bundle parameters = new Bundle();
+                    parameters.putString("fields", "id,name,email,gender,birthday,music");
+                    request.setParameters(parameters);
+                    request.executeAsync();
+                    openNextActivity();
+                }
 
-            @Override
-            public void onCancel() {
-                info.setText("Login attempt canceled.");
-            }
+                @Override
+                public void onCancel() {
+                    info.setText("Login attempt canceled.");
+                }
 
-            @Override
-            public void onError(FacebookException e) {
-                info.setText("Login attempt failed.");
-            }
-        });
+                @Override
+                public void onError(FacebookException e) {
+                    info.setText("Login attempt failed.");
+                }
+            });
+
+
+
+
+
 
 
 /*      FacebookSdk.sdkInitialize(getApplicationContext());
@@ -102,12 +122,19 @@ public class LoginActivity extends AppCompatActivity {
 //        ft.add(R.id.container, new LoginFragment()).commit();
     }
 
+
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
-
+    private void openNextActivity(){
+        Log.i("log", "log");
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

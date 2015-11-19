@@ -10,6 +10,8 @@
             android:title="@string/best_of_month" />
         <item android:id="@+id/artist"
             android:title="@string/navigate_artist" />
+        <item android:id="@+id/recommended"
+            android:title="@string/recommended" />
     </group>
 
 <!--    <item android:title="Communicate">

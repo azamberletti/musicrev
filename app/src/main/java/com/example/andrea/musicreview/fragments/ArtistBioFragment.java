@@ -17,6 +17,7 @@ import com.example.andrea.musicreview.interfaces.DetailOpener;
 import com.example.andrea.musicreview.interfaces.Downloader;
 import com.example.andrea.musicreview.model.Album;
 import com.example.andrea.musicreview.model.Artist;
+import com.example.andrea.musicreview.utility.FacebookInformationHelper;
 import com.example.andrea.musicreview.view.AlbumGridAdapter;
 
 import org.json.JSONArray;
@@ -114,6 +115,7 @@ public class ArtistBioFragment extends android.support.v4.app.Fragment implement
         super.onResume();
         String request = ARTIST_BIO_URL + artistID;
         new BioDownloader().execute(request);
+
     }
 
     @Override
