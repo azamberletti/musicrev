@@ -20,21 +20,22 @@
                 android:id="@+id/artist_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textStyle="normal"
                 android:layout_marginTop="20dp"
                 android:background="?android:attr/selectableItemBackground"
                 android:clickable="true"
                 android:gravity="center"
                 android:textAllCaps="false"
                 android:textColor="@color/text_color_light"
-                android:textSize="36sp" />
+                android:textSize="30sp" />
 
             <TextView
                 android:id="@+id/album_tile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:textColor="@color/text_color_dark"
-                android:textSize="32sp" />
+                android:textColor="@color/accent_color"
+                android:textSize="36sp" />
 
             <TextView
                 android:id="@+id/grade"
@@ -49,10 +50,20 @@
                 android:id="@+id/album_cover"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
                 android:layout_marginTop="16dp"
                 android:scaleType="centerCrop" />
+
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:src="@color/text_color_dark"
+                />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -62,46 +73,77 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@color/accent_color"
-                    android:orientation="vertical"
-                    android:layout_gravity="center"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        >
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="2015"
-                        android:textColor="@color/text_color_dark"
-                        android:textSize="16sp" />
+                     android:layout_width="match_parent"
+                     android:layout_height="match_parent"
+                     android:layout_weight="1"
+                     android:background="@color/primary_color_dark"
+                     android:orientation="vertical"
+                     android:layout_gravity="center"
+                     android:paddingLeft="20dp"
+                     android:paddingRight="20dp">
+                     <!--<LinearLayout
+                         android:layout_width="match_parent"
+                         android:layout_height="match_parent"
+                         android:orientation="vertical"
+                         >
+                     <TextView
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:text="2015"
+                         android:textColor="@color/text_color_dark"
+                         android:textSize="16sp" />
 
-                    <TextView
+                     <TextView
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:text="RoadRunner"
+                         android:textColor="@color/text_color_dark"
+                         android:textSize="16sp" />
+                     </LinearLayout>-->
+                    <ImageButton
+                        android:id="@+id/favorite_icon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="RoadRunner"
-                        android:textColor="@color/text_color_dark"
-                        android:textSize="16sp" />
-                    </LinearLayout>
+                        android:background="@color/primary_color_dark"
+                        android:clickable="true"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:src="@mipmap/ic_ic_favorite_border_white_36dp" />
 
                 </LinearLayout>
 
-                <ImageButton
-                    android:id="@+id/play_on_spotify"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@color/primary_color_dark"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp">
+
+
+
+                <ImageButton
+                    android:id="@+id/play_on_spotify"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:background="@color/primary_color_dark"
                     android:src="@mipmap/play_green"
                     android:text="Spotify" />
-
+                </LinearLayout>
             </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:src="@color/text_color_dark"
+                />
 
             <TextView
                 android:id="@+id/album_review"
@@ -114,14 +156,7 @@
                 android:textColor="@color/text_color_light"
                 android:textSize="18sp" />
 
-            <ImageButton
-                android:id="@+id/favorite_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="20dp"
-                android:background="@color/primary_color_dark"
-                android:clickable="true"
-                android:src="@mipmap/ic_ic_favorite_border_white_36dp" />
+
 
         </LinearLayout>
 

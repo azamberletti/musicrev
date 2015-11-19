@@ -15,9 +15,11 @@
 
         <EditText
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="80dp"
             android:id="@+id/artist_search_bar"
             android:inputType="text"
+            android:paddingLeft="15dp"
+            android:hint="Search artist.."
             android:background="@color/primary_color"/>
         
         <Button

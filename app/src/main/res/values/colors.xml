@@ -6,7 +6,10 @@
     <!--<color name="primary_color_dark">#303F9F</color>-->
     <color name="background_color">#455A64</color>
     <color name="text_color_light">#bebebe</color>
+    <color name="primary_color_light">#FFFFFF</color>
     <color name="text_color_dark">#757575</color>
-    <color name="accent_color">#FF4081</color>
+    <color name="accent_color">#FF5252</color>
+
+    <color name="black_overlay">#66000000</color>
     <!--<color name="primary_color_transparent">#F8263238</color>-->
 </resources>

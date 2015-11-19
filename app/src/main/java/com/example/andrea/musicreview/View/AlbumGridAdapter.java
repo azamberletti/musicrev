@@ -18,12 +18,12 @@ import java.util.List;
 /**
  * Created by luca-campana on 13/11/15.
  */
-public class BestAlbumGridAdapter extends ArrayAdapter<Album.AlbumBasicInfo> {
+public class AlbumGridAdapter extends ArrayAdapter<Album.AlbumBasicInfo> {
 
     private int rowLayout;
     private Context context;
 
-    public BestAlbumGridAdapter(Context context, int resource, List<Album.AlbumBasicInfo> objects) {
+    public AlbumGridAdapter(Context context, int resource, List<Album.AlbumBasicInfo> objects) {
         super(context, resource, objects);
         this.context = context;
         this.rowLayout = resource;

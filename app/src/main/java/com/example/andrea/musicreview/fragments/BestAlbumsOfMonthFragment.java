@@ -11,7 +11,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.LinearLayout;
 
-import com.example.andrea.musicreview.view.BestAlbumGridAdapter;
+import com.example.andrea.musicreview.view.AlbumGridAdapter;
 import com.example.andrea.musicreview.R;
 import com.example.andrea.musicreview.interfaces.DetailOpener;
 import com.example.andrea.musicreview.interfaces.Downloader;
@@ -61,7 +61,7 @@ public class BestAlbumsOfMonthFragment extends android.support.v4.app.Fragment i
         grid = (GridView) rootView.findViewById(R.id.grid);
         errorMessage = (LinearLayout) rootView.findViewById(R.id.general_error_panel);
         errorMessage.setVisibility(View.GONE);
-        grid.setAdapter(new BestAlbumGridAdapter(getActivity(), R.layout.best_album_item_layout, new ArrayList<Album.AlbumBasicInfo>()));
+        grid.setAdapter(new AlbumGridAdapter(getActivity(), R.layout.best_album_item_layout, new ArrayList<Album.AlbumBasicInfo>()));
         grid.setOnItemClickListener(this);
         return rootView;
     }
@@ -105,7 +105,7 @@ public class BestAlbumsOfMonthFragment extends android.support.v4.app.Fragment i
                     return;
                 }
                 errorMessage.setVisibility(View.GONE);
-                ((BestAlbumGridAdapter) grid.getAdapter()).refreshList(parse(s));
+                ((AlbumGridAdapter) grid.getAdapter()).refreshList(parse(s));
             } catch (JSONException e) {
                 e.printStackTrace();
                 Log.i("ERROR", "JSON_EXCEPTION");

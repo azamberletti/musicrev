@@ -7,24 +7,24 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <include layout="@layout/general_error_layout"/>
-        <include layout="@layout/loading_panel"/>
+        <include layout="@layout/general_error_layout" />
+
+        <include layout="@layout/loading_panel" />
 
         <TextView
             android:id="@+id/artist_name"
-            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textSize="36sp"
-            android:textAllCaps="false"
+            android:layout_marginTop="20dp"
             android:background="?android:attr/selectableItemBackground"
-            android:textColor="@color/text_color_dark"
-            android:clickable="true" />
-
+            android:clickable="true"
+            android:gravity="center"
+            android:textAllCaps="false"
+            android:textColor="@color/accent_color"
+            android:textSize="36sp" />
 
 
         <!--        <TextView
@@ -39,16 +39,69 @@
 
         <TextView
             android:id="@+id/artist_bio"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:layout_marginBottom="20dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:textColor="@color/text_color_light">
+            android:layout_marginTop="20dp"
+            android:textColor="@color/text_color_light"
+            android:textSize="18sp"></TextView>
 
-        </TextView>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginLeft="3dp"
+            android:layout_marginRight="3dp"
+            android:src="@color/primary_color_light" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="20dp"
+                android:paddingLeft="5dp"
+                android:text="Albums by "
+                android:textColor="@color/text_color_light"
+                android:textSize="18sp"></TextView>
+
+            <TextView
+                android:id="@+id/album_from"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/accent_color"
+                android:textSize="18sp"></TextView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <GridView
+                android:id="@+id/grid"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:background="@color/primary_color_dark"
+                android:clipToPadding="false"
+                android:horizontalSpacing="5dp"
+                android:numColumns="2"
+                android:paddingTop="5dp"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="5dp" />
+        </LinearLayout>
+
     </LinearLayout>
 </ScrollView>
 
