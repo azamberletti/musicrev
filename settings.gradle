@@ -1,1 +1,1 @@
-include ':app', ':picasso-2.5.2', ':facebook-android-sdk-4.7.0'
+include ':facebook-android-sdk-4.7.0', ':app', ':picasso-2.5.2'
