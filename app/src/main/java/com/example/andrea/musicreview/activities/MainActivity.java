@@ -47,16 +47,13 @@ public class MainActivity extends MyBaseActivity implements Downloader, DetailOp
                 }
             }
         };*/
-
         Bundle b = getIntent().getExtras();
-      accessTokenTracker = new AccessTokenTracker() {
+        accessTokenTracker = new AccessTokenTracker() {
             @Override
             protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken newAccessToken) {
-                updateWithToken(newAccessToken);
+                launchLogin();
             }
         };
-        //accessTokenTracker.startTracking();
-        updateWithToken(AccessToken.getCurrentAccessToken());
         if(b != null && b.containsKey(ALBUM_ID)){
             OpenAlbumReviewDetail(b.getInt(ALBUM_ID));
         } else {
@@ -65,14 +62,17 @@ public class MainActivity extends MyBaseActivity implements Downloader, DetailOp
         }
     }
 
-    private void updateWithToken(AccessToken currentAccessToken) {
-        if (currentAccessToken == null) {
-            Intent i = new Intent(this, LoginActivity.class);
-            Log.i("MAIN_ACTIVITY", "STARTING LOGIN");
-            startActivity(i);
+    @Override
+    protected void onResume(){
+        super.onResume();
+        launchLogin();
+    }
+
+    private void launchLogin(){
+        Intent intent = new Intent(this, LoginActivity.class);
+        if(AccessToken.getCurrentAccessToken()==null) {
+            startActivity(intent);
             finish();
-        } else {
-            Log.i("MAIN_ACTIVITY", "UPDATING_TOKEN");
         }
     }
 
