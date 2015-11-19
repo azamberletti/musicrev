@@ -38,6 +38,7 @@ public class Album {
             this.spotifyURI = (String) source.get("Spotify_URI");
             this.dateAdded.setTime(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.ITALY).parse((String) source.get("Date_added")));
             this.review = (String) source.get("Review");
+            this.isFavorite = Boolean.parseBoolean(source.getString("Favorite"));
         } catch (JSONException e) {
             e.printStackTrace();
         }

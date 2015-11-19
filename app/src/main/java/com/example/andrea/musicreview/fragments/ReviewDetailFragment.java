@@ -23,6 +23,9 @@ import com.example.andrea.musicreview.R;
 import com.example.andrea.musicreview.interfaces.DetailOpener;
 import com.example.andrea.musicreview.interfaces.Downloader;
 import com.example.andrea.musicreview.model.Album;
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
+import com.facebook.FacebookSdk;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 import com.squareup.picasso.Picasso;
@@ -49,10 +52,7 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
     private Album album;
     private int albumID;
     private DetailOpener detailOpener;
-
-    public Album getShowedAlbum() {
-        return album;
-    }
+    private AccessTokenTracker accessTokenTracker;
 
     public static ReviewDetailFragment newInstance(int id) {
         ReviewDetailFragment fragment = new ReviewDetailFragment();
@@ -80,10 +80,27 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
+        setURL();
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState){
+        super.onActivityCreated(savedInstanceState);
+        FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
+        accessTokenTracker = new AccessTokenTracker() {
+            @Override
+            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken,
+                                                       AccessToken currentAccessToken) {
+                setURL();
+            }
+        };
+    }
+
+    private void setURL(){
+        if (getArguments() != null && AccessToken.getCurrentAccessToken()!=null) {
             albumID = getArguments().getInt(ALBUM_ID);
+            URL = URL + albumID + "&user_id=" + AccessToken.getCurrentAccessToken().getUserId();
         }
-        URL = URL + albumID;
     }
 
     @Override
@@ -141,6 +158,12 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
         }
     }
 
+    @Override
+    public void onDestroy(){
+        super.onDestroy();
+        accessTokenTracker.stopTracking();
+    }
+
     private Album parse(String input) throws JSONException, ParseException{
         JSONArray array = new JSONArray(input);
         JSONObject row = array.getJSONObject(0);
@@ -195,7 +218,7 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            RelativeLayout loadingPanel = (RelativeLayout)getView().findViewById(R.id.loading_panel);
+            RelativeLayout loadingPanel = (RelativeLayout)rootView.findViewById(R.id.loading_panel);
             if(loadingPanel != null){
                 loadingPanel.setVisibility(View.VISIBLE);
             }

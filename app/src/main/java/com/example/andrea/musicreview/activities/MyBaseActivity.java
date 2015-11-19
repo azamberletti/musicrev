@@ -59,9 +59,6 @@ public abstract class MyBaseActivity extends AppCompatActivity
         switch(id) {
             case R.id.action_settings:
                 return true;
-            case R.id.action_share:
-
-                return true;
         }
 
         return super.onOptionsItemSelected(item);
