@@ -86,14 +86,14 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
     @Override
     public void onActivityCreated(Bundle savedInstanceState){
         super.onActivityCreated(savedInstanceState);
-        FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
-        accessTokenTracker = new AccessTokenTracker() {
-            @Override
-            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken,
-                                                       AccessToken currentAccessToken) {
-                setURL();
-            }
-        };
+//        FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
+//        accessTokenTracker = new AccessTokenTracker() {
+//            @Override
+//            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken,
+//                                                       AccessToken currentAccessToken) {
+//                setURL();
+//            }
+//        };
     }
 
     private void setURL(){

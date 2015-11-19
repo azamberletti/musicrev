@@ -36,27 +36,14 @@ public class MainActivity extends MyBaseActivity implements Downloader, DetailOp
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        final Intent intent = new Intent(this, LoginActivity.class);
-        accessTokenTracker = new AccessTokenTracker() {
-            @Override
-            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken,
-                                                       AccessToken currentAccessToken) {
-                if(AccessToken.getCurrentAccessToken()==null) {
-                    startActivity(intent);
-                }
-            }
-        };
         Bundle b = getIntent().getExtras();
         FacebookSdk.sdkInitialize(getApplicationContext());
         accessTokenTracker = new AccessTokenTracker() {
             @Override
             protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken newAccessToken) {
-                updateWithToken(newAccessToken);
+                launchLogin();
             }
         };
-        updateWithToken(AccessToken.getCurrentAccessToken());
         if(b != null && b.containsKey(ALBUM_ID)){
             OpenAlbumReviewDetail(b.getInt(ALBUM_ID));
         } else {
@@ -65,15 +52,17 @@ public class MainActivity extends MyBaseActivity implements Downloader, DetailOp
         }
     }
 
-    private void updateWithToken(AccessToken currentAccessToken) {
-        if (currentAccessToken == null) {
-            Intent i = new Intent(this, LoginActivity.class);
-            Log.i("MAIN_ACTIVITY", "STARTING LOGIN");
-            startActivity(i);
+    @Override
+    protected void onResume(){
+        super.onResume();
+        launchLogin();
+    }
+
+    private void launchLogin(){
+        Intent intent = new Intent(this, LoginActivity.class);
+        if(AccessToken.getCurrentAccessToken()==null) {
+            startActivity(intent);
             finish();
-        } else {
-            AccessToken.setCurrentAccessToken(currentAccessToken);
-            Log.i("MAIN_ACTIVITY", "UPDATING_TOKEN");
         }
     }
 
