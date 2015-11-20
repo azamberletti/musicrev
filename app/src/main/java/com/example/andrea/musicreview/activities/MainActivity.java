@@ -35,23 +35,13 @@ public class MainActivity extends MyBaseActivity implements Downloader, DetailOp
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
-        final Intent intent = new Intent(this, LoginActivity.class);
-/*        accessTokenTracker = new AccessTokenTracker() {
-            @Override
-            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken,
-                                                       AccessToken currentAccessToken) {
-                if(AccessToken.getCurrentAccessToken()==null) {
-                    startActivity(intent);
-                }
-            }
-        };*/
-        Bundle b = getIntent().getExtras();
         accessTokenTracker = new AccessTokenTracker() {
             @Override
             protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken newAccessToken) {
                 launchLogin();
             }
         };
+        Bundle b = getIntent().getExtras();
         if(b != null && b.containsKey(ALBUM_ID)){
             OpenAlbumReviewDetail(b.getInt(ALBUM_ID));
         } else {
