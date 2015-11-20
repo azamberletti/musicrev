@@ -33,10 +33,10 @@ public class BestAlbumsOfMonthFragment extends android.support.v4.app.Fragment i
     private Downloader downloader;
     private final static String URL = "http://www.saltedmagnolia.com/get_best_of_month.php";
 
+    @SuppressWarnings("deprecation")
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-//
         // This makes sure that the container activity has implemented
         // the callback interface. If not, it throws an exception
         try {

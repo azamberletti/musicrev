@@ -44,5 +44,6 @@
     <string name="action_share">Share</string>
     <string name="share_button_desc">Share button</string>
     <string name="spotify">Spotify</string>
+    <string name="favorite_albums">Your Favorite Albums</string>
 
 </resources>
