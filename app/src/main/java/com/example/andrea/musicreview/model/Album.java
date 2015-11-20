@@ -1,5 +1,8 @@
 package com.example.andrea.musicreview.model;
 
+import android.support.annotation.BoolRes;
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -26,6 +29,10 @@ public class Album {
         this.isFavorite = isFavorite;
     }
 
+    public void switchFavorite(){
+        this.isFavorite = !this.isFavorite;
+    }
+
     public Album(JSONObject source) throws ParseException {
         try {
             this.basicInfo = new AlbumBasicInfo(Integer.parseInt((String) source.get("IDAlbum")),
@@ -38,7 +45,7 @@ public class Album {
             this.spotifyURI = (String) source.get("Spotify_URI");
             this.dateAdded.setTime(new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.ITALY).parse((String) source.get("Date_added")));
             this.review = (String) source.get("Review");
-            this.isFavorite = Boolean.parseBoolean(source.getString("Favorite"));
+            this.isFavorite = source.getString("Favorite").equals("1");
         } catch (JSONException e) {
             e.printStackTrace();
         }

@@ -48,6 +48,8 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
     private LinearLayout errorMessage;
     private Downloader downloader;
     private String URL = "http://www.saltedmagnolia.com/get_review_detail.php?album_id=";
+    private String URL_SET_FAVORITE = "http://www.saltedmagnolia.com/set_favorite.php?album_id=";
+    private String URL_DISCARD_FAVORITE = "http://www.saltedmagnolia.com/discard_favorite.php?album_id=";
     private final static String ALBUM_ID = "album_id";
     private Album album;
     private int albumID;
@@ -83,19 +85,6 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
         setURL();
     }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState){
-        super.onActivityCreated(savedInstanceState);
-//        FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
-//        accessTokenTracker = new AccessTokenTracker() {
-//            @Override
-//            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken,
-//                                                       AccessToken currentAccessToken) {
-//                setURL();
-//            }
-//        };
-    }
-
     private void setURL(){
         if (getArguments() != null && AccessToken.getCurrentAccessToken()!=null) {
             albumID = getArguments().getInt(ALBUM_ID);
@@ -129,8 +118,15 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.favorite_icon:
-                this.album.setIsFavorite(!this.album.isFavorite());
-                setFavoriteIcon(this.album.isFavorite());
+                if(AccessToken.getCurrentAccessToken()!=null){
+                    if(this.album.isFavorite()){
+                        new FavoriteUpdater().execute(URL_DISCARD_FAVORITE + albumID + "&user_id="
+                                + AccessToken.getCurrentAccessToken().getUserId());
+                    } else {
+                        new FavoriteUpdater().execute(URL_SET_FAVORITE + albumID + "&user_id="
+                                + AccessToken.getCurrentAccessToken().getUserId());
+                    }
+                }
                 break;
             case R.id.artist_name:
                 detailOpener.OpenArtistBio(album.getArtist().getId());
@@ -161,7 +157,6 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
     @Override
     public void onDestroy(){
         super.onDestroy();
-        accessTokenTracker.stopTracking();
     }
 
     private Album parse(String input) throws JSONException, ParseException{
@@ -222,6 +217,32 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
             if(loadingPanel != null){
                 loadingPanel.setVisibility(View.VISIBLE);
             }
+        }
+    }
+
+    public class FavoriteUpdater extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+//                rootView.findViewById(R.id.loading_panel).setVisibility(View.GONE);
+//                rootView.findViewById(R.id.scroll_view).setVisibility(View.VISIBLE);
+            if(s.equals("NON_CONNECTED_TO_INTERNET_ERROR") || s.equals("CONNECTION_TO_SERVER_ERROR") || !(s.charAt(0)=='1')){
+                Log.i("ERROR", s);
+            } else {
+                album.switchFavorite();
+                setFavoriteIcon(album.isFavorite());
+            }
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            return downloader.DownloadFromURL(params[0]);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
         }
     }
 }
