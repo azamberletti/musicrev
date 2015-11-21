@@ -217,7 +217,7 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
-//                rootView.findViewById(R.id.loading_panel).setVisibility(View.GONE);
+                rootView.findViewById(R.id.loading_panel).setVisibility(View.GONE);
 //                rootView.findViewById(R.id.scroll_view).setVisibility(View.VISIBLE);
             if(s.equals("NON_CONNECTED_TO_INTERNET_ERROR") || s.equals("CONNECTION_TO_SERVER_ERROR") || !(s.charAt(0)=='1')){
                 Log.i("ERROR", s);
@@ -235,6 +235,7 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            rootView.findViewById(R.id.loading_panel).setVisibility(View.VISIBLE);
         }
     }
 }

@@ -35,8 +35,8 @@ public abstract class AlbumGridFragment extends android.support.v4.app.Fragment 
     private ViewGroup rootView;
     private LinearLayout errorMessage;
     private GridView grid;
-    private DetailOpener detailOpener;
-    private Downloader downloader;
+    protected DetailOpener detailOpener;
+    protected Downloader downloader;
 
 
     @SuppressWarnings("deprecation")
@@ -67,17 +67,6 @@ public abstract class AlbumGridFragment extends android.support.v4.app.Fragment 
         return rootView;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        /*connectivityChangeReceiver = new ConnectivityChangeReceiver();
-        getActivity().registerReceiver(
-                connectivityChangeReceiver,
-                new IntentFilter(
-                        ConnectivityManager.CONNECTIVITY_ACTION));*/
-        new ListDownloader().execute(getURL());
-    }
-
     private List<Album.AlbumBasicInfo> parse(String s) throws JSONException, ParseException {
         JSONArray array = new JSONArray(s);
         List<Album.AlbumBasicInfo> list = new ArrayList<>();
@@ -94,38 +83,16 @@ public abstract class AlbumGridFragment extends android.support.v4.app.Fragment 
 
     public abstract String getURL();
 
-    public class ListDownloader extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected void onPostExecute(String s) {
-            super.onPostExecute(s);
-            try {
-                rootView.findViewById(R.id.loading_panel).setVisibility(View.GONE);
-                if(s.equals("NON_CONNECTED_TO_INTERNET_ERROR") || s.equals("CONNECTION_TO_SERVER_ERROR")){
-                    Log.i("ERROR", s);
-                    errorMessage.setVisibility(View.VISIBLE);
-                    return;
-                }
-                errorMessage.setVisibility(View.GONE);
-                ((AlbumGridAdapter) grid.getAdapter()).refreshList(parse(s));
-            } catch (JSONException e) {
-                e.printStackTrace();
-                Log.i("ERROR", "JSON_EXCEPTION");
-                errorMessage.setVisibility(View.VISIBLE);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-            return downloader.DownloadFromURL(params[0]);
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            rootView.findViewById(R.id.loading_panel).setVisibility(View.VISIBLE);
+    protected void setSource(String s){
+        try {
+            ((AlbumGridAdapter) grid.getAdapter()).refreshList(parse(s));
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.i("ERROR", "JSON_EXCEPTION");
+            errorMessage.setVisibility(View.VISIBLE);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            Log.i("ERROR", "PARSE_EXCEPTION");
         }
     }
 
