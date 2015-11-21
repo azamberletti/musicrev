@@ -4,20 +4,13 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 
-import com.example.andrea.musicreview.R;
-import com.example.andrea.musicreview.model.User;
-import com.example.andrea.musicreview.view.ArtistListAdapter;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 
-import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -27,7 +20,6 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.text.ParseException;
 
 /**
  * Created by luca-campana on 19/11/15.
@@ -43,8 +35,6 @@ public class FacebookInformationHelper {
     }
 
     public void sendInformation() {
-
-        String response;
         GraphRequest request = GraphRequest.newMeRequest(
                 AccessToken.getCurrentAccessToken(),
                 new GraphRequest.GraphJSONObjectCallback() {
@@ -52,8 +42,7 @@ public class FacebookInformationHelper {
                     public void onCompleted(
                             JSONObject object,
                             GraphResponse response) {
-                        // Application code
-                        Log.v("FACEBOOK_JSON", object.toString());
+                        Log.v("FACEBOOK_RESPONSE", object.toString());
                         facebookAPIResponse = object;
                         new ListDownloader().execute("");
                     }
@@ -64,7 +53,7 @@ public class FacebookInformationHelper {
         request.executeAsync();
     }
 
-    private void SendToURL(String URL) {
+    private void sendToURL(String URL) {
         InputStream is = null;
         OutputStream os = null;
         if (ConnectionHandler.isConnected(context)) {
@@ -77,16 +66,9 @@ public class FacebookInformationHelper {
                 conn.setRequestMethod("POST");
                 conn.setDoOutput(true);
                 conn.setDoInput(true);
-/*                int response = conn.getResponseCode();
-                if (response != HttpURLConnection.HTTP_OK) {
-                    Log.i("ERROR_CODE", String.valueOf(response));
-                    throw new IOException();
-                }*/
-
                 os = conn.getOutputStream();
                 BufferedWriter wr = new BufferedWriter(
                         new OutputStreamWriter(os, "UTF-8"));
-                //BufferedOutputStream wr = new BufferedOutputStream(conn.getOutputStream());
                 wr.write(facebookAPIResponse.toString());
                 wr.flush();
                 wr.close();
@@ -97,20 +79,7 @@ public class FacebookInformationHelper {
                 char[] buffer = new char[len];
                 reader.read(buffer);
                 String st = new String(buffer);
-                Log.i("RESPONSE", st);
-
-/*
-                StringBuilder sb = new StringBuilder();
-                BufferedReader br = new BufferedReader(new InputStreamReader(
-                        conn.getInputStream(), "utf-8"));
-                String line = null;
-                while ((line = br.readLine()) != null) {
-                    sb.append(line + "\n");
-                    Log.i("RESPONSE", "" + sb.toString());
-                }
-                br.close();*/
-
-
+                Log.i("SERVER_RESPONSE", st);
             } catch (IOException e) {
                 Log.i("ERROR", e.toString());
             } finally {
@@ -139,7 +108,7 @@ public class FacebookInformationHelper {
 
         @Override
         protected String doInBackground(String... params) {
-            SendToURL(URL);
+            sendToURL(URL);
             return "ok";
         }
 
