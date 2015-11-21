@@ -1,6 +1,8 @@
 package com.example.andrea.musicreview.fragments;
 
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,17 +14,57 @@ import com.facebook.AccessToken;
 public class FavoriteFragment extends AlbumGridFragment {
 
     private final static String URL = "http://www.saltedmagnolia.com/get_favorite_albums.php?user_id=";
+    private View rootView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        rootView = super.onCreateView(inflater, container, savedInstanceState);
         TextView title = (TextView) rootView.findViewById(R.id.grid_title);
         title.setText(R.string.favorite_albums);
         return rootView;
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        /*connectivityChangeReceiver = new ConnectivityChangeReceiver();
+        getActivity().registerReceiver(
+                connectivityChangeReceiver,
+                new IntentFilter(
+                        ConnectivityManager.CONNECTIVITY_ACTION));*/
+        new ListDownloader().execute(getURL());
+    }
+
+    @Override
     public String getURL() {
         return URL + AccessToken.getCurrentAccessToken().getUserId();
+    }
+
+    public class ListDownloader extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            rootView.findViewById(R.id.loading_panel).setVisibility(View.GONE);
+            View errorMessage = rootView.findViewById(R.id.general_error_panel);
+            if (s.equals("NON_CONNECTED_TO_INTERNET_ERROR") || s.equals("CONNECTION_TO_SERVER_ERROR")) {
+                Log.i("ERROR", s);
+                errorMessage.setVisibility(View.VISIBLE);
+                return;
+            }
+            errorMessage.setVisibility(View.GONE);
+            setSource(s);
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            return downloader.DownloadFromURL(params[0]);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            rootView.findViewById(R.id.loading_panel).setVisibility(View.VISIBLE);
+        }
     }
 }
