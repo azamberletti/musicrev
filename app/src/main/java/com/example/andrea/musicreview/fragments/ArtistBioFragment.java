@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -19,6 +20,7 @@ import com.example.andrea.musicreview.model.Album;
 import com.example.andrea.musicreview.model.Artist;
 import com.example.andrea.musicreview.utility.FacebookInformationHelper;
 import com.example.andrea.musicreview.view.AlbumGridAdapter;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -91,13 +93,15 @@ public class ArtistBioFragment extends android.support.v4.app.Fragment implement
         JSONArray array = new JSONArray(s);
         String name = "";
         String bio = "";
+        String image = "";
         for (int i = 0; i < array.length(); i++) {
             if(!array.getJSONObject(i).isNull("Bio")){
                 bio = (String) array.getJSONObject(i).get("Bio");
                 name = (String) array.getJSONObject(i).get("Name");
+                image = (String) array.getJSONObject(i).get("Image");
             }
         }
-        return new Artist(artistID, name, bio);
+        return new Artist(artistID, name, bio, image);
     }
     private List<Album.AlbumBasicInfo> parseArtistAlbums(String s) throws JSONException, ParseException {
         JSONArray array = new JSONArray(s);
@@ -147,6 +151,11 @@ public class ArtistBioFragment extends android.support.v4.app.Fragment implement
                 artist = parse(s);
                 ((TextView)rootView.findViewById(R.id.artist_name)).setText(artist.getName());
                 ((TextView)rootView.findViewById(R.id.artist_bio)).setText(artist.getBio());
+                Picasso.with(getActivity()).load("http://www.saltedmagnolia.com/" + artist.getImage())
+                        .resize(600, 200)
+                        .centerCrop()
+                        .into(((ImageView) rootView.findViewById(R.id.image)));
+                        ;
                 albumFrom.setText(artist.getName());
                 ((AlbumGridAdapter) grid.getAdapter()).refreshList(parseArtistAlbums(s));
             } catch (JSONException e) {

@@ -14,7 +14,7 @@ public class Artist {
             this.basicInfo = new ArtistBasicInfo(
                     Integer.parseInt((String) source.get("IDArtist")),
                     (String)source.get("Name"),
-                    ""
+                    (String)source.get("Image")
             );
             this.bio = (String)source.get("Bio");
         } catch (JSONException e) {
@@ -22,8 +22,8 @@ public class Artist {
         }
     }
 
-    public Artist(int id, String name, String bio) {
-        this.basicInfo = new ArtistBasicInfo(id, name, "");
+    public Artist(int id, String name, String bio, String image) {
+        this.basicInfo = new ArtistBasicInfo(id, name, image);
         this.bio = bio;
     }
 
@@ -37,6 +37,10 @@ public class Artist {
 
     public String getBio() {
         return bio;
+    }
+
+    public String getImage(){
+        return this.basicInfo.imagePath;
     }
 
     public static class ArtistBasicInfo{

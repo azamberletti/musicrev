@@ -37,7 +37,7 @@ public class Album {
         try {
             this.basicInfo = new AlbumBasicInfo(Integer.parseInt((String) source.get("IDAlbum")),
                     (String) source.get("Title"),
-                    new Artist(Integer.parseInt((String) source.get("IDArtist")), (String) source.get("Name"), null),
+                    new Artist(Integer.parseInt((String) source.get("IDArtist")), (String) source.get("Name"), null, (String) source.get("Image")),
                     (String) source.get("Image"),
                     Integer.parseInt((String) source.get("Grade")));
             this.genre = (String) source.get("Genre");
@@ -103,7 +103,7 @@ public class Album {
             try {
                 this.id = Integer.parseInt((String) source.get("IDAlbum"));
                 this.title = (String) source.get("Title");
-                this.artist = new Artist(Integer.parseInt((String) source.get("IDArtist")), (String) source.get("Name"), null);
+                this.artist = new Artist(Integer.parseInt((String) source.get("IDArtist")), (String) source.get("Name"), null, null);
                 this.imageURL = (String) source.get("Image");
                 this.grade = Integer.parseInt((String) source.get("Grade"));
             } catch (JSONException e) {
