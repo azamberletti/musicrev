@@ -1,7 +1,6 @@
 package com.example.andrea.musicreview.fragments;
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -22,8 +21,6 @@ import com.example.andrea.musicreview.interfaces.DetailOpener;
 import com.example.andrea.musicreview.interfaces.Downloader;
 import com.example.andrea.musicreview.model.Album;
 import com.facebook.AccessToken;
-import com.facebook.AccessTokenTracker;
-import com.facebook.FacebookSdk;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
 import com.squareup.picasso.Picasso;
@@ -32,15 +29,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import java.text.ParseException;
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class ReviewDetailFragment extends android.support.v4.app.Fragment implements View.OnClickListener {
 
     public static final String FRAGMENT_TAG = "ReviewDetailFragment";
     private ViewGroup rootView;
     private ImageButton favoriteButton;
-    private Drawable favoriteIcon;
     private LinearLayout errorMessage;
     private Downloader downloader;
     private String URL = "http://www.saltedmagnolia.com/get_review_detail.php?album_id=";
@@ -48,6 +41,8 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
     private Album album;
     private int albumID;
     private DetailOpener detailOpener;
+    private final static String URL_SET_FAVORITE = "http://www.saltedmagnolia.com/set_favorite.php?album_id=";
+    private final static String URL_DISCARD_FAVORITE = "http://www.saltedmagnolia.com/discard_favorite.php?album_id=";
 
     public static ReviewDetailFragment newInstance(int id) {
         ReviewDetailFragment fragment = new ReviewDetailFragment();
@@ -57,10 +52,10 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
         return fragment;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-//
         // This makes sure that the container activity has implemented
         // the callback interface. If not, it throws an exception
         try {
@@ -76,19 +71,6 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setURL();
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState){
-        super.onActivityCreated(savedInstanceState);
-//        FacebookSdk.sdkInitialize(getActivity().getApplicationContext());
-//        accessTokenTracker = new AccessTokenTracker() {
-//            @Override
-//            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken,
-//                                                       AccessToken currentAccessToken) {
-//                setURL();
-//            }
-//        };
     }
 
     private void setURL(){
@@ -124,8 +106,15 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.favorite_icon:
-                this.album.setIsFavorite(!this.album.isFavorite());
-                setFavoriteIcon(this.album.isFavorite());
+                if(AccessToken.getCurrentAccessToken()!=null){
+                    if(this.album.isFavorite()){
+                        new FavoriteUpdater().execute(URL_DISCARD_FAVORITE + albumID + "&user_id="
+                                + AccessToken.getCurrentAccessToken().getUserId());
+                    } else {
+                        new FavoriteUpdater().execute(URL_SET_FAVORITE + albumID + "&user_id="
+                                + AccessToken.getCurrentAccessToken().getUserId());
+                    }
+                }
                 break;
             case R.id.artist_name:
                 detailOpener.OpenArtistBio(album.getArtist().getId());
@@ -165,8 +154,8 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
     }
 
     private void setFavoriteIcon(boolean isFavorite){
-        favoriteIcon = isFavorite? ContextCompat.getDrawable(getActivity(), R.mipmap.ic_ic_favorite_red_36dp):
-                ContextCompat.getDrawable(getActivity(),R.mipmap.ic_ic_favorite_border_white_36dp);
+        Drawable favoriteIcon = isFavorite ? ContextCompat.getDrawable(getActivity(), R.mipmap.ic_ic_favorite_red_36dp) :
+                ContextCompat.getDrawable(getActivity(), R.mipmap.ic_ic_favorite_border_white_36dp);
         favoriteButton.setImageDrawable(favoriteIcon);
     }
 
@@ -216,6 +205,32 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
             if(loadingPanel != null){
                 loadingPanel.setVisibility(View.VISIBLE);
             }
+        }
+    }
+
+    public class FavoriteUpdater extends AsyncTask<String, Void, String> {
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+//                rootView.findViewById(R.id.loading_panel).setVisibility(View.GONE);
+//                rootView.findViewById(R.id.scroll_view).setVisibility(View.VISIBLE);
+            if(s.equals("NON_CONNECTED_TO_INTERNET_ERROR") || s.equals("CONNECTION_TO_SERVER_ERROR") || !(s.charAt(0)=='1')){
+                Log.i("ERROR", s);
+            } else {
+                album.switchFavorite();
+                setFavoriteIcon(album.isFavorite());
+            }
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+            return downloader.DownloadFromURL(params[0]);
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
         }
     }
 }

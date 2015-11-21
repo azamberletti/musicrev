@@ -4,10 +4,8 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.Menu;
 import java.net.URL;
 
@@ -37,13 +35,13 @@ public class MainActivity extends MyBaseActivity implements Downloader, DetailOp
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
-        Bundle b = getIntent().getExtras();
         accessTokenTracker = new AccessTokenTracker() {
             @Override
             protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken newAccessToken) {
                 launchLogin();
             }
         };
+        Bundle b = getIntent().getExtras();
         if(b != null && b.containsKey(ALBUM_ID)){
             OpenAlbumReviewDetail(b.getInt(ALBUM_ID));
         } else {

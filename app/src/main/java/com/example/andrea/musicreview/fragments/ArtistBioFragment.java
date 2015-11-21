@@ -82,7 +82,7 @@ public class ArtistBioFragment extends android.support.v4.app.Fragment implement
         errorMessage.setVisibility(View.GONE);
         albumFrom = (TextView)rootView.findViewById(R.id.album_from);
         grid = (GridView) rootView.findViewById(R.id.grid);
-        grid.setAdapter(new AlbumGridAdapter(getActivity(), R.layout.best_album_item_layout, new ArrayList<Album.AlbumBasicInfo>()));
+        grid.setAdapter(new AlbumGridAdapter(getActivity(), R.layout.album_grid_item_layout, new ArrayList<Album.AlbumBasicInfo>()));
         grid.setOnItemClickListener(this);
         return rootView;
     }

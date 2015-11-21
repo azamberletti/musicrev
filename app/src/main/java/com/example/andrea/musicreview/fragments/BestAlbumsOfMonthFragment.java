@@ -10,12 +10,15 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 
+import com.example.andrea.musicreview.view.AlbumChartAdapter;
 import com.example.andrea.musicreview.view.AlbumGridAdapter;
 import com.example.andrea.musicreview.R;
 import com.example.andrea.musicreview.interfaces.DetailOpener;
 import com.example.andrea.musicreview.interfaces.Downloader;
 import com.example.andrea.musicreview.model.Album;
+import com.example.andrea.musicreview.view.AlbumListAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -24,19 +27,18 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BestAlbumsOfMonthFragment extends android.support.v4.app.Fragment implements AdapterView.OnItemClickListener {
+public class BestAlbumsOfMonthFragment extends android.support.v4.app.ListFragment {
 
     private ViewGroup rootView;
     private LinearLayout errorMessage;
-    private GridView grid;
     private DetailOpener detailOpener;
     private Downloader downloader;
     private final static String URL = "http://www.saltedmagnolia.com/get_best_of_month.php";
 
+    @SuppressWarnings("deprecation")
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-//
         // This makes sure that the container activity has implemented
         // the callback interface. If not, it throws an exception
         try {
@@ -58,11 +60,9 @@ public class BestAlbumsOfMonthFragment extends android.support.v4.app.Fragment i
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = (ViewGroup) inflater.inflate(R.layout.fragment_best_albums_of_month, container, false);
-        grid = (GridView) rootView.findViewById(R.id.grid);
         errorMessage = (LinearLayout) rootView.findViewById(R.id.general_error_panel);
         errorMessage.setVisibility(View.GONE);
-        grid.setAdapter(new AlbumGridAdapter(getActivity(), R.layout.best_album_item_layout, new ArrayList<Album.AlbumBasicInfo>()));
-        grid.setOnItemClickListener(this);
+        setListAdapter(new AlbumChartAdapter(getActivity(), R.layout.best_album_item_layout, new ArrayList<Album.AlbumBasicInfo>()));
         return rootView;
     }
 
@@ -87,8 +87,9 @@ public class BestAlbumsOfMonthFragment extends android.support.v4.app.Fragment i
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        detailOpener.OpenAlbumReviewDetail(((Album.AlbumBasicInfo) parent.getItemAtPosition(position)).getId());
+    public void onListItemClick(ListView listview, View view, int position, long id) {
+        super.onListItemClick(listview, view, position, id);
+        detailOpener.OpenAlbumReviewDetail(((Album.AlbumBasicInfo) listview.getItemAtPosition(position)).getId());
     }
 
     public class ListDownloader extends AsyncTask<String, Void, String> {
@@ -104,7 +105,7 @@ public class BestAlbumsOfMonthFragment extends android.support.v4.app.Fragment i
                     return;
                 }
                 errorMessage.setVisibility(View.GONE);
-                ((AlbumGridAdapter) grid.getAdapter()).refreshList(parse(s));
+                ((AlbumListAdapter) getListAdapter()).refreshList(parse(s));
             } catch (JSONException e) {
                 e.printStackTrace();
                 Log.i("ERROR", "JSON_EXCEPTION");

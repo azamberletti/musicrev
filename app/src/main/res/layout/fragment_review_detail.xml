@@ -127,7 +127,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:background="@color/primary_color_dark"
-                        android:src="@mipmap/ic_ic_favorite_border_white_36dp"
+                        android:src="@mipmap/ic_share_white_36dp"
                         android:text="@string/action_share"
                         android:contentDescription="@string/share_button_desc" />
                 </LinearLayout>

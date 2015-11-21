@@ -14,8 +14,9 @@ import android.view.MenuItem;
 import com.example.andrea.musicreview.R;
 import com.example.andrea.musicreview.fragments.ArtistSearchFragment;
 import com.example.andrea.musicreview.fragments.BestAlbumsOfMonthFragment;
+import com.example.andrea.musicreview.fragments.FavoriteFragment;
 import com.example.andrea.musicreview.fragments.LastReviewsFragment;
-import com.example.andrea.musicreview.fragments.RecommendedAlbumsFragment;
+import com.example.andrea.musicreview.fragments.RecommendedFragment;
 
 public abstract class MyBaseActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -73,6 +74,10 @@ public abstract class MyBaseActivity extends AppCompatActivity
                         .commit();
                 break;
             case R.id.favorites:
+                fragmentManager.beginTransaction()
+                        .replace(R.id.content_frame, new FavoriteFragment())
+                        .addToBackStack(null)
+                        .commit();
                 break;
             case R.id.best_of_month:
                 fragmentManager.beginTransaction()
@@ -82,7 +87,7 @@ public abstract class MyBaseActivity extends AppCompatActivity
                 break;
             case R.id.recommended:
                 fragmentManager.beginTransaction()
-                        .replace(R.id.content_frame, new RecommendedAlbumsFragment())
+                        .replace(R.id.content_frame, new RecommendedFragment())
                         .addToBackStack(null)
                         .commit();
                 break;
