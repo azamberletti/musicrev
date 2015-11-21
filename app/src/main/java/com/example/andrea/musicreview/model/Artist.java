@@ -1,5 +1,7 @@
 package com.example.andrea.musicreview.model;
 
+import android.util.Log;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -11,7 +13,8 @@ public class Artist {
         try {
             this.basicInfo = new ArtistBasicInfo(
                     Integer.parseInt((String) source.get("IDArtist")),
-                    (String)source.get("Name")
+                    (String)source.get("Name"),
+                    ""
             );
             this.bio = (String)source.get("Bio");
         } catch (JSONException e) {
@@ -20,7 +23,7 @@ public class Artist {
     }
 
     public Artist(int id, String name, String bio) {
-        this.basicInfo = new ArtistBasicInfo(id, name);
+        this.basicInfo = new ArtistBasicInfo(id, name, "");
         this.bio = bio;
     }
 
@@ -40,19 +43,22 @@ public class Artist {
 
         private int id;
         private String name;
+        private String imagePath;
 
         public ArtistBasicInfo(JSONObject source) {
             try {
                 this.id = Integer.parseInt((String) source.get("IDArtist"));
                 this.name = (String)source.get("Name");
+                this.imagePath = (String) source.get("Image");
             } catch (JSONException e) {
                 e.printStackTrace();
             }
         }
 
-        public ArtistBasicInfo(int id, String name) {
+        public ArtistBasicInfo(int id, String name, String imagePath) {
             this.id = id;
             this.name = name;
+            this.imagePath = imagePath;
         }
 
         public int getId() {
@@ -61,6 +67,10 @@ public class Artist {
 
         public String getName() {
             return name;
+        }
+
+        public String getImagePath() {
+            return imagePath;
         }
     }
 }

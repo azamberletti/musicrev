@@ -1,17 +1,22 @@
 package com.example.andrea.musicreview.fragments;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.andrea.musicreview.R;
 import com.example.andrea.musicreview.interfaces.DetailOpener;
@@ -72,8 +77,19 @@ public class ArtistSearchFragment extends ListFragment implements View.OnClickLi
                              Bundle savedInstanceState) {
         rootView = (ViewGroup) inflater.inflate(R.layout.fragment_artist_search, container, false);
         setListAdapter(new ArtistListAdapter(getActivity(), R.layout.artist_list_item_layout));
-        Button button = (Button) rootView.findViewById(R.id.artist_search_button);
-        button.setOnClickListener(this);
+        EditText editText = (EditText) rootView.findViewById(R.id.artist_search_bar);
+        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                    new ListDownloader().execute(URL + ((EditText) getView().findViewById(R.id.artist_search_bar)).getText());
+                    InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+                    return true;
+                }
+                return false;
+            }
+        });
         errorMessage = (RelativeLayout)rootView.findViewById(R.id.general_error_panel);
         errorMessage.setOnClickListener(this);
         errorMessage.setVisibility(View.GONE);
@@ -95,8 +111,6 @@ public class ArtistSearchFragment extends ListFragment implements View.OnClickLi
             case R.id.general_error_panel:
 //                new ListDownloader().execute(URL);
                 break;
-            case R.id.artist_search_button:
-                new ListDownloader().execute(URL + ((EditText) getView().findViewById(R.id.artist_search_bar)).getText());
         }
     }
 

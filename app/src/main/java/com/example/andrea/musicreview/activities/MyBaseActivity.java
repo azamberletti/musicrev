@@ -10,7 +10,6 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-
 import com.example.andrea.musicreview.R;
 import com.example.andrea.musicreview.fragments.ArtistSearchFragment;
 import com.example.andrea.musicreview.fragments.BestAlbumsOfMonthFragment;
@@ -68,30 +67,35 @@ public abstract class MyBaseActivity extends AppCompatActivity
         FragmentManager fragmentManager = getSupportFragmentManager();
         switch (item.getItemId()){
             case R.id.home:
+                setTitle("MusicReview");
                 fragmentManager.beginTransaction()
                         .replace(R.id.content_frame, new LastReviewsFragment())
                         .addToBackStack(null)
                         .commit();
                 break;
             case R.id.favorites:
+                setTitle("Favorites");
                 fragmentManager.beginTransaction()
                         .replace(R.id.content_frame, new FavoriteFragment())
                         .addToBackStack(null)
                         .commit();
                 break;
             case R.id.best_of_month:
+                setTitle("Best of the month");
                 fragmentManager.beginTransaction()
                         .replace(R.id.content_frame, new BestAlbumsOfMonthFragment())
                         .addToBackStack(null)
                         .commit();
                 break;
             case R.id.recommended:
+                setTitle("Recommended");
                 fragmentManager.beginTransaction()
                         .replace(R.id.content_frame, new RecommendedFragment())
                         .addToBackStack(null)
                         .commit();
                 break;
             case R.id.artist:
+                setTitle("Search artist");
                 fragmentManager.beginTransaction()
                         .replace(R.id.content_frame, new ArtistSearchFragment())
                         .addToBackStack(null)

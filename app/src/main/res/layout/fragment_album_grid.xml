@@ -9,16 +9,6 @@
         android:background="@color/primary_color_dark"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/grid_title"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:background="@color/primary_color"
-            android:gravity="center"
-            android:text="@string/recommended"
-            android:textColor="@color/text_color_light"
-            android:textSize="25sp" />
-
         <include layout="@layout/loading_panel" />
 
         <include layout="@layout/general_error_layout" />

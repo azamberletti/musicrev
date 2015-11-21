@@ -19,8 +19,8 @@ public class FavoriteFragment extends AlbumGridFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = super.onCreateView(inflater, container, savedInstanceState);
-        TextView title = (TextView) rootView.findViewById(R.id.grid_title);
-        title.setText(R.string.favorite_albums);
+        //TextView title = (TextView) rootView.findViewById(R.id.grid_title);
+        //title.setText(R.string.favorite_albums);
         return rootView;
     }
 
