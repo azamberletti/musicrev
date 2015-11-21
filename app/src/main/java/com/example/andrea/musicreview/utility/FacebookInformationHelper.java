@@ -77,11 +77,11 @@ public class FacebookInformationHelper {
                 conn.setRequestMethod("POST");
                 conn.setDoOutput(true);
                 conn.setDoInput(true);
-/*                int response = conn.getResponseCode();
-                if (response != HttpURLConnection.HTTP_OK) {
-                    Log.i("ERROR_CODE", String.valueOf(response));
-                    throw new IOException();
-                }*/
+//                int response = conn.getResponseCode();
+//                if (response != HttpURLConnection.HTTP_OK) {
+//                    Log.i("ERROR_CODE", String.valueOf(response));
+//                    throw new IOException();
+//                }
 
                 os = conn.getOutputStream();
                 BufferedWriter wr = new BufferedWriter(
