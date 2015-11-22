@@ -105,7 +105,7 @@ public class MainActivity extends MyBaseActivity implements Downloader, DetailOp
     public String DownloadFromURL(String URL) {
         if (ConnectionHandler.isConnected(this)) {
             InputStream is = null;
-            int len = 10000;
+            int len = 20000;
             try {
                 URL url = new URL(URL);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();

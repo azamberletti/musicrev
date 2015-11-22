@@ -152,10 +152,9 @@ public class ArtistBioFragment extends android.support.v4.app.Fragment implement
                 ((TextView)rootView.findViewById(R.id.artist_name)).setText(artist.getName());
                 ((TextView)rootView.findViewById(R.id.artist_bio)).setText(artist.getBio());
                 Picasso.with(getActivity()).load("http://www.saltedmagnolia.com/" + artist.getImage())
-                        .resize(600, 200)
+                        .resize(600, 250)
                         .centerCrop()
                         .into(((ImageView) rootView.findViewById(R.id.image)));
-                        ;
                 albumFrom.setText(artist.getName());
                 ((AlbumGridAdapter) grid.getAdapter()).refreshList(parseArtistAlbums(s));
             } catch (JSONException e) {

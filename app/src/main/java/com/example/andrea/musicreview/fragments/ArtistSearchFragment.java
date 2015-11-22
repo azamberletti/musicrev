@@ -14,6 +14,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -32,7 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ArtistSearchFragment extends ListFragment implements View.OnClickListener {
-    private RelativeLayout errorMessage;
+    private LinearLayout errorMessage;
     private DetailOpener detailOpener;
     private Downloader downloader;
     private ViewGroup rootView;
@@ -59,17 +60,11 @@ public class ArtistSearchFragment extends ListFragment implements View.OnClickLi
     @Override
     public void onResume() {
         super.onResume();
-        /*connectivityChangeReceiver = new ConnectivityChangeReceiver();
-        getActivity().registerReceiver(
-                connectivityChangeReceiver,
-                new IntentFilter(
-                        ConnectivityManager.CONNECTIVITY_ACTION));*/
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        //getActivity().unregisterReceiver(connectivityChangeReceiver);
     }
 
     @Override
@@ -85,14 +80,16 @@ public class ArtistSearchFragment extends ListFragment implements View.OnClickLi
                     new ListDownloader().execute(URL + ((EditText) getView().findViewById(R.id.artist_search_bar)).getText());
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
+                    (rootView.findViewById(R.id.loading_panel)).setVisibility(View.VISIBLE);
                     return true;
                 }
                 return false;
             }
         });
-        errorMessage = (RelativeLayout)rootView.findViewById(R.id.general_error_panel);
+        errorMessage = (LinearLayout)rootView.findViewById(R.id.general_error_panel);
         errorMessage.setOnClickListener(this);
         errorMessage.setVisibility(View.GONE);
+        (rootView.findViewById(R.id.loading_panel)).setVisibility(View.GONE);
         return rootView;
     }
 

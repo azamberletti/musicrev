@@ -1,5 +1,6 @@
 package com.example.andrea.musicreview.activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,7 +28,7 @@ import org.json.JSONObject;
 
 import java.util.Arrays;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends Activity {
 
     private LoginButton loginButton;
     private CallbackManager callbackManager;
@@ -50,13 +51,13 @@ public class LoginActivity extends AppCompatActivity {
             loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
                 @Override
                 public void onSuccess(LoginResult loginResult) {
-                info.setText(
+                /*info.setText(
                         "User ID: "
                                 + loginResult.getAccessToken().getUserId()
                                 + "\n" +
                                 "Auth Token: "
                                 + loginResult.getAccessToken().getToken()
-                );
+                );*/
                     //Profile profile = Profile.getCurrentProfile();
 
                     if (Profile.getCurrentProfile() == null) {
