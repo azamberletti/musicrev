@@ -45,5 +45,13 @@
     <string name="share_button_desc">Share button</string>
     <string name="spotify">Spotify</string>
     <string name="favorite_albums">Your Favorite Albums</string>
+    <string name="login_reminder">Welcome to the MusicReview world. Log in with one of the following options to enjoy all of the functionalities!</string>
+    <string name="welcome">Welcome</string>
+    <string name="your_mail">Your email address</string>
+    <string name="insert_pswd">Insert a password. At least 6 characters</string>
+    <string name="log_in">Log In</string>
+    <string name="register_here"><u>Click here if you are not registered yet.</u></string>
+    <string name="or">or</string>
+    <string name="pswd">Your password</string>
 
 </resources>

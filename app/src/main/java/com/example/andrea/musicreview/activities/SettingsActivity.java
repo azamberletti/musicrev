@@ -20,7 +20,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         switch(v.getId()){
-            case R.id.login_button:
+            case R.id.fb_login_button:
                 LoginManager.getInstance().logOut();
                 Intent i = new Intent(this,LoginActivity.class);
                 startActivity(i);

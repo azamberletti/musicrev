@@ -3,19 +3,14 @@ package com.example.andrea.musicreview.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.andrea.musicreview.R;
-import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
 import com.facebook.Profile;
@@ -45,7 +40,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
             //ImageView image = (ImageView)findViewById(R.id.profile_image);
-            loginButton = (LoginButton) findViewById(R.id.login_button);
+            loginButton = (LoginButton) findViewById(R.id.fb_login_button);
             loginButton.setReadPermissions(Arrays.asList("public_profile, email, user_birthday, user_friends, user_likes"));
             loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
                 @Override

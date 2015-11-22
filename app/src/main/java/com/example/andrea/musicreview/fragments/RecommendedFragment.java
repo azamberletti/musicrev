@@ -117,7 +117,7 @@ public class RecommendedFragment extends AlbumGridFragment{
 
         @Override
         protected String doInBackground(String... params) {
-            String msg = new FacebookInformationHelper(getContext()).getRecommendedAlbums();
+            String msg = new FacebookInformationHelper().getRecommendedAlbums();
             return SendToURL(URL, msg);
         }
 
