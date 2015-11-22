@@ -49,6 +49,9 @@ public class AlbumGridAdapter extends ArrayAdapter<Album.AlbumBasicInfo> {
         }
         Album.AlbumBasicInfo album = getItem(position);
         mViewHolder.albumTitle.setText(album.getTitle());
+        if(album.getTitle().length()>30){
+            mViewHolder.albumTitle.setTextSize(15);
+        }
         mViewHolder.artist.setText(album.getArtist().getName());
         Picasso.with(context).load("http://www.saltedmagnolia.com/" + album.getImageURL())
                 .into( mViewHolder.albumCover);

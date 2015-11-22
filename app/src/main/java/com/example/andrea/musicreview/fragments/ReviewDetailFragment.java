@@ -16,21 +16,19 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.andrea.musicreview.R;
 import com.example.andrea.musicreview.interfaces.DetailOpener;
-import com.example.andrea.musicreview.interfaces.Downloader;
 import com.example.andrea.musicreview.model.Album;
-import com.facebook.AccessToken;
+import com.example.andrea.musicreview.utility.ConnectionHandler;
+import com.example.andrea.musicreview.utility.MyLoginManager;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
-
 import com.squareup.picasso.Picasso;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.text.ParseException;
 
 public class ReviewDetailFragment extends android.support.v4.app.Fragment implements View.OnClickListener {
@@ -39,7 +37,6 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
     private ViewGroup rootView;
     private ImageButton favoriteButton;
     private LinearLayout errorMessage;
-    private Downloader downloader;
     private String URL = "http://www.saltedmagnolia.com/get_review_detail.php?album_id=";
     private final static String ALBUM_ID = "album_id";
     private Album album;
@@ -47,6 +44,7 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
     private DetailOpener detailOpener;
     private final static String URL_SET_FAVORITE = "http://www.saltedmagnolia.com/set_favorite.php?album_id=";
     private final static String URL_DISCARD_FAVORITE = "http://www.saltedmagnolia.com/discard_favorite.php?album_id=";
+    private MyLoginManager myLoginManager;
 
     public static ReviewDetailFragment newInstance(int id) {
         ReviewDetailFragment fragment = new ReviewDetailFragment();
@@ -64,29 +62,31 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
         // the callback interface. If not, it throws an exception
         try {
             detailOpener = (DetailOpener) activity;
-            downloader = (Downloader) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
-                    + " must implement Downloader and DetailOpener");
+                    + " must implement DetailOpener");
         }
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setURL();
+        myLoginManager = new MyLoginManager(getContext());
     }
 
     private void setURL(){
-        if (getArguments() != null && AccessToken.getCurrentAccessToken()!=null) {
-            albumID = getArguments().getInt(ALBUM_ID);
-            URL = URL + albumID + "&user_id=" + AccessToken.getCurrentAccessToken().getUserId();
+        albumID = getArguments().getInt(ALBUM_ID);
+        if (myLoginManager.getUserID()!=null) {
+            URL = URL + albumID + "&user_id=" + myLoginManager.getUserID();
+        } else {
+            URL = URL + albumID + "&user_id=no_id";
         }
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        setURL();
         new ReviewDownloader().execute(URL);
     }
 
@@ -110,14 +110,18 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.favorite_icon:
-                if(AccessToken.getCurrentAccessToken()!=null){
+                String id = myLoginManager.getUserID();
+                if(id!=null){
                     if(this.album.isFavorite()){
                         new FavoriteUpdater().execute(URL_DISCARD_FAVORITE + albumID + "&user_id="
-                                + AccessToken.getCurrentAccessToken().getUserId());
+                                + id);
                     } else {
                         new FavoriteUpdater().execute(URL_SET_FAVORITE + albumID + "&user_id="
-                                + AccessToken.getCurrentAccessToken().getUserId());
+                                + id);
                     }
+                } else {
+                    Toast.makeText(getContext(), "You must be logged in to set an album as your favorite",
+                            Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.artist_name:
@@ -139,6 +143,7 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
                         .build());
                 break;
             case R.id.general_error_panel:
+                setURL();
                 new ReviewDownloader().execute(URL);
                 break;
             default:
@@ -199,7 +204,7 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
 
         @Override
         protected String doInBackground(String... params) {
-            return downloader.DownloadFromURL(params[0]);
+            return ConnectionHandler.DownloadFromURL(params[0], getContext());
         }
 
         @Override
@@ -229,7 +234,7 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
 
         @Override
         protected String doInBackground(String... params) {
-            return downloader.DownloadFromURL(params[0]);
+            return ConnectionHandler.DownloadFromURL(params[0], getContext());
         }
 
         @Override

@@ -7,16 +7,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.example.andrea.musicreview.utility.ConnectionHandler;
 import com.example.andrea.musicreview.view.AlbumChartAdapter;
-import com.example.andrea.musicreview.view.AlbumGridAdapter;
 import com.example.andrea.musicreview.R;
 import com.example.andrea.musicreview.interfaces.DetailOpener;
-import com.example.andrea.musicreview.interfaces.Downloader;
 import com.example.andrea.musicreview.model.Album;
 import com.example.andrea.musicreview.view.AlbumListAdapter;
 
@@ -32,7 +29,6 @@ public class BestAlbumsOfMonthFragment extends android.support.v4.app.ListFragme
     private ViewGroup rootView;
     private LinearLayout errorMessage;
     private DetailOpener detailOpener;
-    private Downloader downloader;
     private final static String URL = "http://www.saltedmagnolia.com/get_best_of_month.php";
 
     @SuppressWarnings("deprecation")
@@ -43,11 +39,9 @@ public class BestAlbumsOfMonthFragment extends android.support.v4.app.ListFragme
         // the callback interface. If not, it throws an exception
         try {
             detailOpener = (DetailOpener) activity;
-            downloader = (Downloader) activity;
-
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
-                    + " must implement DetailOpener and Downloader");
+                    + " must implement DetailOpener");
         }
     }
 
@@ -117,7 +111,7 @@ public class BestAlbumsOfMonthFragment extends android.support.v4.app.ListFragme
 
         @Override
         protected String doInBackground(String... params) {
-            return downloader.DownloadFromURL(params[0]);
+            return ConnectionHandler.DownloadFromURL(params[0], getContext());
         }
 
         @Override
@@ -126,7 +120,5 @@ public class BestAlbumsOfMonthFragment extends android.support.v4.app.ListFragme
             rootView.findViewById(R.id.loading_panel).setVisibility(View.VISIBLE);
         }
     }
-
-
 
 }

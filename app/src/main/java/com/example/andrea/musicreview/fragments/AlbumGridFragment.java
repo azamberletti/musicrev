@@ -2,7 +2,6 @@ package com.example.andrea.musicreview.fragments;
 
 
 import android.app.Activity;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.util.Log;
@@ -15,7 +14,6 @@ import android.widget.LinearLayout;
 
 import com.example.andrea.musicreview.R;
 import com.example.andrea.musicreview.interfaces.DetailOpener;
-import com.example.andrea.musicreview.interfaces.Downloader;
 import com.example.andrea.musicreview.model.Album;
 import com.example.andrea.musicreview.view.AlbumGridAdapter;
 
@@ -36,7 +34,6 @@ public abstract class AlbumGridFragment extends android.support.v4.app.Fragment 
     private LinearLayout errorMessage;
     private GridView grid;
     protected DetailOpener detailOpener;
-    protected Downloader downloader;
 
 
     @SuppressWarnings("deprecation")
@@ -47,11 +44,9 @@ public abstract class AlbumGridFragment extends android.support.v4.app.Fragment 
         // the callback interface. If not, it throws an exception
         try {
             detailOpener = (DetailOpener) activity;
-            downloader = (Downloader) activity;
-
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
-                    + " must implement DetailOpener and Downloader");
+                    + " must implement DetailOpener");
         }
     }
 
@@ -80,8 +75,6 @@ public abstract class AlbumGridFragment extends android.support.v4.app.Fragment 
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         detailOpener.OpenAlbumReviewDetail(((Album.AlbumBasicInfo) parent.getItemAtPosition(position)).getId());
     }
-
-    public abstract String getURL();
 
     protected void setSource(String s){
         try {

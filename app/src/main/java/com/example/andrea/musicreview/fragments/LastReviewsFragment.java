@@ -1,7 +1,6 @@
 package com.example.andrea.musicreview.fragments;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.support.v4.app.ListFragment;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -13,13 +12,10 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.example.andrea.musicreview.R;
-import com.example.andrea.musicreview.activities.LoginActivity;
 import com.example.andrea.musicreview.interfaces.DetailOpener;
-import com.example.andrea.musicreview.interfaces.Downloader;
 import com.example.andrea.musicreview.model.Album;
-import com.example.andrea.musicreview.utility.FacebookInformationHelper;
+import com.example.andrea.musicreview.utility.ConnectionHandler;
 import com.example.andrea.musicreview.view.AlbumListAdapter;
-import com.facebook.login.LoginManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,7 +28,6 @@ public class LastReviewsFragment extends ListFragment implements View.OnClickLis
 
     private RelativeLayout errorMessage;
     private DetailOpener detailOpener;
-    private Downloader downloader;
     private ViewGroup rootView;
 //    private ConnectivityChangeReceiver connectivityChangeReceiver;
     private final static String URL = "http://www.saltedmagnolia.com/get_last_5_albums.php";
@@ -46,12 +41,10 @@ public class LastReviewsFragment extends ListFragment implements View.OnClickLis
        // the callback interface. If not, it throws an exception
        try {
            detailOpener = (DetailOpener) activity;
-           downloader = (Downloader) activity;
-
-        } catch (ClassCastException e) {
-            throw new ClassCastException(activity.toString()
-                    + " must implement DetailOpener and Downloader");
-        }
+       } catch (ClassCastException e) {
+           throw new ClassCastException(activity.toString()
+                   + " must implement DetailOpener");
+       }
    }
 
     @Override
@@ -127,7 +120,7 @@ public class LastReviewsFragment extends ListFragment implements View.OnClickLis
 
         @Override
         protected String doInBackground(String... params) {
-            return downloader.DownloadFromURL(params[0]);
+            return ConnectionHandler.DownloadFromURL(params[0], getContext());
         }
 
         @Override

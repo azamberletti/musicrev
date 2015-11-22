@@ -3,13 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
+    android:gravity="center_vertical"
     android:orientation="vertical"
     android:background="@color/primary_color_dark"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/login_layout"
     tools:context="com.example.andrea.musicreview.activities.LoginActivity">
+
+    <include layout="@layout/loading_panel" />
 
     <TextView
         android:text="@string/welcome"
@@ -77,12 +83,13 @@
                 android:textColor="@color/text_color_dark"
                 android:layout_gravity="center"
                 android:clickable="true"
-                android:layout_marginBottom="30dp"/>
+                android:layout_marginBottom="45dp"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:id="@+id/or_divider">
 
             <TextView
                 android:id="@+id/tvText"
@@ -124,7 +131,7 @@
         android:paddingBottom="15dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp" />
+        android:layout_marginTop="45dp"
+        android:layout_marginBottom="20dp"/>
 
 </LinearLayout>

@@ -9,20 +9,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.andrea.musicreview.R;
 import com.example.andrea.musicreview.interfaces.DetailOpener;
-import com.example.andrea.musicreview.interfaces.Downloader;
 import com.example.andrea.musicreview.model.Album;
 import com.example.andrea.musicreview.model.Artist;
-import com.example.andrea.musicreview.utility.FacebookInformationHelper;
+import com.example.andrea.musicreview.utility.ConnectionHandler;
 import com.example.andrea.musicreview.view.AlbumGridAdapter;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -38,7 +38,6 @@ public class ArtistBioFragment extends android.support.v4.app.Fragment implement
     private GridView grid;
     private LinearLayout errorMessage;
     private ViewGroup rootView;
-    private Downloader downloader;
     private static final String ARTIST_BIO_URL = "http://www.saltedmagnolia.com/get_artist_bio.php?artist_id=";
     //private static final String ARTIST_ALBUM_URL = "http://www.saltedmagnolia.com/get_artist_albums.php?artist_id=";
     private DetailOpener detailOpener;
@@ -56,10 +55,9 @@ public class ArtistBioFragment extends android.support.v4.app.Fragment implement
         super.onAttach(activity);
         try {
             detailOpener = (DetailOpener) activity;
-            downloader = (Downloader) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
-                    + " must implement Downloader and DetailOpener");
+                    + " must implement DetailOpener");
         }
     }
 
@@ -91,13 +89,15 @@ public class ArtistBioFragment extends android.support.v4.app.Fragment implement
         JSONArray array = new JSONArray(s);
         String name = "";
         String bio = "";
+        String image = "";
         for (int i = 0; i < array.length(); i++) {
             if(!array.getJSONObject(i).isNull("Bio")){
                 bio = (String) array.getJSONObject(i).get("Bio");
                 name = (String) array.getJSONObject(i).get("Name");
+                image = (String) array.getJSONObject(i).get("Image");
             }
         }
-        return new Artist(artistID, name, bio);
+        return new Artist(artistID, name, bio, image);
     }
     private List<Album.AlbumBasicInfo> parseArtistAlbums(String s) throws JSONException, ParseException {
         JSONArray array = new JSONArray(s);
@@ -147,6 +147,10 @@ public class ArtistBioFragment extends android.support.v4.app.Fragment implement
                 artist = parse(s);
                 ((TextView)rootView.findViewById(R.id.artist_name)).setText(artist.getName());
                 ((TextView)rootView.findViewById(R.id.artist_bio)).setText(artist.getBio());
+                Picasso.with(getActivity()).load("http://www.saltedmagnolia.com/" + artist.getImage())
+                        .resize(600, 250)
+                        .centerCrop()
+                        .into(((ImageView) rootView.findViewById(R.id.image)));
                 albumFrom.setText(artist.getName());
                 ((AlbumGridAdapter) grid.getAdapter()).refreshList(parseArtistAlbums(s));
             } catch (JSONException e) {
@@ -160,7 +164,7 @@ public class ArtistBioFragment extends android.support.v4.app.Fragment implement
 
         @Override
         protected String doInBackground(String... params) {
-            return downloader.DownloadFromURL(params[0]);
+            return ConnectionHandler.DownloadFromURL(params[0], getContext());
         }
 
         @Override

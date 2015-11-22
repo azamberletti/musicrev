@@ -11,15 +11,6 @@
         android:background="@color/primary_color_dark"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:background="@color/primary_color"
-            android:gravity="center"
-            android:text="Best of the month"
-            android:textColor="@color/text_color_light"
-            android:textSize="25sp" />
-
         <include layout="@layout/loading_panel" />
 
         <include layout="@layout/general_error_layout" />

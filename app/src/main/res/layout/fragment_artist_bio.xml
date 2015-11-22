@@ -14,11 +14,15 @@
 
         <include layout="@layout/loading_panel" />
 
+
+
+
         <TextView
             android:id="@+id/artist_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
             android:background="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:gravity="center"
@@ -26,6 +30,12 @@
             android:textColor="@color/accent_color"
             android:textSize="36sp" />
 
+        <ImageView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_height="wrap_content" />
 
         <!--        <TextView
                     android:id="@+id/album_release_date"
@@ -93,6 +103,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginLeft="3dp"
                 android:layout_marginRight="3dp"
+                android:layout_marginBottom="10dp"
                 android:background="@color/primary_color_dark"
                 android:clipToPadding="false"
                 android:horizontalSpacing="5dp"

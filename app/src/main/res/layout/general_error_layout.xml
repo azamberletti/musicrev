@@ -17,6 +17,7 @@
             android:text="Something went wrong..." />
 
         <TextView
+            android:id="@+id/retry"
             android:layout_below="@id/error_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

@@ -21,7 +21,8 @@ public class AlbumChartAdapter extends AlbumListAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = super.getView(position, convertView, parent);
         int chartPosition = position +1;
-        ((TextView) convertView.findViewById(R.id.position)).setText(chartPosition + ".");
+        TextView title = (TextView) convertView.findViewById(R.id.name);
+        title.setText(chartPosition + ". " + title.getText());
         return convertView;
     }
 }

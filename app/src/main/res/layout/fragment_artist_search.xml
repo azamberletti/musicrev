@@ -17,61 +17,29 @@
             android:layout_width="match_parent"
             android:layout_height="80dp"
             android:id="@+id/artist_search_bar"
-            android:inputType="text"
             android:paddingLeft="15dp"
+            android:textSize="20dp"
             android:hint="Search artist.."
-            android:background="@color/primary_color"/>
-        
-        <Button
-            android:id="@+id/artist_search_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/search"/>
+            android:imeOptions="actionSearch"
+            android:textColor="@color/text_color_light"
+            android:textColorHint="@color/text_color_dark"
+            android:inputType="text"
+            android:background="@color/primary_color_dark"/>
+
 
         <ListView
             android:id="@id/android:list"
-            android:layout_marginLeft="3dp"
-            android:layout_marginRight="3dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:paddingLeft="6dp"
+            android:paddingStart="6dp"
+            android:paddingEnd="6dp"
+            android:paddingRight="6dp"
+            android:paddingTop="2dp"/>
 
-        <RelativeLayout
-            android:id="@+id/loading_panel"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center" >
+        <include layout="@layout/general_error_layout" />
 
-            <ProgressBar
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:indeterminate="true"
-                android:visibility="gone"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/general_error_panel"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center" >
-
-            <TextView
-                android:id="@+id/error_message"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textSize="16sp"
-                android:textColor="@color/dim_foreground_material_dark"
-                android:text="@string/st_wrong" />
-
-            <TextView
-                android:layout_below="@id/error_message"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textSize="14sp"
-                android:textColor="@color/dim_foreground_material_dark"
-                android:text="@string/retry" />
-        </RelativeLayout>
+        <include layout="@layout/loading_panel" />
 
     </LinearLayout>
 </RelativeLayout>
