@@ -13,7 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
 
-
         <activity
             android:name=".activities.SplashScreenActivity"
             android:screenOrientation="portrait"

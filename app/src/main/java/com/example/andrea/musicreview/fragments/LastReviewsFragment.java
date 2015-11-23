@@ -51,6 +51,7 @@ public class LastReviewsFragment extends ListFragment implements View.OnClickLis
     public void onResume() {
         super.onResume();
         new ListDownloader().execute(URL);
+        getActivity().setTitle("MusicReview");
         //new FacebookInformationHelper(getActivity()).getRecommendedAlbums();
     }
 

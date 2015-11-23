@@ -115,7 +115,7 @@ public class ArtistBioFragment extends android.support.v4.app.Fragment implement
         super.onResume();
         String request = ARTIST_BIO_URL + artistID;
         new BioDownloader().execute(request);
-
+        getActivity().setTitle("MusicReview");
     }
 
     @Override

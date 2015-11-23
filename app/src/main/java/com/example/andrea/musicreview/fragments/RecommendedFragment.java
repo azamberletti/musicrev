@@ -5,12 +5,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.andrea.musicreview.R;
 import com.example.andrea.musicreview.utility.ConnectionHandler;
 import com.example.andrea.musicreview.utility.FacebookInformationHelper;
 import com.example.andrea.musicreview.utility.MyLoginManager;
+
+import org.w3c.dom.Text;
 
 public class RecommendedFragment extends AlbumGridFragment{
 
@@ -25,14 +29,15 @@ public class RecommendedFragment extends AlbumGridFragment{
             new ListDownloader().execute();
         } else {
             View errorMessage = rootView.findViewById(R.id.general_error_panel);
-            ((TextView) errorMessage.findViewById(R.id.error_message))
-                    .setText("You must be logged in to Facebook to see this section");
-            errorMessage.setVisibility(View.VISIBLE);
+            rootView.findViewById(R.id.login_error_layout).setVisibility(View.VISIBLE);
+            ((TextView)rootView.findViewById(R.id.error_message)).setText(R.string.error_log_with_facebook);
+            //errorMessage.setVisibility(View.VISIBLE);
             errorMessage.findViewById(R.id.retry).setVisibility(View.GONE);
         }
         //setSource(new FacebookInformationHelper(getContext()).getRecommendedAlbums());
         return rootView;
     }
+
 
     public class ListDownloader extends AsyncTask<String, Void, String> {
 

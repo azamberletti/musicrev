@@ -21,10 +21,10 @@
             android:textSize="20dp"
             android:hint="Search artist.."
             android:imeOptions="actionSearch"
-            android:textColor="@color/text_color_light"
+            android:textColor="@color/primary_color_dark"
             android:textColorHint="@color/text_color_dark"
             android:inputType="text"
-            android:background="@color/primary_color_dark"/>
+            android:background="@color/text_color_light"/>
 
 
         <ListView
