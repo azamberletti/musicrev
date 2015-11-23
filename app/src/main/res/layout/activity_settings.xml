@@ -8,26 +8,6 @@
     android:background="@color/primary_color_dark"
     tools:context="com.example.andrea.musicreview.activities.SettingsActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Settings"
-        android:layout_marginBottom="20dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="5dp"
-        android:textColor="@color/text_color_light"
-        android:textSize="18sp"
-        />
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_marginLeft="2dp"
-        android:layout_marginRight="2dp"
-        android:layout_marginBottom="5dp"
-        android:src="@color/text_color_light"
-        />
-
     <Button
         android:id="@+id/login_button"
         android:layout_width="140dp"
@@ -39,38 +19,21 @@
         android:layout_marginTop="30dp"
         android:layout_marginBottom="30dp" />
 
+    <com.facebook.login.widget.LoginButton
+        android:id="@+id/fb_login_button"
+        android:layout_width="match_parent"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_height="60dp"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp" />
+
     <ImageView
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"
         android:layout_marginBottom="5dp"
-        android:src="@color/text_color_light"
-        />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/fb_button_layout">
-
-        <com.facebook.login.widget.LoginButton
-            android:id="@+id/fb_login_button"
-            android:layout_width="match_parent"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_height="60dp"
-            android:gravity="center_horizontal"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="30dp" />
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="2dp"
-            android:layout_marginBottom="5dp"
-            android:src="@color/text_color_light"
-            />
-    </LinearLayout>
+        android:src="@color/primary_color" />
 </LinearLayout>

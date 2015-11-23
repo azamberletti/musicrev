@@ -6,7 +6,6 @@ import android.os.Bundle;
 
 import com.example.andrea.musicreview.R;
 import com.example.andrea.musicreview.utility.MyLoginManager;
-import com.facebook.AccessToken;
 import com.facebook.FacebookSdk;
 
 public class SplashScreenActivity extends Activity {
@@ -15,13 +14,12 @@ public class SplashScreenActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO Auto-generated method stub
         super.onCreate(savedInstanceState);
         if(!FacebookSdk.isInitialized()){
             FacebookSdk.sdkInitialize(getApplicationContext());
         }
         setContentView(R.layout.splash_screen);
-        if(new MyLoginManager(this).getUserMail()!=null){
+        if((new MyLoginManager(getApplicationContext()).getCurrentLoginService()).equals(MyLoginManager.EMAIL_LOGIN)){
             Intent intent = new Intent(SplashScreenActivity.this,MainActivity.class);
             startActivity(intent);
             finish();
@@ -42,7 +40,7 @@ public class SplashScreenActivity extends Activity {
     }
 
     private void launchLoginOrMain(){
-        if(AccessToken.getCurrentAccessToken()==null) {
+        if(new MyLoginManager(getApplicationContext()).getCurrentLoginService().equals(MyLoginManager.NOT_LOGGED)) {
             Intent intent = new Intent(this, LoginActivity.class);
             startActivity(intent);
             finish();
@@ -55,7 +53,6 @@ public class SplashScreenActivity extends Activity {
 
     @Override
     protected void onPause() {
-        // TODO Auto-generated method stub
         super.onPause();
         finish();
     }

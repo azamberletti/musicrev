@@ -9,8 +9,8 @@ import android.widget.Button;
 
 import com.example.andrea.musicreview.R;
 import com.example.andrea.musicreview.utility.MyLoginManager;
-import com.facebook.AccessToken;
 import com.facebook.login.LoginManager;
+import com.facebook.login.widget.LoginButton;
 
 public class SettingsActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -20,42 +20,47 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        loginManager = new MyLoginManager(this);
+        setTitle(R.string.settings);
+        final LoginButton fbLoginButton = (LoginButton) findViewById(R.id.fb_login_button);
         final Button loginButton = (Button) findViewById(R.id.login_button);
-
-        loginButton.setOnClickListener(this);
-        if(loginManager.getUserMail()!=null){
-            loginButton.setText(R.string.log_out);
-            final View.OnClickListener listener = this;
-            loginButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    loginManager.discardUser();
-                    loginButton.setText(R.string.log_in);
-                    loginButton.setOnClickListener(listener);
-                    checkFB();
-                }
-            });
-        } else {
-            checkFB();
-        }
-    }
-
-    private void checkFB() {
-        if(AccessToken.getCurrentAccessToken()==null){
-            findViewById(R.id.fb_button_layout).setVisibility(View.GONE);
+        loginManager = new MyLoginManager(this);
+        final View.OnClickListener listener = this;
+        switch(loginManager.getCurrentLoginService()) {
+            case MyLoginManager.EMAIL_LOGIN:
+                fbLoginButton.setVisibility(View.GONE);
+                loginButton.setText(R.string.log_out);
+                loginButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        loginManager.discardUser();
+                        loginButton.setText(R.string.log_in);
+                        loginButton.setOnClickListener(listener);
+                    }
+                });
+                break;
+            case MyLoginManager.FB_LOGIN:
+                loginButton.setVisibility(View.GONE);
+                fbLoginButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        loginButton.setText(R.string.log_in);
+                        fbLoginButton.setVisibility(View.GONE);
+                        loginButton.setOnClickListener(listener);
+                        loginButton.setVisibility(View.VISIBLE);
+                    }
+                });
+                break;
+            case MyLoginManager.NOT_LOGGED:
+                loginButton.setText(R.string.log_in);
+                fbLoginButton.setVisibility(View.GONE);
+                loginButton.setOnClickListener(this);
+                break;
         }
     }
 
     @Override
     public void onClick(View v) {
         switch(v.getId()){
-            case R.id.fb_login_button:
-                LoginManager.getInstance().logOut();
-                Intent i = new Intent(this,LoginActivity.class);
-                startActivity(i);
-                finish();
-                break;
             case R.id.login_button:
                 Intent intent = new Intent(this,LoginActivity.class);
                 startActivity(intent);

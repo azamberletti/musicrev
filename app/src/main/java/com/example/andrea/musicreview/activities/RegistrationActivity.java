@@ -46,8 +46,11 @@ public class RegistrationActivity extends Activity implements View.OnClickListen
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.signup_button:
-                if(!checkForm.isEmpty(nameEdt) | !checkForm.isEmpty(mailEdt) |
-                        !checkForm.pswdIsCorrect(pswdEdt) | !checkForm.pswdIsSame(pswdEdt, pswd2Edt)){
+                if(checkForm.isEmpty(nameEdt) |
+                        checkForm.isEmpty(mailEdt) |
+                        checkForm.pswdIsIncorrect(pswdEdt) |
+                        checkForm.pswdIsSame(pswdEdt, pswd2Edt)) {
+                } else {
                     Map<String, String> jsonMap = new HashMap<>();
                     jsonMap.put(USER_NAME, nameEdt.getText().toString());
                     jsonMap.put(USER_MAIL, mailEdt.getText().toString());

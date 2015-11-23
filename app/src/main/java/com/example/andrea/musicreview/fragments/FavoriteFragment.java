@@ -39,7 +39,8 @@ public class FavoriteFragment extends AlbumGridFragment {
                 connectivityChangeReceiver,
                 new IntentFilter(
                         ConnectivityManager.CONNECTIVITY_ACTION));*/
-        if (myLoginManager.getUserID()!=null) {
+        String id = myLoginManager.getUserID();
+        if (id!=null) {
             new ListDownloader().execute(URL + myLoginManager.getUserID());
         } else {
             View errorMessage = rootView.findViewById(R.id.general_error_panel);
