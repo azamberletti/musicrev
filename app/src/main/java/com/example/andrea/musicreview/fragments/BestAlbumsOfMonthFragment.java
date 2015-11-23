@@ -72,11 +72,7 @@ public class BestAlbumsOfMonthFragment extends android.support.v4.app.ListFragme
     @Override
     public void onResume() {
         super.onResume();
-        /*connectivityChangeReceiver = new ConnectivityChangeReceiver();
-        getActivity().registerReceiver(
-                connectivityChangeReceiver,
-                new IntentFilter(
-                        ConnectivityManager.CONNECTIVITY_ACTION));*/
+        getActivity().setTitle("Best of month");
         new ListDownloader().execute(URL);
     }
 

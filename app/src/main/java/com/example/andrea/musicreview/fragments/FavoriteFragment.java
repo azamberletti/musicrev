@@ -43,11 +43,11 @@ public class FavoriteFragment extends AlbumGridFragment {
             new ListDownloader().execute(URL + myLoginManager.getUserID());
         } else {
             View errorMessage = rootView.findViewById(R.id.general_error_panel);
-            ((TextView) errorMessage.findViewById(R.id.error_message))
-                    .setText("You must be logged in to see this section");
-            errorMessage.setVisibility(View.VISIBLE);
+            rootView.findViewById(R.id.login_error_layout).setVisibility(View.VISIBLE);
+            //errorMessage.setVisibility(View.VISIBLE);
             errorMessage.findViewById(R.id.retry).setVisibility(View.GONE);
         }
+        getActivity().setTitle("Favorite");
     }
 
     public class ListDownloader extends AsyncTask<String, Void, String> {

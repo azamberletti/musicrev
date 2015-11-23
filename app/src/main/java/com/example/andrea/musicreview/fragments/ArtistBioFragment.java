@@ -82,7 +82,6 @@ public class ArtistBioFragment extends android.support.v4.app.Fragment implement
         grid = (GridView) rootView.findViewById(R.id.grid);
         grid.setAdapter(new AlbumGridAdapter(getActivity(), R.layout.album_grid_item_layout, new ArrayList<Album.AlbumBasicInfo>()));
         grid.setOnItemClickListener(this);
-        getActivity().setTitle("MusicReview");
         return rootView;
     }
 
@@ -116,7 +115,7 @@ public class ArtistBioFragment extends android.support.v4.app.Fragment implement
         super.onResume();
         String request = ARTIST_BIO_URL + artistID;
         new BioDownloader().execute(request);
-
+        getActivity().setTitle("MusicReview");
     }
 
     @Override

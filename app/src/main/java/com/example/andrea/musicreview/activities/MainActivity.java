@@ -20,6 +20,7 @@ public class MainActivity extends MyBaseActivity implements DetailOpener{
 
     public final static String ALBUM_ID = "album_id";
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

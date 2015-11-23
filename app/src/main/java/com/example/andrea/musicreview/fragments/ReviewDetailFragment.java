@@ -88,6 +88,7 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
         super.onResume();
         setURL();
         new ReviewDownloader().execute(URL);
+        getActivity().setTitle("MusicReview");
     }
 
     @Override

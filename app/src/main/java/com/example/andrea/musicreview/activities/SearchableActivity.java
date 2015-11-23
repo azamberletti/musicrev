@@ -25,8 +25,10 @@ public class SearchableActivity extends MyBaseActivity implements DetailOpener {
             Bundle bundle = new Bundle();
             bundle.putString("key_words", query);
             fragment.setArguments(bundle);
-            getSupportFragmentManager().beginTransaction().replace(R.id.content_frame, fragment)
-                    .addToBackStack(null).commit();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.content_frame, fragment)
+                    .addToBackStack(null)
+                    .commit();
         }
     }
     @Override

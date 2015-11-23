@@ -63,5 +63,7 @@
     <string name="login_preferences_file_key">com.example.andrea.musicreview.LOGIN_PREFERENCES_KEY</string>
     <string name="log_out">Log out</string>
     <string name="skip">SKIP</string>
+    <string name="error_log_with_facebook">You must be logged in with Facebook to see this section.</string>
+    <string name="error_log_in_needed">You must be logged in to see this section.</string>
 
 </resources>
