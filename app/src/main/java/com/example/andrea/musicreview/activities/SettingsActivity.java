@@ -1,9 +1,11 @@
 package com.example.andrea.musicreview.activities;
 
 import android.content.Intent;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -21,6 +23,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         setTitle(R.string.settings);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         final LoginButton fbLoginButton = (LoginButton) findViewById(R.id.fb_login_button);
         final Button loginButton = (Button) findViewById(R.id.login_button);
         loginManager = new MyLoginManager(this);
@@ -70,4 +73,16 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 Log.i("ERROR", "No view found");
         }
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                NavUtils.navigateUpFromSameTask(this);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }
