@@ -1,13 +1,9 @@
 package com.example.andrea.musicreview.activities;
 
-import android.app.Activity;
-import android.app.SearchManager;
-import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -21,7 +17,6 @@ import com.example.andrea.musicreview.R;
 import com.example.andrea.musicreview.utility.CheckForm;
 import com.example.andrea.musicreview.utility.ConnectionHandler;
 import com.example.andrea.musicreview.utility.MyLoginManager;
-import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -61,85 +56,51 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             //ImageView image = (ImageView)findViewById(R.id.profile_image);
         findViewById(R.id.login_button).setOnClickListener(this);
         LoginButton fbLoginButton = (LoginButton) findViewById(R.id.fb_login_button);
-        if(AccessToken.getCurrentAccessToken()!=null){
-            findViewById(R.id.or_divider).setVisibility(View.GONE);
-            fbLoginButton.setVisibility(View.GONE);
-        } else {
-            fbLoginButton.setReadPermissions(Arrays.asList("public_profile, email, user_birthday, user_friends, user_likes"));
-            fbLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-                @Override
-                public void onSuccess(LoginResult loginResult) {
-                /*info.setText(
-                        "User ID: "
-                                + loginResult.getAccessToken().getUserId()
-                                + "\n" +
-                                "Auth Token: "
-                                + loginResult.getAccessToken().getToken()
-                );*/
-                    //Profile profile = Profile.getCurrentProfile();
-
-                    if (Profile.getCurrentProfile() == null) {
-                        mProfileTracker = new ProfileTracker() {
-                            @Override
-                            protected void onCurrentProfileChanged(Profile profile, Profile profile2) {
-                                Log.v("facebook - profile", profile2.getFirstName());
-                                mProfileTracker.stopTracking();
-                            }
-                        };
-                        mProfileTracker.startTracking();
-                    } else {
-                        Profile profile = Profile.getCurrentProfile();
-                        Log.v("facebook - profile", profile.getFirstName());
-                    }
-                    GraphRequest request = GraphRequest.newMeRequest(
-                            loginResult.getAccessToken(),
-                            new GraphRequest.GraphJSONObjectCallback() {
-                                @Override
-                                public void onCompleted(
-                                        JSONObject object,
-                                        GraphResponse response) {
-                                    // Application code
-                                    Log.v("LoginActivity", response.toString());
-                                }
-                            });
-                    Bundle parameters = new Bundle();
-                    parameters.putString("fields", "id,name,email,gender,birthday,music");
-                    request.setParameters(parameters);
-                    request.executeAsync();
-                    openNextActivity();
-                }
-
-                @Override
-                public void onCancel() {
-                    info.setText("Login attempt canceled.");
-                }
-
-                @Override
-                public void onError(FacebookException e) {
-                    info.setText("Login attempt failed.");
-                }
-            });
-        }
-
-
-
-
-
-
-
-/*      FacebookSdk.sdkInitialize(getApplicationContext());
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        fbLoginButton.setReadPermissions(Arrays.asList("public_profile, email, user_birthday, user_friends, user_likes"));
+        fbLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onSuccess(LoginResult loginResult) {
+                if (Profile.getCurrentProfile() == null) {
+                    mProfileTracker = new ProfileTracker() {
+                        @Override
+                        protected void onCurrentProfileChanged(Profile profile, Profile profile2) {
+                            Log.v("facebook - profile", profile2.getFirstName());
+                            mProfileTracker.stopTracking();
+                        }
+                    };
+                    mProfileTracker.startTracking();
+                } else {
+                    Profile profile = Profile.getCurrentProfile();
+                    Log.v("facebook - profile", profile.getFirstName());
+                }
+                GraphRequest request = GraphRequest.newMeRequest(
+                        loginResult.getAccessToken(),
+                        new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(
+                                    JSONObject object,
+                                    GraphResponse response) {
+                                // Application code
+                                Log.v("LoginActivity", response.toString());
+                            }
+                        });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id,name,email,gender,birthday,music");
+                request.setParameters(parameters);
+                request.executeAsync();
+                openNextActivity();
+            }
+
+            @Override
+            public void onCancel() {
+                info.setText("Login attempt canceled.");
+            }
+
+            @Override
+            public void onError(FacebookException e) {
+                info.setText("Login attempt failed.");
             }
         });
-        Button button = (Button) findViewById(R.id.button);
-        button.setOnClickListener(this);*/
-//        FragmentTransaction ft = getFragmentManager().beginTransaction();
-//        ft.add(R.id.container, new LoginFragment()).commit();
     }
 
     @Override
@@ -152,13 +113,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void onUserReceived(String jsonUser){
         MyLoginManager loginManager = new MyLoginManager(getApplicationContext());
         loginManager.setUser(jsonUser);
-        if(AccessToken.getCurrentAccessToken()==null){
-            findViewById(R.id.login_forms).setVisibility(View.GONE);
-            ((TextView) findViewById(R.id.info)).setText("Welcome " + loginManager.getUserName() + "!\r\n" +
-                    "If you want you can still sign in with Facebook to have an even more personalized experience.");
-        } else {
-            openNextActivity();
-        }
+        openNextActivity();
     }
 
     @Override
@@ -206,7 +161,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
             case R.id.login_button:
                 CheckForm checkForm = new CheckForm(this);
-                if(!checkForm.isEmpty(mailEdt) | checkForm.pswdIsCorrect(pswdEdt)){
+                if(checkForm.isEmpty(mailEdt) | checkForm.pswdIsIncorrect(pswdEdt)) {
+                } else {
                     new UserChecker().execute(URL + mailEdt.getText() + "&pswd=" + pswdEdt.getText());
                 }
                 break;
@@ -235,9 +191,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         Toast.LENGTH_SHORT).show();
                 Log.i("ERROR", s);
                 return;
-            } else if (s.equals(WRONG_PSWD_MSG)){
+            } else if (s.contains(WRONG_PSWD_MSG)){
                 pswdEdt.setError(WRONG_PSWD_MSG);
-            } else if (s.equals("null")){
+            } else if (s.contains("null")){
                 mailEdt.setError("No user matches the given email");
             } else {
                 onUserReceived(s);

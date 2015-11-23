@@ -10,18 +10,18 @@ import android.widget.TextView;
 import com.example.andrea.musicreview.R;
 import com.example.andrea.musicreview.utility.ConnectionHandler;
 import com.example.andrea.musicreview.utility.FacebookInformationHelper;
-import com.facebook.AccessToken;
+import com.example.andrea.musicreview.utility.MyLoginManager;
 
 public class RecommendedFragment extends AlbumGridFragment{
 
-    private String URL = "http://www.saltedmagnolia.com/post_music_likes.php";
+    private static final String URL = "http://www.saltedmagnolia.com/post_music_likes.php";
     private View rootView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         rootView = super.onCreateView(inflater, container, savedInstanceState);
         rootView.findViewById(R.id.loading_panel).setVisibility(View.GONE);
-        if(AccessToken.getCurrentAccessToken()!=null){
+        if(new MyLoginManager(getContext()).getCurrentLoginService().equals(MyLoginManager.FB_LOGIN)){
             new ListDownloader().execute();
         } else {
             View errorMessage = rootView.findViewById(R.id.general_error_panel);

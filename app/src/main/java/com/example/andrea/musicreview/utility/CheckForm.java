@@ -25,18 +25,20 @@ public class CheckForm {
             editText.requestFocus();
             editText.addTextChangedListener(new myTextWatcher(editText));
             return true;
+        } else {
+            return false;
         }
-        return false;
     }
 
-    public boolean pswdIsCorrect(final EditText editText) {
+    public boolean pswdIsIncorrect(final EditText editText) {
         if (editText.getText().toString().trim().length()<MIN_PSWD_LENGTH) {
             setErrorState(editText, PSWD_WARNING);
             editText.requestFocus();
             editText.addTextChangedListener(new myTextWatcher(editText));
+            return true;
+        } else {
             return false;
         }
-        return true;
     }
 
     public boolean pswdIsSame(final EditText first, final EditText second) {
@@ -45,8 +47,9 @@ public class CheckForm {
             second.requestFocus();
             second.addTextChangedListener(new myTextWatcher(second));
             return true;
+        } else {
+            return false;
         }
-        return false;
     }
 
     private void setErrorState(final EditText editText, int errorMsg) {
