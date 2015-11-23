@@ -35,7 +35,7 @@ public class SearchResultsFragment extends ListFragment implements View.OnClickL
     private DetailOpener detailOpener;
 //  private ConnectivityChangeReceiver connectivityChangeReceiver;
     private final static String URL = "http://www.saltedmagnolia.com/search_album.php?key_words=";
-
+    List<Album.AlbumBasicInfo> albums = new ArrayList<>();
 
     @Override
     public void onAttach(Activity activity) {
@@ -88,44 +88,6 @@ public class SearchResultsFragment extends ListFragment implements View.OnClickL
         return list;
     }
 
-//    public String download() {
-//        if(ConnectionHandler.isConnected(getActivity())) {
-//            InputStream is = null;
-//            int len = 10000;
-//            try {
-//                Log.i("URL", URL+getArguments().getString("key_words"));
-//                java.net.URL url = new URL("");
-//                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-//                conn.setReadTimeout(10000 /* milliseconds */);
-//                conn.setConnectTimeout(15000 /* milliseconds */);
-//                conn.setRequestMethod("GET");
-//                conn.setDoInput(true);
-//                conn.connect();
-//                int response = conn.getResponseCode();
-//                if (response != HttpURLConnection.HTTP_OK) {
-//                    throw new IOException();
-//                }
-//                is = conn.getInputStream();
-//                Reader reader = new InputStreamReader(is, "UTF-8");
-//                char[] buffer = new char[len];
-//                reader.read(buffer);
-//                return new String(buffer);
-//            }  catch (IOException e){
-//                return "CONNECTION_TO_SERVER_ERROR";
-//            } finally {
-//                if (is != null) {
-//                    try {
-//                        is.close();
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                }
-//            }
-//        } else {
-//            return "NON_CONNECTED_TO_INTERNET_ERROR";
-//        }
-//    }
-
     @Override
     public void onClick(View v) {
         new ListDownloader().execute();
@@ -150,10 +112,11 @@ public class SearchResultsFragment extends ListFragment implements View.OnClickL
                 }
                 errorMessage.setVisibility(View.GONE);
                 List<Album.AlbumBasicInfo> searchResults = parse(s);
+                albums = searchResults;
                 if(searchResults.isEmpty()){
                     getView().findViewById(R.id.no_result_alert).setVisibility(View.VISIBLE);
                 } else {
-                    ((AlbumListAdapter) getListAdapter()).refreshList(searchResults);
+                    ((AlbumListAdapter) getListAdapter()).refreshList(albums);
                     getView().findViewById(R.id.no_result_alert).setVisibility(View.GONE);
                 }
 

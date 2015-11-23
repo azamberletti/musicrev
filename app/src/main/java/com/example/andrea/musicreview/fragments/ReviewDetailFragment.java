@@ -15,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +42,7 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
     private final static String ALBUM_ID = "album_id";
     private Album album;
     private int albumID;
+    ScrollView scrollView;
     private DetailOpener detailOpener;
     private final static String URL_SET_FAVORITE = "http://www.saltedmagnolia.com/set_favorite.php?album_id=";
     private final static String URL_DISCARD_FAVORITE = "http://www.saltedmagnolia.com/discard_favorite.php?album_id=";
@@ -103,7 +105,7 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
         errorMessage.setVisibility(View.GONE);
         rootView.findViewById(R.id.play_on_spotify).setOnClickListener(this);
         rootView.findViewById(R.id.fb_share).setOnClickListener(this);
-        rootView.findViewById(R.id.scroll_view).setVisibility(View.GONE);
+        scrollView = (ScrollView) rootView.findViewById(R.id.scroll_view);
         return rootView;
     }
 
@@ -176,12 +178,13 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
             super.onPostExecute(s);
             try {
                 rootView.findViewById(R.id.loading_panel).setVisibility(View.GONE);
-                rootView.findViewById(R.id.scroll_view).setVisibility(View.VISIBLE);
                 if(s.equals("NON_CONNECTED_TO_INTERNET_ERROR") || s.equals("CONNECTION_TO_SERVER_ERROR")){
                     Log.i("ERROR", s);
+                    scrollView.setVisibility(View.GONE);
                     errorMessage.setVisibility(View.VISIBLE);
                     return;
                 }
+                scrollView.setVisibility(View.VISIBLE);
                 errorMessage.setVisibility(View.GONE);
                 album = parse(s);
                 ((TextView) rootView.findViewById(R.id.artist_name)).setText(album.getArtist().getName());
@@ -224,12 +227,14 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
                 rootView.findViewById(R.id.loading_panel).setVisibility(View.GONE);
-//                rootView.findViewById(R.id.scroll_view).setVisibility(View.VISIBLE);
+//              rootView.findViewById(R.id.scroll_view).setVisibility(View.VISIBLE);
             if(s.equals("NON_CONNECTED_TO_INTERNET_ERROR") || s.equals("CONNECTION_TO_SERVER_ERROR") || !(s.charAt(0)=='1')){
                 Log.i("ERROR", s);
+                scrollView.setVisibility(View.GONE);
             } else {
                 album.switchFavorite();
                 setFavoriteIcon(album.isFavorite());
+                scrollView.setVisibility(View.VISIBLE);
             }
         }
 

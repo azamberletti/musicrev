@@ -20,7 +20,6 @@ public class MainActivity extends MyBaseActivity implements DetailOpener{
 
     public final static String ALBUM_ID = "album_id";
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +69,6 @@ public class MainActivity extends MyBaseActivity implements DetailOpener{
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.content_frame, ArtistBioFragment.newInstance(id))
-                .addToBackStack(null)
                 .commit();
     }
 }

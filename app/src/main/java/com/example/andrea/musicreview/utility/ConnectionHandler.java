@@ -27,7 +27,7 @@ public class ConnectionHandler{
      public static String DownloadFromURL(String URL, Context context) {
         if (isConnected(context)) {
             InputStream is = null;
-            int len = 10000;
+            int len = 20000;
             try {
                 java.net.URL url = new URL(URL);
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -84,8 +84,11 @@ public class ConnectionHandler{
                 os = conn.getOutputStream();
                 BufferedWriter wr = new BufferedWriter(
                         new OutputStreamWriter(os, "UTF-8"));
+
                 //BufferedOutputStream wr = new BufferedOutputStream(conn.getOutputStream());
-                wr.write(msg);
+                if(msg != null){
+                    wr.write(msg);
+                }
                 wr.flush();
                 wr.close();
                 conn.connect();

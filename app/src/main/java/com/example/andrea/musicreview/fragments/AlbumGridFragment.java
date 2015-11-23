@@ -24,10 +24,12 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 /**
  * A simple {@link Fragment} subclass.
  */
-public abstract class AlbumGridFragment extends android.support.v4.app.Fragment implements AdapterView.OnItemClickListener {
+public abstract class AlbumGridFragment extends android.support.v4.app.Fragment implements AdapterView.OnItemClickListener, View.OnClickListener {
 
 
     private ViewGroup rootView;
@@ -56,7 +58,7 @@ public abstract class AlbumGridFragment extends android.support.v4.app.Fragment 
         rootView = (ViewGroup) inflater.inflate(R.layout.fragment_album_grid, container, false);
         grid = (GridView) rootView.findViewById(R.id.grid);
         errorMessage = (LinearLayout) rootView.findViewById(R.id.general_error_panel);
-        errorMessage.setVisibility(View.GONE);
+        errorMessage.setOnClickListener(this);
         grid.setAdapter(new AlbumGridAdapter(getActivity(), R.layout.album_grid_item_layout, new ArrayList<Album.AlbumBasicInfo>()));
         grid.setOnItemClickListener(this);
         return rootView;
@@ -88,5 +90,4 @@ public abstract class AlbumGridFragment extends android.support.v4.app.Fragment 
             Log.i("ERROR", "PARSE_EXCEPTION");
         }
     }
-
 }

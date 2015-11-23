@@ -20,8 +20,11 @@ public class FacebookInformationHelper {
                             JSONObject object,
                             GraphResponse response) {
                         // Application code
-                        Log.v("FACEBOOK_JSON", object.toString());
-                        facebookAPIResponse = object.toString();
+                        if(object != null){
+                            Log.v("FACEBOOK_JSON", object.toString());
+                            facebookAPIResponse = object.toString();
+                        }
+
                         //new ListDownloader().execute("");
                     }
                 });

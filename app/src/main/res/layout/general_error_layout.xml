@@ -14,7 +14,7 @@
             android:gravity="center"
             android:textSize="16sp"
             android:textColor="@color/dim_foreground_material_dark"
-            android:text="Something went wrong..." />
+            android:text="@string/st_wrong" />
 
         <TextView
             android:id="@+id/retry"

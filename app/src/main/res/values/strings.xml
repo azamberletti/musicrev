@@ -19,7 +19,7 @@
     <string name="navigate_artist">Search by artist</string>
     <string name="recommended">Recommended for you</string>
     <string name="search">Search</string>
-    <string name="st_wrong">Something went wrong...</string>
+    <string name="st_wrong">Something went wrong...Check your connection.</string>
     <string name="retry">Click here to try again</string>
     <string name="title_activity_login">Sign in</string>
 

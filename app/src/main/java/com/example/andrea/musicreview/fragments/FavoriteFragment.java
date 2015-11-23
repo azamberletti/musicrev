@@ -24,7 +24,7 @@ public class FavoriteFragment extends AlbumGridFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = super.onCreateView(inflater, container, savedInstanceState);
-        rootView.findViewById(R.id.loading_panel).setVisibility(View.GONE);
+        rootView.findViewById(R.id.loading_panel).setVisibility(View.VISIBLE);
         myLoginManager = new MyLoginManager(getContext());
         //TextView title = (TextView) rootView.findViewById(R.id.grid_title);
         //title.setText(R.string.favorite_albums);
@@ -50,19 +50,31 @@ public class FavoriteFragment extends AlbumGridFragment {
         getActivity().setTitle("Favorite");
     }
 
+    @Override
+    public void onClick(View v) {
+        if (myLoginManager.getUserID()!=null) {
+            new ListDownloader().execute(URL + myLoginManager.getUserID());
+        } else {
+            View errorMessage = rootView.findViewById(R.id.general_error_panel);
+            rootView.findViewById(R.id.login_error_layout).setVisibility(View.VISIBLE);
+            //errorMessage.setVisibility(View.VISIBLE);
+            errorMessage.findViewById(R.id.retry).setVisibility(View.GONE);
+        }
+    }
+
+
     public class ListDownloader extends AsyncTask<String, Void, String> {
 
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
             rootView.findViewById(R.id.loading_panel).setVisibility(View.GONE);
-            View errorMessage = rootView.findViewById(R.id.general_error_panel);
+            rootView.findViewById(R.id.general_error_panel).setVisibility(View.GONE);
             if (s.equals("NON_CONNECTED_TO_INTERNET_ERROR") || s.equals("CONNECTION_TO_SERVER_ERROR")) {
                 Log.i("ERROR", s);
-                errorMessage.setVisibility(View.VISIBLE);
+                rootView.findViewById(R.id.general_error_panel).setVisibility(View.VISIBLE);
                 return;
             }
-            errorMessage.setVisibility(View.GONE);
             setSource(s);
         }
 

@@ -24,7 +24,8 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BestAlbumsOfMonthFragment extends android.support.v4.app.ListFragment {
+
+public class BestAlbumsOfMonthFragment extends android.support.v4.app.ListFragment implements View.OnClickListener {
 
     private ViewGroup rootView;
     private LinearLayout errorMessage;
@@ -56,6 +57,7 @@ public class BestAlbumsOfMonthFragment extends android.support.v4.app.ListFragme
         rootView = (ViewGroup) inflater.inflate(R.layout.fragment_best_albums_of_month, container, false);
         errorMessage = (LinearLayout) rootView.findViewById(R.id.general_error_panel);
         errorMessage.setVisibility(View.GONE);
+        errorMessage.setOnClickListener(this);
         setListAdapter(new AlbumChartAdapter(getActivity(), R.layout.best_album_item_layout, new ArrayList<Album.AlbumBasicInfo>()));
         return rootView;
     }
@@ -80,6 +82,11 @@ public class BestAlbumsOfMonthFragment extends android.support.v4.app.ListFragme
     public void onListItemClick(ListView listview, View view, int position, long id) {
         super.onListItemClick(listview, view, position, id);
         detailOpener.OpenAlbumReviewDetail(((Album.AlbumBasicInfo) listview.getItemAtPosition(position)).getId());
+    }
+
+    @Override
+    public void onClick(View v) {
+        new ListDownloader().execute(URL);
     }
 
     public class ListDownloader extends AsyncTask<String, Void, String> {

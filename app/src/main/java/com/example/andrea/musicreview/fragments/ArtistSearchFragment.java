@@ -34,6 +34,7 @@ public class ArtistSearchFragment extends ListFragment implements View.OnClickLi
     private LinearLayout errorMessage;
     private DetailOpener detailOpener;
     private ViewGroup rootView;
+    String request;
     //    private ConnectivityChangeReceiver connectivityChangeReceiver;
     private final static String URL = "http://www.saltedmagnolia.com/search_artist.php?key_words=";
 
@@ -67,16 +68,20 @@ public class ArtistSearchFragment extends ListFragment implements View.OnClickLi
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootView = (ViewGroup) inflater.inflate(R.layout.fragment_artist_search, container, false);
+        (rootView.findViewById(R.id.loading_panel)).setVisibility(View.GONE);
         setListAdapter(new ArtistListAdapter(getActivity(), R.layout.artist_list_item_layout));
         EditText editText = (EditText) rootView.findViewById(R.id.artist_search_bar);
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                    new ListDownloader().execute(URL + ((EditText) getView().findViewById(R.id.artist_search_bar)).getText());
+                    (rootView.findViewById(R.id.loading_panel)).setVisibility(View.VISIBLE);
+                    request = URL + ((EditText) getView().findViewById(R.id.artist_search_bar)).getText();
+                    request = request.replace(" ", "%20");
+                    new ListDownloader().execute(request);
                     InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(), 0);
-                    (rootView.findViewById(R.id.loading_panel)).setVisibility(View.VISIBLE);
+
                     return true;
                 }
                 return false;
@@ -102,7 +107,7 @@ public class ArtistSearchFragment extends ListFragment implements View.OnClickLi
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.general_error_panel:
-//                new ListDownloader().execute(URL);
+                new ListDownloader().execute(URL);
                 break;
         }
     }
@@ -127,6 +132,7 @@ public class ArtistSearchFragment extends ListFragment implements View.OnClickLi
                 }
                 errorMessage.setVisibility(View.GONE);
                 ((ArtistListAdapter) getListAdapter()).refreshList(parse(s));
+                Log.i("RESPONSE_FROM_SEARCH", s);
             } catch (JSONException e) {
                 e.printStackTrace();
                 Log.i("ERROR", "JSON_EXCEPTION");

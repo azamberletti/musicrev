@@ -23,11 +23,11 @@ public class SearchableActivity extends MyBaseActivity implements DetailOpener {
             String query = intent.getStringExtra(SearchManager.QUERY);
             Fragment fragment = new SearchResultsFragment();
             Bundle bundle = new Bundle();
+            query = query.replace(" ", "%20");
             bundle.putString("key_words", query);
             fragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.content_frame, fragment)
-                    .addToBackStack(null)
                     .commit();
         }
     }
