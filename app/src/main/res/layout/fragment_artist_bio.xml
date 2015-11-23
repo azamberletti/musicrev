@@ -8,14 +8,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:descendantFocusability="blocksDescendants"
         android:orientation="vertical">
 
         <include layout="@layout/general_error_layout" />
-
         <include layout="@layout/loading_panel" />
-
-
-
 
         <TextView
             android:id="@+id/artist_name"

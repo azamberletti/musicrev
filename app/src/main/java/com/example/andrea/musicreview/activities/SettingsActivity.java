@@ -22,6 +22,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_settings);
         loginManager = new MyLoginManager(this);
         final Button loginButton = (Button) findViewById(R.id.login_button);
+
         loginButton.setOnClickListener(this);
         if(loginManager.getUserMail()!=null){
             loginButton.setText(R.string.log_out);
