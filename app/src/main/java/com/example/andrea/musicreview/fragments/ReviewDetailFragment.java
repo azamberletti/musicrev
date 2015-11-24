@@ -195,6 +195,7 @@ public class ReviewDetailFragment extends android.support.v4.app.Fragment implem
                 Picasso.with(getActivity()).load("http://www.saltedmagnolia.com/" + album.getImageURL())
                         .into((ImageView) rootView.findViewById(R.id.album_cover));
                 setFavoriteIcon(album.isFavorite());
+                getActivity().setTitle(album.getTitle());
             } catch (JSONException e) {
                 e.printStackTrace();
                 Log.i("ERROR", "JSON_EXCEPTION");

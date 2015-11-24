@@ -42,6 +42,12 @@ public class RecommendedFragment extends AlbumGridFragment{
     }
 
     @Override
+    public void onResume(){
+        super.onResume();
+        getActivity().setTitle("Recommended");
+    }
+
+    @Override
     public void onClick(View v) {
         if(AccessToken.getCurrentAccessToken()!=null){
             new ListDownloader().execute();

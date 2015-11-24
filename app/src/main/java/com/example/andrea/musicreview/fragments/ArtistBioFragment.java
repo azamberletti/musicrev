@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.andrea.musicreview.R;
@@ -19,6 +20,7 @@ import com.example.andrea.musicreview.model.Album;
 import com.example.andrea.musicreview.model.Artist;
 import com.example.andrea.musicreview.utility.ConnectionHandler;
 import com.example.andrea.musicreview.view.AlbumGridAdapter;
+import com.example.andrea.musicreview.view.ArtistListAdapter;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -26,10 +28,11 @@ import org.json.JSONException;
 
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 
-public class ArtistBioFragment extends android.support.v4.app.Fragment implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class ArtistBioFragment extends android.support.v4.app.ListFragment implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private static final String ARTIST_ID = "artist_id";
     private int artistID;
@@ -82,6 +85,7 @@ public class ArtistBioFragment extends android.support.v4.app.Fragment implement
         grid = (GridView) rootView.findViewById(R.id.grid);
         grid.setAdapter(new AlbumGridAdapter(getActivity(), R.layout.album_grid_item_layout, new ArrayList<Album.AlbumBasicInfo>()));
         grid.setOnItemClickListener(this);
+        setListAdapter(new ArtistListAdapter(getActivity(), R.layout.artist_list_item_layout));
         return rootView;
     }
 
@@ -110,6 +114,17 @@ public class ArtistBioFragment extends android.support.v4.app.Fragment implement
         return list;
     }
 
+    private List<Artist.ArtistBasicInfo> parseSimilarArtists(String s) throws JSONException {
+        JSONArray array = new JSONArray(s);
+        List<Artist.ArtistBasicInfo> list = new ArrayList<>();
+        for (int i = 0; i < array.length(); i++) {
+            if(!array.getJSONObject(i).isNull("Similar")) {
+                list.add(new Artist.ArtistBasicInfo(array.getJSONObject(i)));
+            }
+        }
+        return list;
+    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -129,6 +144,12 @@ public class ArtistBioFragment extends android.support.v4.app.Fragment implement
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         detailOpener.OpenAlbumReviewDetail(((Album.AlbumBasicInfo) parent.getItemAtPosition(position)).getId());
+    }
+
+    @Override
+    public void onListItemClick(ListView list, View view, int position, long id) {
+        super.onListItemClick(list, view, position, id);
+        detailOpener.OpenArtistBio(((Artist.ArtistBasicInfo) list.getItemAtPosition(position)).getId());
     }
 
     public class BioDownloader extends AsyncTask<String, Void, String> {
@@ -152,7 +173,9 @@ public class ArtistBioFragment extends android.support.v4.app.Fragment implement
                         .centerCrop()
                         .into(((ImageView) rootView.findViewById(R.id.image)));
                 albumFrom.setText(artist.getName());
+                getActivity().setTitle(artist.getName());
                 ((AlbumGridAdapter) grid.getAdapter()).refreshList(parseArtistAlbums(s));
+                ((ArtistListAdapter) getListAdapter()).refreshList(parseSimilarArtists(s));
             } catch (JSONException e) {
                 e.printStackTrace();
                 Log.i("ERROR", "JSON_EXCEPTION");
