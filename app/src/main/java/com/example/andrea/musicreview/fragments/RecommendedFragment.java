@@ -22,20 +22,21 @@ public class RecommendedFragment extends AlbumGridFragment{
 
     private static final String URL = "http://www.saltedmagnolia.com/post_music_likes.php";
     private View rootView;
+    private MyLoginManager loginManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         rootView = super.onCreateView(inflater, container, savedInstanceState);
-
         rootView.findViewById(R.id.loading_panel).setVisibility(View.GONE);
-        if(new MyLoginManager(getContext()).getCurrentLoginService().equals(MyLoginManager.FB_LOGIN)){
-            new ListDownloader().execute();
-        } else {
+        loginManager = new MyLoginManager(getContext());
+        if(loginManager.getCurrentLoginService().equals(MyLoginManager.NOT_LOGGED)){
             View errorMessage = rootView.findViewById(R.id.general_error_panel);
             rootView.findViewById(R.id.login_error_layout).setVisibility(View.VISIBLE);
-            ((TextView)rootView.findViewById(R.id.error_message)).setText(R.string.error_log_with_facebook);
+            ((TextView)rootView.findViewById(R.id.error_message)).setText(R.string.error_log_in_needed);
             //errorMessage.setVisibility(View.VISIBLE);
             errorMessage.findViewById(R.id.retry).setVisibility(View.GONE);
+        } else {
+            new ListDownloader().execute();
         }
         //setSource(new FacebookInformationHelper(getContext()).getRecommendedAlbums());
         return rootView;
@@ -49,14 +50,14 @@ public class RecommendedFragment extends AlbumGridFragment{
 
     @Override
     public void onClick(View v) {
-        if(AccessToken.getCurrentAccessToken()!=null){
-            new ListDownloader().execute();
-        } else {
+        if(loginManager.getCurrentLoginService().equals(MyLoginManager.NOT_LOGGED)){
             View errorMessage = rootView.findViewById(R.id.general_error_panel);
             rootView.findViewById(R.id.login_error_layout).setVisibility(View.VISIBLE);
-            ((TextView)rootView.findViewById(R.id.error_message)).setText(R.string.error_log_with_facebook);
+            ((TextView)rootView.findViewById(R.id.error_message)).setText(R.string.error_log_in_needed);
             //errorMessage.setVisibility(View.VISIBLE);
             errorMessage.findViewById(R.id.retry).setVisibility(View.GONE);
+        } else {
+            new ListDownloader().execute();
         }
     }
 
@@ -77,7 +78,12 @@ public class RecommendedFragment extends AlbumGridFragment{
 
         @Override
         protected String doInBackground(String... params) {
-            String msg = new FacebookInformationHelper().getRecommendedAlbums();
+            String msg;
+            if(loginManager.getCurrentLoginService().equals(MyLoginManager.FB_LOGIN)){
+                msg = new FacebookInformationHelper().getRecommendedAlbums();
+            } else {
+                msg = loginManager.getUserMail();
+            }
             return ConnectionHandler.SendToURL(URL, msg, getContext());
         }
 

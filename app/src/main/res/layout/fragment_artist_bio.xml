@@ -136,8 +136,8 @@
                 android:textColor="@color/text_color_light"
                 android:textSize="18sp"/>
 
-            <ListView
-                android:id="@id/android:list"
+            <com.example.andrea.musicreview.view.NestedListView
+                android:id="@+id/list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp"

@@ -5,12 +5,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -21,6 +23,7 @@ import com.example.andrea.musicreview.model.Artist;
 import com.example.andrea.musicreview.utility.ConnectionHandler;
 import com.example.andrea.musicreview.view.AlbumGridAdapter;
 import com.example.andrea.musicreview.view.ArtistListAdapter;
+import com.example.andrea.musicreview.view.NestedListView;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -32,7 +35,7 @@ import java.util.Collection;
 import java.util.List;
 
 
-public class ArtistBioFragment extends android.support.v4.app.ListFragment implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class ArtistBioFragment extends android.support.v4.app.Fragment implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private static final String ARTIST_ID = "artist_id";
     private int artistID;
@@ -44,6 +47,7 @@ public class ArtistBioFragment extends android.support.v4.app.ListFragment imple
     private static final String ARTIST_BIO_URL = "http://www.saltedmagnolia.com/get_artist_bio.php?artist_id=";
     //private static final String ARTIST_ALBUM_URL = "http://www.saltedmagnolia.com/get_artist_albums.php?artist_id=";
     private DetailOpener detailOpener;
+    private NestedListView list;
 
     public static ArtistBioFragment newInstance(int id) {
         ArtistBioFragment fragment = new ArtistBioFragment();
@@ -85,7 +89,14 @@ public class ArtistBioFragment extends android.support.v4.app.ListFragment imple
         grid = (GridView) rootView.findViewById(R.id.grid);
         grid.setAdapter(new AlbumGridAdapter(getActivity(), R.layout.album_grid_item_layout, new ArrayList<Album.AlbumBasicInfo>()));
         grid.setOnItemClickListener(this);
-        setListAdapter(new ArtistListAdapter(getActivity(), R.layout.artist_list_item_layout));
+        list = (NestedListView) rootView.findViewById(R.id.list);
+        list.setAdapter(new ArtistListAdapter(getActivity(), R.layout.artist_list_item_layout));
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                detailOpener.OpenArtistBio(((Artist.ArtistBasicInfo) list.getItemAtPosition(position)).getId());
+            }
+        });
         return rootView;
     }
 
@@ -146,12 +157,6 @@ public class ArtistBioFragment extends android.support.v4.app.ListFragment imple
         detailOpener.OpenAlbumReviewDetail(((Album.AlbumBasicInfo) parent.getItemAtPosition(position)).getId());
     }
 
-    @Override
-    public void onListItemClick(ListView list, View view, int position, long id) {
-        super.onListItemClick(list, view, position, id);
-        detailOpener.OpenArtistBio(((Artist.ArtistBasicInfo) list.getItemAtPosition(position)).getId());
-    }
-
     public class BioDownloader extends AsyncTask<String, Void, String> {
 
         @Override
@@ -175,7 +180,7 @@ public class ArtistBioFragment extends android.support.v4.app.ListFragment imple
                 albumFrom.setText(artist.getName());
                 getActivity().setTitle(artist.getName());
                 ((AlbumGridAdapter) grid.getAdapter()).refreshList(parseArtistAlbums(s));
-                ((ArtistListAdapter) getListAdapter()).refreshList(parseSimilarArtists(s));
+                ((ArtistListAdapter) list.getAdapter()).refreshList(parseSimilarArtists(s));
             } catch (JSONException e) {
                 e.printStackTrace();
                 Log.i("ERROR", "JSON_EXCEPTION");
